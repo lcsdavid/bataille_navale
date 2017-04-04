@@ -8,13 +8,16 @@
 #------------------------------------------------------------
 
 CREATE TABLE Partie(
-        id_partie        Integer NOT NULL ,
-        etat             Varchar (25) ,
-        temps            TimeStamp ,
-        vainqueur        Varchar (25) ,
+        id_partie        int (11) Auto_increment  NOT NULL ,
+        id_joueur1       Int ,
+        id_joueur2       Int ,
+        etat             Varchar (16) ,
+        vainqueur        Varchar (16) ,
+        timestamp        TimeStamp ,
         id_joueur        Int ,
         id_joueur_Joueur Int ,
-        PRIMARY KEY (id_partie )
+        PRIMARY KEY (id_partie ) ,
+        INDEX (id_joueur1 ,id_joueur2 )
 )ENGINE=InnoDB;
 
 
@@ -23,14 +26,14 @@ CREATE TABLE Partie(
 #------------------------------------------------------------
 
 CREATE TABLE Joueur(
-        id_joueur  Int NOT NULL ,
-        pseudonyme Varchar (25) ,
-        nom        Varchar (25) ,
-        prenom     Varchar (25) ,
+        id_joueur  int (11) Auto_increment  NOT NULL ,
+        pseudonyme Varchar (16) ,
+        nom        Varchar (16) ,
+        prenom     Varchar (16) ,
         sexe       Bool ,
         naissance  Date ,
-        ville      Char (25) ,
-        mdp        Varchar (25) ,
+        ville      Varchar (16) ,
+        mdp        Varchar (16) ,
         PRIMARY KEY (id_joueur )
 )ENGINE=InnoDB;
 
@@ -40,26 +43,16 @@ CREATE TABLE Joueur(
 #------------------------------------------------------------
 
 CREATE TABLE Navire(
-        id_navire    Int NOT NULL ,
-        type         Varchar (25) ,
-        taille       Int ,
-        reference    Varchar (25) ,
-        id_joueur    Int ,
-        id_coordonee Int ,
-        PRIMARY KEY (id_navire )
-)ENGINE=InnoDB;
-
-
-#------------------------------------------------------------
-# Table: Position bateau
-#------------------------------------------------------------
-
-CREATE TABLE Position_bateau(
-        id_coordonee Int NOT NULL ,
-        cellule      Varchar (25) ,
-        sens         Bool ,
-        id_navire    Int ,
-        PRIMARY KEY (id_coordonee )
+        id_navire        int (11) Auto_increment  NOT NULL ,
+        id_joueur        Int ,
+        type             Varchar (16) ,
+        taille           Int ,
+        reference        Varchar (64) ,
+        position         Varchar (4) ,
+        sens             Bool ,
+        id_joueur_Joueur Int ,
+        PRIMARY KEY (id_navire ) ,
+        INDEX (id_joueur )
 )ENGINE=InnoDB;
 
 
@@ -68,17 +61,16 @@ CREATE TABLE Position_bateau(
 #------------------------------------------------------------
 
 CREATE TABLE Tour(
-        id_tour   TimeStamp NOT NULL ,
-        tir       Varchar (25) ,
-        resultat  Bool ,
-        carte     Varchar (25) ,
-        id_partie Integer ,
-        PRIMARY KEY (id_tour )
+        id_tour          TimeStamp NOT NULL ,
+        id_partie        Int NOT NULL ,
+        tir              Varchar (4) ,
+        resultat         Bool ,
+        carte            Varchar (16) ,
+        id_partie_Partie Int ,
+        PRIMARY KEY (id_tour ,id_partie )
 )ENGINE=InnoDB;
 
 ALTER TABLE Partie ADD CONSTRAINT FK_Partie_id_joueur FOREIGN KEY (id_joueur) REFERENCES Joueur(id_joueur);
 ALTER TABLE Partie ADD CONSTRAINT FK_Partie_id_joueur_Joueur FOREIGN KEY (id_joueur_Joueur) REFERENCES Joueur(id_joueur);
-ALTER TABLE Navire ADD CONSTRAINT FK_Navire_id_joueur FOREIGN KEY (id_joueur) REFERENCES Joueur(id_joueur);
-ALTER TABLE Navire ADD CONSTRAINT FK_Navire_id_coordonee FOREIGN KEY (id_coordonee) REFERENCES Position_bateau(id_coordonee);
-ALTER TABLE Position_bateau ADD CONSTRAINT FK_Position_bateau_id_navire FOREIGN KEY (id_navire) REFERENCES Navire(id_navire);
-ALTER TABLE Tour ADD CONSTRAINT FK_Tour_id_partie FOREIGN KEY (id_partie) REFERENCES Partie(id_partie);
+ALTER TABLE Navire ADD CONSTRAINT FK_Navire_id_joueur_Joueur FOREIGN KEY (id_joueur_Joueur) REFERENCES Joueur(id_joueur);
+ALTER TABLE Tour ADD CONSTRAINT FK_Tour_id_partie_Partie FOREIGN KEY (id_partie_Partie) REFERENCES Partie(id_partie);
