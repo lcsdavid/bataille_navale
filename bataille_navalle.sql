@@ -17,8 +17,9 @@ CREATE TABLE Partie(
         id_joueur        Int ,
         id_joueur_Joueur Int ,
         PRIMARY KEY (id_partie ) ,
-        INDEX (id_joueur1 ,id_joueur2 )
-)ENGINE=InnoDB;
+        FOREIGN KEY (id_joueur1) REFERENCES Joueur(id_joueur)
+	FOREIGN KEY (id_joueur2) REFERENCES Joueur(id_joueur)
+)
 
 
 #------------------------------------------------------------
@@ -35,7 +36,7 @@ CREATE TABLE Joueur(
         ville      Varchar (16) ,
         mdp        Varchar (16) ,
         PRIMARY KEY (id_joueur )
-)ENGINE=InnoDB;
+)
 
 
 #------------------------------------------------------------
@@ -50,10 +51,9 @@ CREATE TABLE Navire(
         reference        Varchar (64) ,
         position         Varchar (4) ,
         sens             Bool ,
-        id_joueur_Joueur Int ,
         PRIMARY KEY (id_navire ) ,
-        INDEX (id_joueur )
-)ENGINE=InnoDB;
+        FOREIGN KEY (id_joueur) REFERENCES Joueur(id_joueur)
+)
 
 
 #------------------------------------------------------------
@@ -66,11 +66,6 @@ CREATE TABLE Tour(
         tir              Varchar (4) ,
         resultat         Bool ,
         carte            Varchar (16) ,
-        id_partie_Partie Int ,
         PRIMARY KEY (id_tour ,id_partie )
-)ENGINE=InnoDB;
-
-ALTER TABLE Partie ADD CONSTRAINT FK_Partie_id_joueur FOREIGN KEY (id_joueur) REFERENCES Joueur(id_joueur);
-ALTER TABLE Partie ADD CONSTRAINT FK_Partie_id_joueur_Joueur FOREIGN KEY (id_joueur_Joueur) REFERENCES Joueur(id_joueur);
-ALTER TABLE Navire ADD CONSTRAINT FK_Navire_id_joueur_Joueur FOREIGN KEY (id_joueur_Joueur) REFERENCES Joueur(id_joueur);
-ALTER TABLE Tour ADD CONSTRAINT FK_Tour_id_partie_Partie FOREIGN KEY (id_partie_Partie) REFERENCES Partie(id_partie);
+	FOREIGN KEY (id_partie) REFERENCES Partie(id_partie);
+)
