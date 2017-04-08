@@ -1,0 +1,43 @@
+.cross {
+    width: 100px;
+    height: 100px;
+    /* border-radius: 15px 15px 15px 15px; */
+    position: relative;
+    transform: scale(0.3);
+}
+.cross::before {
+    background: #888;
+    position: absolute;
+    display: block;
+    content: '';
+    width: 70%;
+    height: 6%;
+    top: 47%;
+    left: 15%;
+    transform: rotate(45deg);
+}
+.cross::after {
+    background: #888;
+    position: absolute;
+    display: block;
+    content: '';
+    width: 6%;
+    height: 70%;
+    left: 47%;
+    top: 15%;
+    transform: rotate(45deg);
+}
+.cross:hover {
+    background: #e35757;
+    box-shadow: inset 0 0 5px 1px #444;
+    -webkit-transition: background .3s;
+    -moz-transition: background .9s;
+}
+.cross:hover::before {
+    background: #fff;
+    box-shadow: 0px 0px 8px -1px #555;
+}
+.cross:hover::after {
+    background: #fff;
+    box-shadow: 0px 0px 8px -1px #555;
+}

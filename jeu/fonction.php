@@ -3,22 +3,23 @@
 function login($id, $pwd)
 {
     global $connexion;
-    $result = mysqli_query($connexion, "SELECT * FROM Joueur WHERE pseudonyme = '$id' AND mdp = '$pwd' LIMIT 1");
+    $result = mysqli_query($connexion, "SELECT * FROM Joueur WHERE email = .$id. AND mdp = MD5(.$pwd.)");
     if ($result) {
         $array = $result->fetch_array();
     } else {
-        print("Échec de la connexion :");
         return false;
     }
-
 }
 
-function register($id, $pwd) {
+function register($email, $pseudo, $name, $firstname, $gender, $birth, $town, $pwd)
+{
     global $connexion;
-    if(!mysqli_query($connexion, "SELECT * FROM Joueur WHERE email = '$id'")) {
-        mysqli_query($connexion, "INSERT INTO Joueur () VALUES ()")
+    if (!mysqli_query($connexion, "SELECT * FROM Joueur WHERE email = .$email.")) {
+        mysqli_query($connexion, "INSERT INTO Joueur (email, pseudonyme, nom, prenom, sexe, naissance, ville, mdp) VALUES (.$email.,.$pseudo.,.$name.,.$firstname,.$gender.,.$birth.,.$town.,MD5(.$pwd.))");
+        login($email, $pwd);
+    } else {
+        // TODO "email déjà pris blablabla"
     }
 }
-
 
 ?>
