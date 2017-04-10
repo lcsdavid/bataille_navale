@@ -10,8 +10,8 @@
 <?php require_once('init.php') ?>
 
 <?php require_once('fonction.php') ?>
-<header id="bn-masterhead-container">
-    <div id="bn-masterhead">
+<header id="bn-masterhead-container-wrapper">
+    <div id="bn-masterhead-container">
         <div id="bn-masterhead-logo-container">
             <span>proutprout</span>
         </div>
@@ -43,7 +43,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<div id="content">
+<div class="content">
+    <div id="connect-container-wrapper">
+        <div id="connect-container">
+
+
+        </div>
+    </div>
     <form method="POST" action="accueil.php">
         <input name="login" type="text" placeholder="Identifiant">
         <input name="pwd" type="password" placeholder="Mot de passe">
