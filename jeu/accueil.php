@@ -7,21 +7,21 @@
     <link rel="stylesheet" href="css/cross.css">
 </head>
 <body>
+
 <?php require_once('init.php') ?>
 
-<?php require_once('fonction.php') ?>
-<header id="bn-masterhead-container-wrapper">
-    <div id="bn-masterhead-container">
-        <div id="bn-masterhead-logo-container">
-            <span>proutprout</span>
-        </div>
-        <div id="bn-masterhead-user">
-            <span>blablabla</span>
-        </div>
-        <div id="bn-masterhead-title">
-            <span>Batille navale</span>
-        </div>
+<header id="header">
+    <div id="header-logo">
+        <a href="">Logo</a>
     </div>
+    <h1>
+        <span>Bataille navale</span>
+    </h1>
+    <nav>
+        <ul>
+
+        </ul>
+    </nav>
 </header>
 
 <?php
@@ -58,6 +58,56 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <form method="POST" action="accueil.php">
         <input name="register" type="submit" value="S'enregistrer">
     </form>
+
+    <p>
+        fffffffffffffffff
+        f
+        f
+        f
+
+        f
+        f
+        f
+        f
+        f
+        f
+        f
+        f
+        f
+        f
+        f
+
+        f
+        f
+        f
+        f
+        f
+        f
+        f
+        f
+        f
+
+        f
+        f
+        f
+        f
+        f
+        f
+
+        ff
+
+        f
+        f
+        f
+        f
+        f
+        f
+        f
+        f
+
+        f
+        f
+    </p>
 </div>
 
 <?php
@@ -68,7 +118,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 #
 #}
 #?>
-
 
 
 <footer>
