@@ -5,4 +5,12 @@ if (mysqli_connect_errno()) {
     printf('Echec de la connexion : \%s', mysqli_connect_error());
     echo '</span><div id="announcements-container-button"><button class="close-txt-thik" onclick="getElementById(\'announcements-container-wrapper\').remove();"></div></div></div>';
 }
+
+
+
+
+
+
+
+
 ?>
