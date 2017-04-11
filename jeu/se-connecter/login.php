@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="fr">
-<?php require_once('init.php');
-require_once('fonction.php') ?>
+<?php require_once('../init.php');
+require_once('../fonction.php') ?>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Accueil - Bataille navale</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/cross.css">
-    <script src="js/jquery.js"></script>
-    <script src="js/util.js"></script>
-    <script src="js/script.js"></script>
+    <title>Se connecter - Bataille navale</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/cross.css">
+    <script src="../js/jquery.js"></script>
+    <script src="../js/util.js"></script>
+    <script src="../js/script.js"></script>
 </head>
 <body class="is-mobile is-menu-visible">
 <!-- Header -->
@@ -39,14 +39,14 @@ require_once('fonction.php') ?>
 <!-- Menu -->
 <div id="menu">
     <ul>
-        <li><a href="./" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Accueil</a></li>
-        <li><a href="./se-connecter/" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Se Connecter</a>
+        <li><a href="../" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Accueil</a></li>
+        <li><a href="../se-connecter/" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Se Connecter</a>
         </li>
-        <li><a href="./inscription/" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">S'inscrire</a></li>
-        <li><a href="./contact/" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">À Propos</a></li>
+        <li><a href="../inscription/" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">S'inscrire</a></li>
+        <li><a href="../contact/" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">À Propos</a></li>
     </ul>
     <a href="#menu" class="close">
 </div>
 </body>
 </html>
-<?php require_once('end.php') ?>
+<?php require_once('../end.php') ?>
