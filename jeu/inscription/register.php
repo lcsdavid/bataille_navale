@@ -26,7 +26,7 @@ require_once('../fonction.php') ?>
     </nav>
 </header>
 
-<form method="POST" action="../accueil.php">
+<form method="POST" action="./register.php" style="margin-top: 50px">
     <input name="mail" type="text" placeholder="xxx@xxx.xxx">
     <input name="pseudo" type="text" placeholder="Gary lapute">
     <input name="pwd" type="password" placeholder="Mot de passe">
@@ -40,10 +40,8 @@ require_once('../fonction.php') ?>
 </form>
 
 <?php
-echo $connexion;
-if(isset($_POST["register"])){
-    $query = "INSERT INTO Joueur (email, pseudonyme, nom, prenom, sexe, naissance, ville, mdp) VALUES (" + $email + "," + $pseudo + "," + $name + "," + $firstname + "," + $gender + "," + $birth + "," + $town + "," + $pwd + ");";
-mysqli_query($connexion, $query);
+if (isset($_POST["register"])) {
+    register($_POST['mail'], $_POST['pseudo'], $_POST['nom'], $_POST['prenom'], $_POST['sexe'], $_POST['naissance'], $_POST['ville'], $_POST['pwd']);
 }
 ?>
 
