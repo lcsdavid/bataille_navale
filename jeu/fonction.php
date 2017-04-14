@@ -16,8 +16,9 @@ function login($id, $pwd)
 function register($email, $pseudo, $name, $firstname, $gender, $birth, $town, $pwd)
 {
     global $connexion;
-    if (mysqli_query($connexion, "SELECT * FROM Joueur WHERE email = '".$email."'")->num_rows == 0);
-    mysqli_query($connexion, "INSERT INTO Joueur (email, pseudonyme, nom, prenom, sexe, naissance, ville, mdp) VALUES ('".$email."','".$pseudo."','".$name."','".$firstname."','".$gender."','".$birth."','".$town."','".md5($pwd)."')");
+    if (mysqli_query($connexion, "SELECT * FROM Joueur WHERE email = '".$email."'")->num_rows == 0) {
+        mysqli_query($connexion, "INSERT INTO Joueur (email, pseudonyme, nom, prenom, sexe, naissance, ville, mdp) VALUES ('".$email."','".$pseudo."','".$name."','".$firstname."','".$gender."','".$birth."','".$town."','".md5($pwd)."')");
+    }
 }
 
 ?>
