@@ -38,12 +38,14 @@ require_once('../fonction.php') ?>
     <input name="ville" type="text" placeholder="Ville">
     <input name="register" type="submit" value="S'enregistrer">
 </form>
-<span> J'aime les grosses bites qui encule Gary !</span>
-<?php
-if (isset($_POST["register"])) {
-    register($_POST['mail'], $_POST['pseudo'], $_POST['nom'], $_POST['prenom'], $_POST['sexe'], $_POST['naissance'], $_POST['ville'], $_POST['pwd']);
-}
-?>
+
+<span style="color: black;"> <?php
+    if(isset($_SESSION['username'])) {
+        echo "Bonjour ".$_SESSION['username']." le fils de pute";
+    } else {
+        echo "Non connecté(e)";
+    } ?>
+</span>
 
 <!-- Menu -->
 <div id="menu">
