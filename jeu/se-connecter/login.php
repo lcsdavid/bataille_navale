@@ -26,9 +26,25 @@ require_once('../fonction.php') ?>
     </nav>
 </header>
 
-<div class="content">
+<form method="POST" action="./login.php" style="margin-top: 50px">
+    <input name="username" type="text" placeholder="Nom d'utilisateur">
+    <input name="password" type="password" placeholder="Mot de passe">
+    <input name="connect" type="submit" value="Se connecter">
+</form>
 
-</div>
+<?php
+    if(isset($_POST['connect'])) {
+        echo login($_POST['username'], $_POST['password']);
+    }
+?>
+
+<span style="color: black;"> <?php
+    if(isset($_SESSION['username'])) {
+        echo "Bonjour ".$_SESSION['username']." le fils de pute";
+    } else {
+        echo "Non connecté";
+    } ?>
+</span>
 
 <!-- Footer -->
 <footer></footer>
