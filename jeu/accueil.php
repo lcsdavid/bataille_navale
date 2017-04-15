@@ -1,29 +1,25 @@
 <!DOCTYPE html>
 <html lang="fr">
-<?php require_once('init.php');
-require_once('fonction.php') ?>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Accueil - Bataille navale</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/cross.css">
-    <script src="js/jquery.js"></script>
-    <script src="js/util.js"></script>
-    <script src="js/script.js"></script>
+    <meta charset="utf-8">
+    <title>Accueil</title>
+    <!---- Pour tout le monde ---->
+    <link href="./css/style.css" rel="stylesheet" type="text/css">
+    <!---- Ecran de PC ---->
+    <link href="./css/normalscreen.css" rel="stylesheet" type="text/css">
+    <!---- Ecran mobiles ---->
+    <link href="./css/mobile.css" rel="stylesheet" media="screen and (max-width: 340px)" type="text/css">
+    <link href="./css/mobile.css" rel="stylesheet" media="handheld" type="text/css">
+    <!-- -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body class="is-mobile is-menu-visible">
-<!-- Header -->
-<header id="header">
+<?php
+require_once('init.php');
+require_once('fonction.php') ?>
+<body>
+<header>
     <h1>Bataille navale</h1>
-    <nav>
-        <ul>
-            <li>
-                <a href="#menu" class="menuToggle" onclick="changeClass('is-mobile', 'is-mobile is-menu-visible')">
-                    <span>Menu</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+    <a href="#menu"><img src="./images/menu-toogle.png" alt=""/></a>
 </header>
 
 <div class="content">
@@ -32,21 +28,17 @@ require_once('fonction.php') ?>
 
 <!-- Footer -->
 <footer></footer>
-<script>
-    $.notify("En continuant votre navigation sur le site, vous acceptez l'usage des cookies", {"position": "bottom left"});
-</script>
 
 <!-- Menu -->
-<div id="menu">
+<nav id="menu">
+    <a href="#">X</a>
     <ul>
-        <li><a href="./" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Accueil</a></li>
-        <li><a href="./se-connecter/" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Se Connecter</a>
-        </li>
-        <li><a href="./inscription/" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">S'inscrire</a></li>
-        <li><a href="./contact/" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">À Propos</a></li>
+        <li><a href="./">Accueil</a></li>
+        <li><a href="./se-connecter">Se connecter</a></li>
+        <li><a href="./s-inscrire">S'inscrire</a></li>
+        <li><a href="./a-propos">A propos</a></li>
     </ul>
-    <a href="#menu" class="close">
-</div>
+</nav>
 </body>
 </html>
 <?php require_once('end.php') ?>
