@@ -20,6 +20,9 @@ function register($email, $pseudo, $name, $firstname, $gender, $birth, $town, $p
         mysqli_query($connexion, "INSERT INTO Joueur (email, pseudonyme, nom, prenom, sexe, naissance, ville, mdp) VALUES ('".$email."','".$pseudo."','".$name."','".$firstname."','".$gender."','".$birth."','".$town."','".md5($pwd)."')");
         $_SESSION['username'] = $pseudo;
         $_SESSION['timestamp'] = time();
+        return true;
+    } else {
+        return false;
     }
 }
 

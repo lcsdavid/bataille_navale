@@ -1,17 +1,21 @@
 @charset "utf-8";
+
+/* Base */
 body {
+	position: absolute;
+	display: block;
 	background: ghostwhite;
 	margin: 0;
+	padding: 0;
 	width: 100%;
 	height: 100%;
-	top: 0px;
 }
 header {
+	display: block;
 	position: fixed;
 	background: #d45f31;
-	display: block;
-	top: 0px;
-	left: 0px;
+	top: 0;
+	left: 0;
 	z-index: 100;
 	font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
 	height: 3em;
@@ -31,10 +35,20 @@ header > a {
 	padding: 0;
 }
 
+main {
+	position: absolute;
+	display: block;
+	width: 100%;
+	height: auto;
+	margin: 3em 0 0 0;
+	padding: 0;
+}
+
 #menu {
-	background: #002f46;
 	position: fixed;
-	top: 0px;
+	display: block;
+	background: #002f46;
+	top: 0;
 	right: -14em;
 	width: 14em;
 	height: 100%;
@@ -45,8 +59,7 @@ header > a {
 	transition: transform 0.5s ease;
 }
 #menu:target {
-	display: block;
-	-webkit-transform: -webkit-translateX(-100%);
+	-webkit-transform: translateX(-100%);
 	-moz-transform: translateX(-100%);
 	-o-transform: translateX(-100%);
 	transform: translateX(-100%);
@@ -70,36 +83,62 @@ header > a {
 	color: #d45f31;
 	display: block;
 	outline: 0;
-	font-family: Gill Sans, Gill Sans MT, Myriad Pro, DejaVu Sans Condensed, Helvetica, Arial," sans-serif";
+	font-family: Gill Sans, Gill Sans MT, Myriad Pro, DejaVu Sans Condensed, Helvetica, Arial, sans-serif;
 	text-decoration: none;
 	text-transform: uppercase;
 }
 
 
 @media screen and (max-width:1280px) {
-}
-/*
-Below is the syntax for adding values to the box shadow property 
-box-shadow: none|h-shadow v-shadow blur spread color |inset|initial|inherit;
-*/
 
-.boxShadow {
-	/*Chrome, Safari*/
-	-webkit-box-shadow: 6px 6px 12px 8px #ebebeb;
-	/*Firefox*/
-	-moz-box-shadow: 4px 4px 6px 7px #ebebeb;
-	/*Standard Syntax*/
-	box-shadow: 6px 6px 14px 6px #ebebeb;
 }
-.textShadow {
-	font: bold 60px arial, sans-serif;
-	background-color: #565656;
-	color: transparent;
-	text-shadow: 2px 2px 3px rgba(255, 255, 255, 0.5);
-	/*Chrome, Safari*/
-	-webkit-background-clip: text;
-	/*Firefox*/
-	-moz-background-clip: text;
-	/*Standard Syntax*/
-	background-clip: text;
+
+/* Register */
+@-webkit-keyframes color_change {
+	0%{background: limegreen;}
+	33%{background: cyan;}
+	66%{background: deeppink;}
+	100%{background: crimson;}
 }
+@-moz-keyframes color_change {
+	0%{background: limegreen;}
+	33%{background: cyan;}
+	66%{background: deeppink;}
+	100%{background: crimson;}
+}
+@-o-keyframes color_change {
+	0%{background: limegreen;}
+	33%{background: cyan;}
+	66%{background: deeppink;}
+	100%{background: crimson;}
+}
+@keyframes color_change {
+	0%{background: limegreen;}
+	33%{background: cyan;}
+	66%{background: deeppink;}
+	100%{background: crimson;}
+}
+.register {
+	position: relative;
+	display: block;
+	background: silver;
+	margin: 4em 20% 0 20%;
+	padding: 1em;
+	/*border: solid 2px crimson;*/
+	border-radius: 0.2em;
+	font-family: Comic Sans MS, sans-serif;
+	-webkit-animation: color_change linear 1s infinite alternate;
+	-moz-animation: color_change linear 1s infinite alternate;
+	-o-animation: color_change linear 1s infinite alternate;
+	animation: color_change linear 1s infinite alternate;
+}
+
+.register > span {
+	display: block;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	text-align: center;
+}
+.register >
+

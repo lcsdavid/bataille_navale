@@ -5,7 +5,7 @@ body{
 }
 
 header > h1 {
-	margin: 0.6em 0 0 0.5em;
+	margin: 0.5em 0 0 0.5em;
 	font-size: 1.2em;
 }
 
@@ -13,12 +13,6 @@ header > h1 {
 	right: -66%;
 	width: 66%;
 	height: 100%;
-}
-#menu:target {
-	-webkit-transform: -webkit-translateX(-100%);
-	-moz-transform: translateX(-100%);
-	-o-transform: translateX(-100%);
-	transform: translateX(-100%);
 }
 #menu ul  {
 	padding: 0 1em 0 1em;

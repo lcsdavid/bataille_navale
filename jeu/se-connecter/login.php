@@ -1,3 +1,11 @@
+<?php
+session_start();
+require_once('../assets/php/init.php');
+require_once('../assets/php/fonction.php');
+if (isset($_POST['connect'])) {
+    echo login($_POST['username'], $_POST['password']);
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -11,30 +19,25 @@
     <!-- -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<?php
-require_once('../assets/php/init.php');
-require_once('../assets/php/fonction.php') ?>
+<!-- Body -->
 <body>
+<!-- Header -->
 <header>
     <h1>Bataille navale</h1>
     <a href="#menu"><img src="../assets/images/menu-toogle.png" alt=""/></a>
 </header>
-
-<form method="POST" action="./login.php" style="margin-top: 50px">
-    <input name="username" type="text" placeholder="Nom d'utilisateur">
-    <input name="password" type="password" placeholder="Mot de passe">
-    <input name="connect" type="submit" value="Se connecter">
-</form>
-
-<?php
-    if(isset($_POST['connect'])) {
-        echo login($_POST['username'], $_POST['password']);
-    }
-?>
+<!-- Main -->
+<div id="main">
+    <form method="POST" action="./login.php" style="margin-top: 50px">
+        <input name="username" type="text" placeholder="Nom d'utilisateur">
+        <input name="password" type="password" placeholder="Mot de passe">
+        <input name="connect" type="submit" value="Se connecter">
+    </form>
+</div>
 
 <span style="color: black;"> <?php
-    if(isset($_SESSION['username'])) {
-        echo "Bonjour ".$_SESSION['username']." le fils de pute";
+    if (isset($_SESSION['username'])) {
+        echo "Bonjour " . $_SESSION['username'] . " le fils de pute";
     } else {
         echo "Non connecté";
     } ?>
@@ -49,7 +52,7 @@ require_once('../assets/php/fonction.php') ?>
     <ul>
         <li><a href="../">Accueil</a></li>
         <?php
-        if(isset($_SESSION['username'])) {
+        if (isset($_SESSION['username'])) {
             echo "<li><a href='../mon-compte'>Mon compte</a></li>";
             echo "<li><a href='../partie'>Partie</a></li>";
             echo "<li><a href='../statistique'>Statistique</a></li>";

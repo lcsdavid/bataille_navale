@@ -1,3 +1,8 @@
+<?php
+session_start();
+require_once('assets/php/init.php');
+require_once('assets/php/fonction.php');
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -11,11 +16,6 @@
     <!-- -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<?php
-require_once('assets/php/init.php');
-require_once('assets/php/fonction.php');
-session_start();
-?>
 <body>
 <header>
     <h1>Bataille navale</h1>
