@@ -19,16 +19,16 @@ header {
 }
 header > h1 {
 	display: block;
-	margin-top: 5px;
+	margin: 0.3em 0 0 0.5em;
+	padding: 0;
 	float: left;
-	font-size: 1.75em;
-	margin-left: 1em;
+	font-size: 1.5em;
+	font-variant: small-caps;	
 }
 header > a {
 	float: right;
-	margin-top: 0.75em;
-	margin-right: 1em;
-	/* [disabled]cursor: pointer; */
+	margin: 0.8em 1em 0 0;
+	padding: 0;
 }
 
 #menu {
@@ -44,13 +44,12 @@ header > a {
 	-o-transition: -o-transform 0.5s ease;
 	transition: transform 0.5s ease;
 }
-
 #menu:target {
-	-webkit-transform: -webkit-translateX(-14em);
-	-moz-transform: translateX(-14em);
-	-o-transform: translateX(-14em);
-	transform: translateX(-14em);
 	display: block;
+	-webkit-transform: -webkit-translateX(-100%);
+	-moz-transform: translateX(-100%);
+	-o-transform: translateX(-100%);
+	transform: translateX(-100%);
 }
 #menu ul  {
 	list-style: none;
