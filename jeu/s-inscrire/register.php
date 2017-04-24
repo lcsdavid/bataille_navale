@@ -21,7 +21,7 @@ if (isset($_POST["submit"]))
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<?php if(/* $register_accomplished */ true)
+<?php if($register_accomplished)
     redirect("../",3);
 ?>
 <header>

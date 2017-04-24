@@ -25,4 +25,12 @@ function register($email, $pseudo, $name, $firstname, $gender, $birth, $town, $p
         return false;
     }
 }
+
+function redirect($url, $time = 5)
+{
+    header("Refresh:$time;Url=$url");
+    echo "<div class='dialog'><main><header><h1>L'opération a bien été effectué !</h1></header>
+    <p>Vous allez être redirigé dans quelques secondes sur la page d'accueil</p>
+    <div class='one'>.</div><div class='two'>.</div><div class='three'>.</div></main></div>";
+}
 ?>

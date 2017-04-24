@@ -3,6 +3,11 @@
 session_start();
 require_once('../assets/php/init.php');
 require_once('../assets/php/fonction.php');
+require_once('../assets/php/class.php');
+$_SESSION['my_grid'] = new Grid();
+$_SESSION['ennemy_grid'] = new Grid();
+$_SESSION['my_grid']->init();
+$_SESSION['ennemy_grid']->init();
 ?>
 <html lang="fr">
 <head>
@@ -23,7 +28,24 @@ require_once('../assets/php/fonction.php');
     <a href="#menu"><img src="../assets/images/menu-toogle.png" alt=""/></a>
 </header>
 <!-- Main -->
-<main></main>
+<main>
+    <table id="my-grid" class="grid">
+        <tr>
+            <td class="cell empty"></td>
+            <td class="cell coord">1</td>
+            <td class="cell coord">2</td>
+            <td class="cell coord">3</td>
+            <td class="cell coord">4</td>
+            <td class="cell coord">5</td>
+            <td class="cell coord">6</td>
+            <td class="cell coord">7</td>
+            <td class="cell coord">8</td>
+            <td class="cell coord">9</td>
+            <td class="cell coord">10</td>
+        </tr>
+        <?php $_SESSION['my_grid']->display(); ?>
+    </table>
+</main>
 <!-- Footer -->
 <footer></footer>
 <!-- Menu -->
