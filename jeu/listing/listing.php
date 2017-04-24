@@ -23,7 +23,38 @@ require_once('../assets/php/fonction.php');
     <a href="#menu"><img src="../assets/images/menu-toogle.png" alt=""/></a>
 </header>
 <!-- Main -->
-<main></main>
+<main>
+    <table style="width:100%">
+        <tr>
+            <th>Pseudo</th>
+            <th>Prenom</th>
+            <th>Nom</th>
+        </tr>
+        <?php
+        global $connexion;
+            $sql = "SELECT pseudo, prenom, nom 
+                    FROM Joueur 
+                    WHERE etat_joueur LIKE 'Connecté'";
+            $result = mysqli_query($connexion, $sql);
+
+            echo "<tr>
+                    <td>$result->rowCount()</td>
+                    <td>$obj->prenom</td>
+                    <td>$obj->nom</td>
+                  </tr>";
+
+            while ($obj = $result->fetch_object()) {
+                echo "<tr>
+                        <td>$obj->pseudo</td>
+                        <td>$obj->prenom</td>
+                        <td>$obj->nom</td>
+                      </tr>";
+            }
+
+
+        ?>
+    </table>
+</main>
 <!-- Footer -->
 <footer></footer>
 <!-- Menu -->
