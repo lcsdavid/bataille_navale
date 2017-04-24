@@ -1,0 +1,22 @@
+@charset "utf-8";
+
+body{
+	min-width: 304px;
+}
+
+header > h1 {
+	margin: 0.5em 0 0 0.5em;
+	font-size: 1.2em;
+}
+
+#menu {
+	right: -66%;
+	width: 66%;
+	height: 100%;
+}
+#menu ul  {
+	padding: 0 1em 0 1em;
+}
+#menu ul > li > a {
+	font-size: 1em;
+}

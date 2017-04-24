@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<?php
+session_start();
+require_once('../assets/php/init.php');
+require_once('../assets/php/fonction.php');
+?>
 <html lang="fr">
 <head>
     <meta charset="utf-8">
@@ -11,24 +16,16 @@
     <!-- -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<?php
-require_once('../assets/php/init.php');
-require_once('../assets/php/fonction.php');
-session_start();
-?>
 <body>
+<!-- Header -->
 <header>
-    <h1>Bataille navale</h1>
+    <h1>Listing - Bataille navale</h1>
     <a href="#menu"><img src="../assets/images/menu-toogle.png" alt=""/></a>
 </header>
-
-<div class="content">
-
-</div>
-
+<!-- Main -->
+<main></main>
 <!-- Footer -->
 <footer></footer>
-
 <!-- Menu -->
 <nav id="menu">
     <a href="#">X</a>
