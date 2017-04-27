@@ -3,6 +3,16 @@
 session_start();
 require_once('../assets/php/init.php');
 require_once('../assets/php/fonction.php');
+
+if (isset($_POST["salon"])) {
+    printf('lol: ');
+    if (salon()) {
+        printf("BITTTTE");
+    } else {
+        //redirect("../",3);
+        printf("LUCAS LA MOUILLE");
+    }
+}
 ?>
 <html lang="fr">
 <head>
@@ -24,19 +34,9 @@ require_once('../assets/php/fonction.php');
 </header>
 <!-- Main -->
 <main>
-    <input name="submit" type="submit" value="Créer un salon">
-    <?php
-    if (isset($_POST["submit"]))
-        if(salon())
-        {
-            printf("BITTTTE");
-        }
-        else
-        {
-            printf("LUCAS LA MOUILLE");
-        }
-
-    ?>
+    <form class="creation_salon" method="POST" action="#">
+        <input name="salon" type="submit" value="Créer Salohhhon">
+    </form>
     <table style="width:100%">
         <tr>
             <th>Pseudo</th>
@@ -45,6 +45,8 @@ require_once('../assets/php/fonction.php');
         </tr>
         <?php
             $rset = mysqli_query($connexion, 'SELECT pseudo, prenom, nom FROM Joueur WHERE etat_joueur = "connect"');
+            printf('Ligne: ');
+            printf($rset->num_rows);
             while ($obj = mysqli_fetch_assoc($rset)) {
                 echo "<tr>\n";
                 echo "     <td>".  $obj['pseudo'] . "</td>\n";

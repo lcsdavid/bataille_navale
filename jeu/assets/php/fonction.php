@@ -37,16 +37,21 @@ function redirect($url, $time = 5)
 function salon()
 {
     global $connexion;
-    $rset = mysqli_query($connexion, "SELECT id_joueur FROM Joueur WHERE pseudo = '".$_SESSION['username']."'");
+    printf("lucas <3");
+    $id = $_SESSION['username'];
+    $rset = mysqli_query($connexion, "SELECT id_joueur FROM Joueur WHERE pseudo = '".$id."'");
     $id_joueur = $rset->fetch_row()[0];
-    if(mysqli_query($connexion, "INSERT INTO Partie (id_joueur1, etat) VALUES ('".$id_joueur."',"attente")") == TRUE){
+    printf(" <3lucas");
+    printf($id);
+    printf($id_joueur);
+    if(mysqli_query($connexion, "INSERT INTO Partie (id_joueur1, id_joueur2,  etat , vainqueur) VALUES ('".$id_joueur."',null, 'attente', null)") === TRUE)
+    {
         return true;
-    } else {
+    }
+    else
+    {
         return false;
     }
-}
-
-
-
+    return true;
 }
 ?>
