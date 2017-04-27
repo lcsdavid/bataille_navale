@@ -24,6 +24,19 @@ require_once('../assets/php/fonction.php');
 </header>
 <!-- Main -->
 <main>
+    <input name="submit" type="submit" value="Créer un salon">
+    <?php
+    if (isset($_POST["submit"]))
+        if(salon())
+        {
+            printf("BITTTTE");
+        }
+        else
+        {
+            printf("LUCAS LA MOUILLE");
+        }
+
+    ?>
     <table style="width:100%">
         <tr>
             <th>Pseudo</th>

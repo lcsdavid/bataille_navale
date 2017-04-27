@@ -33,4 +33,20 @@ function redirect($url, $time = 5)
     <p>Vous allez être redirigé dans quelques secondes sur la page d'accueil</p>
     <div class='one'>.</div><div class='two'>.</div><div class='three'>.</div></main></div>";
 }
+
+function salon()
+{
+    global $connexion;
+    $rset = mysqli_query($connexion, "SELECT id_joueur FROM Joueur WHERE pseudo = '".$_SESSION['username']."'");
+    $id_joueur = $rset->fetch_row()[0];
+    if(mysqli_query($connexion, "INSERT INTO Partie (id_joueur1, etat) VALUES ('".$id_joueur."',"attente")") == TRUE){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+
+}
 ?>
