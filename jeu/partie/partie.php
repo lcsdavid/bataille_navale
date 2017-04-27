@@ -41,7 +41,9 @@ $_SESSION['ennemy_grid'] = new Grid();
             <td class="cell coord">9</td>
             <td class="cell coord">10</td>
         </tr>
-        <?php $_SESSION['my_grid']->display(); ?>
+        <?php
+        $_SESSION['my_grid']->load();
+        $_SESSION['my_grid']->display(); ?>
     </table>
 </main>
 <!-- Footer -->

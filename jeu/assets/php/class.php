@@ -3,8 +3,8 @@
 class Grid
 {
     private $array = [""];
-    private $id_partie;
-    private $id_joueur;
+    private $id_partie = 1;
+    private $id_joueur = 21;
 
     function Grid()
     {
@@ -28,11 +28,17 @@ class Grid
         $rset = mysqli_query($connexion, "SELECT tir, resultat FROM Tour WHERE id_partie = '" . $this->id_partie . "' AND id_joueur = '" . $this->id_joueur . "'");
         for ($i = 0; $i < $rset->num_rows; $i++) {
             $row = $rset->fetch_row();
-            if ($row[2])
-                if ($this->array[$row[0]] == "sea")
+            printf('Ligne: ');
+            printf($row[0]);
+            printf(' Resultat: ');
+            printf($row[1]);
+            if ($row[1]) {
+                if ($this->array[$row[0]] == "sea") {
                     $this->array[$row[0]] = "missed";
-                else
+                } else {
                     $this->array[$row[0]] = "hit";
+                }
+            }
         }
     }
 
