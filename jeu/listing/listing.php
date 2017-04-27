@@ -31,27 +31,15 @@ require_once('../assets/php/fonction.php');
             <th>Nom</th>
         </tr>
         <?php
-        global $connexion;
-            $sql = "SELECT pseudo, prenom, nom 
-                    FROM Joueur 
-                    WHERE etat_joueur LIKE 'Connecté'";
-            $result = mysqli_query($connexion, $sql);
-
-            echo "<tr>
-                    <td>$result->rowCount()</td>
-                    <td>$obj->prenom</td>
-                    <td>$obj->nom</td>
-                  </tr>";
-
-            while ($obj = $result->fetch_object()) {
-                echo "<tr>
-                        <td>$obj->pseudo</td>
-                        <td>$obj->prenom</td>
-                        <td>$obj->nom</td>
-                      </tr>";
+            $rset = mysqli_query($connexion, 'SELECT pseudo, prenom, nom FROM Joueur WHERE etat_joueur = "connect"');
+            while ($obj = mysqli_fetch_assoc($rset)) {
+                echo "<tr>\n";
+                echo "     <td>".  $obj['pseudo'] . "</td>\n";
+                echo "     <td>".  $obj['prenom'] . "</td>\n";
+                echo "     <td>".  $obj['nom'] . "</td>\n";
+                echo "</tr>\n";
             }
-
-
+            mysqli_free_result($rset);
         ?>
     </table>
 </main>
