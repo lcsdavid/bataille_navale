@@ -6,8 +6,6 @@ require_once('../assets/php/fonction.php');
 require_once('../assets/php/class.php');
 $_SESSION['my_grid'] = new Grid();
 $_SESSION['ennemy_grid'] = new Grid();
-$_SESSION['my_grid']->init();
-$_SESSION['ennemy_grid']->init();
 ?>
 <html lang="fr">
 <head>
