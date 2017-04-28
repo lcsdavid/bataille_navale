@@ -6,13 +6,14 @@ require_once('../assets/php/fonction.php');
 require_once('../assets/php/class.php');
 if (isset($_POST['create'])) {
     create();
-    $_SESSION['my_grid'] = new Grid();
-    $_SESSION['ennemy_grid'] = new Grid();
+    $_SESSION['my_grid'] = new Grid(1,1,1);
+    $_SESSION['ennemy_grid'] = new Grid(1,1,1);
 }
 if (isset($_POST['join'])) {
-    join();
-    $_SESSION['my_grid'] = new Grid();
-    $_SESSION['ennemy_grid'] = new Grid();
+    printf($_POST['join']);
+    join($_POST['id_partie']);
+    $_SESSION['my_grid'] = new Grid(1,1,1);
+    $_SESSION['ennemy_grid'] = new Grid(1,1,1);
 }
 ?>
 <html lang="fr">

@@ -3,19 +3,6 @@
 session_start();
 require_once('../assets/php/init.php');
 require_once('../assets/php/fonction.php');
-if (isset($_POST['salon'])) {
-    printf('lol: ');
-    if (salon()) {
-        redirect("../partie",3);
-    } else {
-        printf("Erreur lors de la creation de la partie");
-    }
-}
-if (isset($_POST['valid_selec'])) {
-    printf("LOL");
-    printf($_POST['select_joueur']);
-    joinSalon($_POST['select_joueur']);
-}
 ?>
 <html lang="fr">
 <head>
@@ -37,9 +24,17 @@ if (isset($_POST['valid_selec'])) {
 </header>
 <!-- Main -->
 <main>
-    <form method="POST" action="./listing.php">
-        <input name="salon" type="submit" value="Créer Salohhhon">
+    <form method="POST" action="../partie/partie.php">
+        <input name="create" type="submit" value="Créer Salohhhon">
     </form>
+    <?php
+    if(isset($_POST['valid_join'])){
+        echo "<form method=POST action='../partie/partie/partie.php'>";
+        echo "    <input type='hidden' name='join' value='ok'>";
+        echo "    <input type='hidden' name='id_partie' value='" . $_POST['select_partie'] . "'>";
+        echo "</form>";
+    }
+    ?>
     <form class="rejoindre_partie" method="POST" action="./listing.php">
         <table style="width:100%">
             <tr>
@@ -48,12 +43,12 @@ if (isset($_POST['valid_selec'])) {
                 <th>Nom</th>
             </tr>
             <?php
-                $rset = mysqli_query($connexion, 'SELECT DISTINCT j.id_joueur, j.pseudo, j.prenom, j.nom FROM Joueur j ,Partie p WHERE p.etat = "attente" AND p.id_joueur1 = j.id_joueur');
+                $rset = mysqli_query($connexion, 'SELECT DISTINCT j.id_joueur, j.pseudo, j.prenom, j.nom, p.id_partie FROM Joueur j ,Partie p WHERE p.etat = "attente" AND p.id_joueur1 = j.id_joueur');
                 printf('Ligne: ');
                 printf($rset->num_rows);
                 while ($obj = mysqli_fetch_assoc($rset)) {
                     echo "<tr>\n";
-                    echo "     <td><input type=\"radio\" name=\"select_joueur\" value=".$obj['id_joueur'].">".  $obj['pseudo'] ."<br></td>\n";
+                    echo "     <td><input type=\"radio\" name=\"select_partie\" value=".$obj['id_partie'].">".  $obj['pseudo'] ."<br></td>\n";
                     echo "     <td>".  $obj['prenom'] . "</td>\n";
                     echo "     <td>".  $obj['nom'] . "</td>\n";
                     echo "</tr>\n";
@@ -61,8 +56,9 @@ if (isset($_POST['valid_selec'])) {
                 mysqli_free_result($rset);
             ?>
         </table>
-        <input name="valid_selec" type="submit" value="Valider Selection">
+        <input name="valid_join" type="submit" value="Valider Selection">
     </form>
+
 </main>
 <!-- Footer -->
 <footer></footer>

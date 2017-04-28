@@ -37,48 +37,24 @@ function redirect($url, $time = 5)
     <div class='one'>.</div><div class='two'>.</div><div class='three'>.</div></main></div>";
 }
 
-function salon()
+/*
+function create()
 {
     global $connexion;
-    printf("lucas <3");
-    $id = $_SESSION['username'];
-    $rset = mysqli_query($connexion, "SELECT id_joueur FROM Joueur WHERE pseudo = '".$id."'");
-    $id_joueur = $rset->fetch_row()[0];
-    mysqli_query($connexion, "DELETE FROM Partie WHERE id_joueur1 = '".$id_joueur."' AND etat LIKE \"attente\"");
-    if(mysqli_query($connexion, "INSERT INTO Partie (id_joueur1, id_joueur2,  etat , vainqueur) VALUES ('".$id_joueur."',null, 'attente', null)") === TRUE)
-    {
-        $rset = mysqli_query($connexion, "SELECT id_partie from Partie where id_joueur1='".$id_joueur."' and etat like \"attente\"");
-        header("Refresh:0;Url=\"../partie/partie.php?id_partie=".$rset->fetch_row()[0]);
+    mysqli_query($connexion, "DELETE FROM Partie WHERE id_joueur1 = '".$_SESSION['id']."' AND etat LIKE \"attente\"");
+    mysqli_query($connexion, "INSERT INTO Partie (id_joueur1, id_joueur2,  etat , vainqueur) VALUES ('".$_SESSION['id']."',null, 'attente', null)");
     }
-    else
-    {
-        return false;
-    }
-}
 
-function joinSalon($host)
+function join($id_partie)
 {
-    printf("rpz les quartiers");
     global $connexion;
-    $id = $_SESSION['username'];
-    $rset = mysqli_query($connexion, "SELECT id_joueur FROM Joueur WHERE pseudo = '".$id."'");
-    $id_joueur = $rset->fetch_row()[0];
-    printf("id_joueur : ");
-    printf($id_joueur);
-    $rset = mysqli_query($connexion, "SELECT DISTINCT p.id_partie FROM Partie p, Joueur j WHERE p.id_joueur1 = '".$host."' AND p.etat LIKE 'attente'");
-    $id_partie = $rset->fetch_row()[0];
-    printf("id_partie : ");
-    printf($id_partie);
-    if(mysqli_query($connexion, "UPDATE Partie SET id_joueur2 = '".$id_joueur."', etat = 'en cours' WHERE id_partie = '".$id_partie."'") === TRUE)
-    {
-        header("Refresh:0;Url=\"../partie/partie.php?id_partie=".$id_partie);
-    } else {
-        printf("Erreur lors du rejoignement de la partie");
-    }
-}
+    mysqli_query($connexion, "UPDATE Partie SET id_joueur2 = '".$_SESSION['id']."', etat = 'en cours' WHERE id_partie = '".$id_partie."'");
+}*/
 
-function adversaire()
+function quitSalon($id_partie)
 {
-
+    global $connexion;
+    mysqli_query($connexion, "DELETE FROM Partie WHERE id_partie = '".$id_partie."'");
+    redirect("../",3);
 }
 ?>
