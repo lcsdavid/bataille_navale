@@ -52,6 +52,26 @@ function salon()
     {
         return false;
     }
-    return true;
+}
+
+function joinSalon($host)
+{
+    printf("rpz les quartiers");
+    global $connexion;
+    $id = $_SESSION['username'];
+    $rset = mysqli_query($connexion, "SELECT id_joueur FROM Joueur WHERE pseudo = '".$id."'");
+    $id_joueur = $rset->fetch_row()[0];
+    printf("id_joueur : ");
+    printf($id_joueur);
+    $rset = mysqli_query($connexion, "SELECT DISTINCT p.id_partie FROM Partie p, Joueur j WHERE p.id_joueur1 = '".$host."' AND p.etat LIKE 'attente'");
+    $id_partie = $rset->fetch_row()[0];
+    printf("id_partie : ");
+    printf($id_partie);
+    if(mysqli_query($connexion, "UPDATE Partie SET id_joueur2 = '".$id_joueur."', etat = 'en cours' WHERE id_partie = '".$id_partie."'") === TRUE)
+    {
+        return true;
+    } else {
+        return false;
+    }
 }
 ?>

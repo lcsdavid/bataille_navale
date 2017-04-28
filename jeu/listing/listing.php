@@ -12,6 +12,16 @@ if (isset($_POST['salon'])) {
         printf("LUCAS LA MOUILLE");
     }
 }
+if (isset($_POST['valid_selec'])) {
+    printf("LOL");
+    printf($_POST['select_joueur']);
+    if (joinSalon($_POST['select_joueur'])) {
+        printf("BITTTTE");
+    } else {
+        //redirect("../",3);
+        printf("LUCAS LA MOUILLE");
+    }
+}
 ?>
 <html lang="fr">
 <head>
@@ -36,26 +46,29 @@ if (isset($_POST['salon'])) {
     <form method="POST" action="./listing.php">
         <input name="salon" type="submit" value="Créer Salohhhon">
     </form>
-    <table style="width:100%">
-        <tr>
-            <th>Pseudo</th>
-            <th>Prenom</th>
-            <th>Nom</th>
-        </tr>
-        <?php
-            $rset = mysqli_query($connexion, 'SELECT DISTINCT j.pseudo, j.prenom, j.nom FROM Joueur j ,Partie p WHERE p.etat = "attente" AND p.id_joueur1 = j.id_joueur');
-            printf('Ligne: ');
-            printf($rset->num_rows);
-            while ($obj = mysqli_fetch_assoc($rset)) {
-                echo "<tr>\n";
-                echo "     <td><li><a href='../partie'>".  $obj['pseudo'] . "</a></li></td>\n";
-                echo "     <td>".  $obj['prenom'] . "</td>\n";
-                echo "     <td>".  $obj['nom'] . "</td>\n";
-                echo "</tr>\n";
-            }
-            mysqli_free_result($rset);
-        ?>
-    </table>
+    <form class="rejoindre_partie" method="POST" action="./listing.php">
+        <table style="width:100%">
+            <tr>
+                <th>Pseudo</th>
+                <th>Prenom</th>
+                <th>Nom</th>
+            </tr>
+            <?php
+                $rset = mysqli_query($connexion, 'SELECT DISTINCT j.id_joueur, j.pseudo, j.prenom, j.nom FROM Joueur j ,Partie p WHERE p.etat = "attente" AND p.id_joueur1 = j.id_joueur');
+                printf('Ligne: ');
+                printf($rset->num_rows);
+                while ($obj = mysqli_fetch_assoc($rset)) {
+                    echo "<tr>\n";
+                    echo "     <td><input type=\"radio\" name=\"select_joueur\" value=".$obj['id_joueur'].">".  $obj['pseudo'] ."<br></td>\n";
+                    echo "     <td>".  $obj['prenom'] . "</td>\n";
+                    echo "     <td>".  $obj['nom'] . "</td>\n";
+                    echo "</tr>\n";
+                }
+                mysqli_free_result($rset);
+            ?>
+        </table>
+        <input name="valid_selec" type="submit" value="Valider Selection">
+    </form>
 </main>
 <!-- Footer -->
 <footer></footer>
