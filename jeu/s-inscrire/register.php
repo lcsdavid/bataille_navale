@@ -5,6 +5,7 @@ require_once('../assets/php/init.php');
 require_once('../assets/php/fonction.php');
 $register_accomplished = false;
 if (isset($_POST["submit"]))
+    printf("MDLOL");
     if (register($_POST['mail'], $_POST['pseudo'], $_POST['name'], $_POST['firstname'], $_POST['gender'], $_POST['birth'], $_POST['town'], $_POST['pwd']))
         $register_accomplished = true;
 ?>

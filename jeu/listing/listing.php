@@ -3,8 +3,7 @@
 session_start();
 require_once('../assets/php/init.php');
 require_once('../assets/php/fonction.php');
-
-if (isset($_POST["salon"])) {
+if (isset($_POST['salon'])) {
     printf('lol: ');
     if (salon()) {
         printf("BITTTTE");
@@ -34,7 +33,7 @@ if (isset($_POST["salon"])) {
 </header>
 <!-- Main -->
 <main>
-    <form class="creation_salon" method="POST" action="#">
+    <form method="POST" action="./listing.php">
         <input name="salon" type="submit" value="Créer Salohhhon">
     </form>
     <table style="width:100%">
@@ -44,12 +43,12 @@ if (isset($_POST["salon"])) {
             <th>Nom</th>
         </tr>
         <?php
-            $rset = mysqli_query($connexion, 'SELECT pseudo, prenom, nom FROM Joueur WHERE etat_joueur = "connect"');
+            $rset = mysqli_query($connexion, 'SELECT DISTINCT j.pseudo, j.prenom, j.nom FROM Joueur j ,Partie p WHERE p.etat = "attente" AND p.id_joueur1 = j.id_joueur');
             printf('Ligne: ');
             printf($rset->num_rows);
             while ($obj = mysqli_fetch_assoc($rset)) {
                 echo "<tr>\n";
-                echo "     <td>".  $obj['pseudo'] . "</td>\n";
+                echo "     <td><li><a href='../partie'>".  $obj['pseudo'] . "</a></li></td>\n";
                 echo "     <td>".  $obj['prenom'] . "</td>\n";
                 echo "     <td>".  $obj['nom'] . "</td>\n";
                 echo "</tr>\n";
