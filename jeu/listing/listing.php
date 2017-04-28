@@ -6,20 +6,18 @@ require_once('../assets/php/fonction.php');
 if (isset($_POST['salon'])) {
     printf('lol: ');
     if (salon()) {
-        printf("BITTTTE");
+        redirect("../partie",3);
     } else {
-        //redirect("../",3);
-        printf("LUCAS LA MOUILLE");
+        printf("Erreur lors de la creation de la partie");
     }
 }
 if (isset($_POST['valid_selec'])) {
     printf("LOL");
     printf($_POST['select_joueur']);
     if (joinSalon($_POST['select_joueur'])) {
-        printf("BITTTTE");
+        redirect("../partie",3);
     } else {
-        //redirect("../",3);
-        printf("LUCAS LA MOUILLE");
+        printf("Erreur lors du rejoignement de la partie");
     }
 }
 ?>
