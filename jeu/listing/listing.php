@@ -14,11 +14,7 @@ if (isset($_POST['salon'])) {
 if (isset($_POST['valid_selec'])) {
     printf("LOL");
     printf($_POST['select_joueur']);
-    if (joinSalon($_POST['select_joueur'])) {
-        redirect("../partie",3);
-    } else {
-        printf("Erreur lors du rejoignement de la partie");
-    }
+    joinSalon($_POST['select_joueur']);
 }
 ?>
 <html lang="fr">

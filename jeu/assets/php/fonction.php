@@ -46,7 +46,8 @@ function salon()
     printf($id_joueur);
     if(mysqli_query($connexion, "INSERT INTO Partie (id_joueur1, id_joueur2,  etat , vainqueur) VALUES ('".$id_joueur."',null, 'attente', null)") === TRUE)
     {
-        return true;
+        $rset = mysqli_query($connexion, "SELECT id_partie from Partie where id_joueur1='".$id_joueur."' and etat like \"attente\"");
+        header("Refresh:0;Url=\"../partie/partie.php?id_partie=".$rset->fetch_row()[0]);
     }
     else
     {
@@ -69,9 +70,14 @@ function joinSalon($host)
     printf($id_partie);
     if(mysqli_query($connexion, "UPDATE Partie SET id_joueur2 = '".$id_joueur."', etat = 'en cours' WHERE id_partie = '".$id_partie."'") === TRUE)
     {
-        return true;
+        header("Refresh:0;Url=\"../partie/partie.php?id_partie=".$id_partie);
     } else {
-        return false;
+        printf("Erreur lors du rejoignement de la partie");
     }
+}
+
+function adversaire()
+{
+
 }
 ?>
