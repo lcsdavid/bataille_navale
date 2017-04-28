@@ -3,9 +3,11 @@
 function login($id, $pwd)
 {
     global $connexion;
-    $result = mysqli_query($connexion, "SELECT pseudo FROM Joueur WHERE email = '" . $id . "' AND mdp = '" . md5($pwd) . "'");
+    $result = mysqli_query($connexion, "SELECT id_joueur, pseudo FROM Joueur WHERE email = '" . $id . "' AND mdp = '" . md5($pwd) . "'");
     if ($result->num_rows == 1) {
-        $_SESSION['username'] = $result->fetch_row()[0];
+        $row = $result->fetch_row();
+        $_SESSION['id'] = $row[0];
+        $_SESSION['username'] = $row[1];
         $_SESSION['timestamp'] = time();
         return true;
     } else {
@@ -16,8 +18,9 @@ function login($id, $pwd)
 function register($email, $pseudo, $name, $firstname, $gender, $birth, $town, $pwd)
 {
     global $connexion;
-    if (mysqli_query($connexion, "SELECT * FROM Joueur WHERE email = '" . $email . "'")->num_rows == 0) {
+    if (mysqli_query($connexion, "SELECT * FROM Joueur WHERE email LIKE '" . $email . "'")->num_rows == 0) {
         mysqli_query($connexion, "INSERT INTO Joueur (email, pseudo, nom, prenom, sexe, naissance, ville, mdp) VALUES ('" . $email . "','" . $pseudo . "','" . $name . "','" . $firstname . "','" . $gender . "','" . $birth . "','" . $town . "','" . md5($pwd) . "')");
+        $_SESSION['id'] = mysqli_query($connexion, "SELECT DISTINCT id_joueur FROM Joueur WHERE email LIKE '" . $email . "'");
         $_SESSION['username'] = $pseudo;
         $_SESSION['timestamp'] = time();
         return true;
