@@ -36,9 +36,9 @@ class Grid
     public function loadBoats()
     {
         global $connexion;
-        $rset = mysqli_query($connexion, "SELECT type");
-    }
+        $rset = mysqli_query($connexion, "SELECT * FROM Navire WHERE id_joueur = '" . $this->id_joueur . "' ");
 
+    }
 
     public function reload()
     {
