@@ -4,8 +4,16 @@ session_start();
 require_once('../assets/php/init.php');
 require_once('../assets/php/fonction.php');
 require_once('../assets/php/class.php');
-$_SESSION['my_grid'] = new Grid();
-$_SESSION['ennemy_grid'] = new Grid();
+if (isset($_POST['create'])) {
+    create();
+    $_SESSION['my_grid'] = new Grid();
+    $_SESSION['ennemy_grid'] = new Grid();
+}
+if (isset($_POST['join'])) {
+    join();
+    $_SESSION['my_grid'] = new Grid();
+    $_SESSION['ennemy_grid'] = new Grid();
+}
 ?>
 <html lang="fr">
 <head>
@@ -27,24 +35,47 @@ $_SESSION['ennemy_grid'] = new Grid();
 </header>
 <!-- Main -->
 <main>
-    <table id="my-grid" class="grid">
-        <tr>
-            <td class="cell empty"></td>
-            <td class="cell coord">1</td>
-            <td class="cell coord">2</td>
-            <td class="cell coord">3</td>
-            <td class="cell coord">4</td>
-            <td class="cell coord">5</td>
-            <td class="cell coord">6</td>
-            <td class="cell coord">7</td>
-            <td class="cell coord">8</td>
-            <td class="cell coord">9</td>
-            <td class="cell coord">10</td>
-        </tr>
-        <?php
-        $_SESSION['my_grid']->load();
-        $_SESSION['my_grid']->display(); ?>
-    </table>
+    <div id="me">
+        <table id="my-grid" class="grid">
+            <tr>
+                <td class="cell empty"></td>
+                <td class="cell coord">1</td>
+                <td class="cell coord">2</td>
+                <td class="cell coord">3</td>
+                <td class="cell coord">4</td>
+                <td class="cell coord">5</td>
+                <td class="cell coord">6</td>
+                <td class="cell coord">7</td>
+                <td class="cell coord">8</td>
+                <td class="cell coord">9</td>
+                <td class="cell coord">10</td>
+            </tr>
+            <?php
+            $_SESSION['my_grid']->display(); ?>
+        </table>
+    </div>
+    <div id="center">
+
+    </div>
+    <div id="ennemy">
+        <table id="ennemy-grid" class="grid">
+            <tr>
+                <td class="cell empty"></td>
+                <td class="cell coord">1</td>
+                <td class="cell coord">2</td>
+                <td class="cell coord">3</td>
+                <td class="cell coord">4</td>
+                <td class="cell coord">5</td>
+                <td class="cell coord">6</td>
+                <td class="cell coord">7</td>
+                <td class="cell coord">8</td>
+                <td class="cell coord">9</td>
+                <td class="cell coord">10</td>
+            </tr>
+            <?php
+            $_SESSION['ennemy_grid']->display(); ?>
+        </table>
+    </div>
 </main>
 <!-- Footer -->
 <footer></footer>

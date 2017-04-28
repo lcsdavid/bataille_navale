@@ -1,46 +1,72 @@
 <?php
 
+define("ALLY", 0);
+define("ENNEMY", 1);
+
 class Grid
 {
     private $array = [""];
-    private $id_partie = 1;
-    private $id_joueur = 21;
+    private $id_partie;
+    private $id_joueur;
+    private $alignment;
 
-    function Grid()
-    {
-        $this->init()->load();
-    }
-
-    public function init()
-    {
+    function __construct(){
         for ($row = 'A'; $row <= 'J'; $row++) {
             for ($column = 1; $column <= 10; $column++) {
                 $cell = $row . (string)$column;
                 $this->array[$cell] = "sea";
             }
         }
-        return $this;
     }
+
+    /*function __construct($id_partie, $id_joueur, $alignment)
+    {
+        $this->id_partie = $id_partie;
+        $this->id_joueur = $id_joueur;
+        $this->alignment = $alignment;
+        for ($row = 'A'; $row <= 'J'; $row++) {
+            for ($column = 1; $column <= 10; $column++) {
+                $cell = $row . (string)$column;
+                $this->array[$cell] = "sea";
+            }
+        }
+        $this->load();
+    }*/
+
+    /*public function load2() {
+        global $connexion;
+        if($this->alignment == ALLY) {
+            $rset = mysqli_query($connexion, "SELECT type")
+        }
+    }
+
 
     public function load()
     {
         global $connexion;
-        $rset = mysqli_query($connexion, "SELECT tir, resultat FROM Tour WHERE id_partie = '" . $this->id_partie . "' AND id_joueur = '" . $this->id_joueur . "'");
+        if($this->alignment == ALLY) {
+            $rset = mysqli_query($connexion, "SELECT type")
+        }
+
+
+
+
+
+
+        $rset = mysqli_query($connexion, "SELECT tir FROM Tour WHERE id_partie = '" . $this->id_partie . "' AND id_joueur = '" . $this->id_joueur . "'");
         for ($i = 0; $i < $rset->num_rows; $i++) {
             $row = $rset->fetch_row();
-            printf('Ligne: ');
-            printf($row[0]);
-            printf(' Resultat: ');
-            printf($row[1]);
-            if ($row[1]) {
-                if ($this->array[$row[0]] == "sea") {
+            if ($this->alignment == ALLY) {
+                if ($this->array[$row[0]] == "sea")
                     $this->array[$row[0]] = "missed";
-                } else {
+                else
                     $this->array[$row[0]] = "hit";
-                }
+            }
+            if ($this->alignment == ENNEMY) {
+
             }
         }
-    }
+    }*/
 
     public function display()
     {
