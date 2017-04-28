@@ -41,9 +41,7 @@ function salon()
     $id = $_SESSION['username'];
     $rset = mysqli_query($connexion, "SELECT id_joueur FROM Joueur WHERE pseudo = '".$id."'");
     $id_joueur = $rset->fetch_row()[0];
-    printf(" <3lucas");
-    printf($id);
-    printf($id_joueur);
+    mysqli_query($connexion, "DELETE FROM Partie WHERE id_joueur1 = '".$id_joueur."' AND etat LIKE \"attente\"");
     if(mysqli_query($connexion, "INSERT INTO Partie (id_joueur1, id_joueur2,  etat , vainqueur) VALUES ('".$id_joueur."',null, 'attente', null)") === TRUE)
     {
         $rset = mysqli_query($connexion, "SELECT id_partie from Partie where id_joueur1='".$id_joueur."' and etat like \"attente\"");
