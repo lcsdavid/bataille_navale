@@ -37,18 +37,21 @@ function redirect($url, $time = 5)
     <div class='one'>.</div><div class='two'>.</div><div class='three'>.</div></main></div>";
 }
 
-/*
+
 function create()
 {
     global $connexion;
     mysqli_query($connexion, "DELETE FROM Partie WHERE id_joueur1 = '".$_SESSION['id']."' AND etat LIKE \"attente\"");
     mysqli_query($connexion, "INSERT INTO Partie (id_joueur1, id_joueur2,  etat , vainqueur) VALUES ('".$_SESSION['id']."',null, 'attente', null)");
-    }
+}
 
+/*
 function join($id_partie)
 {
-    global $connexion;
-    mysqli_query($connexion, "UPDATE Partie SET id_joueur2 = '".$_SESSION['id']."', etat = 'en cours' WHERE id_partie = '".$id_partie."'");
+    printf("fonction tavu");
+    printf($id_partie);
+    //global $connexion;
+    //mysqli_query($connexion, "UPDATE Partie SET id_joueur2 = '".$_SESSION['id']."', etat = 'en cours' WHERE id_partie = '".$id_partie."'");
 }*/
 
 function quitSalon($id_partie)

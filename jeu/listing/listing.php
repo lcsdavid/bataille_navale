@@ -27,15 +27,7 @@ require_once('../assets/php/fonction.php');
     <form method="POST" action="../partie/partie.php">
         <input name="create" type="submit" value="Créer Salohhhon">
     </form>
-    <?php
-    if(isset($_POST['valid_join'])){
-        echo "<form method=POST action='../partie/partie/partie.php'>";
-        echo "    <input type='hidden' name='join' value='ok'>";
-        echo "    <input type='hidden' name='id_partie' value='" . $_POST['select_partie'] . "'>";
-        echo "</form>";
-    }
-    ?>
-    <form class="rejoindre_partie" method="POST" action="./listing.php">
+    <form class="rejoindre_partie" method="POST" action="../partie/partie.php">
         <table style="width:100%">
             <tr>
                 <th>Pseudo</th>
@@ -48,7 +40,7 @@ require_once('../assets/php/fonction.php');
                 printf($rset->num_rows);
                 while ($obj = mysqli_fetch_assoc($rset)) {
                     echo "<tr>\n";
-                    echo "     <td><input type=\"radio\" name=\"select_partie\" value=".$obj['id_partie'].">".  $obj['pseudo'] ."<br></td>\n";
+                    echo "     <td><input type=\"radio\" name=\"id_partie\" value=".$obj['id_partie'].">".  $obj['pseudo'] ."<br></td>\n";
                     echo "     <td>".  $obj['prenom'] . "</td>\n";
                     echo "     <td>".  $obj['nom'] . "</td>\n";
                     echo "</tr>\n";
@@ -56,7 +48,7 @@ require_once('../assets/php/fonction.php');
                 mysqli_free_result($rset);
             ?>
         </table>
-        <input name="valid_join" type="submit" value="Valider Selection">
+        <input name="join" type="submit" value="Valider Selection">
     </form>
 
 </main>
