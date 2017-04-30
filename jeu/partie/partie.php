@@ -5,14 +5,11 @@ require_once('../assets/php/init.php');
 require_once('../assets/php/fonction.php');
 require_once('../assets/php/class.php');
 if (isset($_POST['create'])) {
-    printf("hello");
     createLobby();
-    printf("bite");
     $_SESSION['my_grid'] = new Grid(1,1,1);
     $_SESSION['ennemy_grid'] = new Grid(1,1,1);
 }
 if (isset($_POST['join'])) {
-    printf($_POST['id_partie']);
     joinLobby($_POST['id_partie']);
     $_SESSION['my_grid'] = new Grid(1,1,1);
     $_SESSION['ennemy_grid'] = new Grid(1,1,1);

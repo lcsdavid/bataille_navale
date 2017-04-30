@@ -48,8 +48,6 @@ function createLobby()
 
 function joinLobby($id_partie)
 {
-    printf("fonction tavu");
-    printf($id_partie);
     global $connexion;
     mysqli_query($connexion, "UPDATE Partie SET id_joueur2 = '".$_SESSION['id']."', etat = 'en cours' WHERE id_partie = '".$id_partie."'");
 }
