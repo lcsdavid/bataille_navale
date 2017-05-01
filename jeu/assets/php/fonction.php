@@ -7,7 +7,7 @@ function login($id, $pwd)
     if ($result->num_rows == 1) {
         $row = $result->fetch_row();
         $_SESSION['id'] = $row[0];
-        $_SESSION['username'] = $row[1];
+        $_SESSION['pseudo'] = $row[1];
         $_SESSION['timestamp'] = time();
         return true;
     } else {
@@ -21,7 +21,7 @@ function register($email, $pseudo, $name, $firstname, $gender, $birth, $town, $p
     if (mysqli_query($connexion, "SELECT * FROM Joueur WHERE email LIKE '" . $email . "'")->num_rows == 0) {
         mysqli_query($connexion, "INSERT INTO Joueur (email, pseudo, nom, prenom, sexe, naissance, ville, mdp) VALUES ('" . $email . "','" . $pseudo . "','" . $name . "','" . $firstname . "','" . $gender . "','" . $birth . "','" . $town . "','" . md5($pwd) . "')");
         $_SESSION['id'] = mysqli_query($connexion, "SELECT DISTINCT id_joueur FROM Joueur WHERE email LIKE '" . $email . "'");
-        $_SESSION['username'] = $pseudo;
+        $_SESSION['pseudo'] = $pseudo;
         $_SESSION['timestamp'] = time();
         return true;
     } else {
@@ -38,12 +38,6 @@ function redirect($url, $time = 5)
 }
 
 
-function createLobby()
-{
-    global $connexion;
-    mysqli_query($connexion, "DELETE FROM Partie WHERE id_joueur1 = '".$_SESSION['id']."' AND etat LIKE \"attente\"");
-    mysqli_query($connexion, "INSERT INTO Partie (id_joueur1, id_joueur2,  etat , vainqueur) VALUES ('".$_SESSION['id']."',null, 'attente', null)");
-}
 
 
 function joinLobby($id_partie)
