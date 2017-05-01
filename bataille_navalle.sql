@@ -8,14 +8,11 @@
 #------------------------------------------------------------
 
 CREATE TABLE Partie (
-  id_partie        INT NOT NULL AUTO_INCREMENT,
-  id_joueur1       INT NOT NULL,
-  id_joueur2       INT NOT NULL,
-  etat             VARCHAR(16),
-  vainqueur        VARCHAR(16),
-  timestamp        TIMESTAMP,
-  id_joueur        INT,
-  id_joueur_Joueur INT,
+  id_partie  INT         NOT NULL AUTO_INCREMENT,
+  id_joueur1 VARCHAR(21) NOT NULL,
+  id_joueur2 VARCHAR(21),
+  vainqueur  VARCHAR(21),
+  t_creation TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id_partie)
 );
 
@@ -24,16 +21,17 @@ CREATE TABLE Partie (
 #------------------------------------------------------------
 
 CREATE TABLE Joueur (
-  id_joueur  INT         NOT NULL AUTO_INCREMENT,
+  id_joueur  VARCHAR(21) NOT NULL,
   email      VARCHAR(32) NOT NULL,
-  pseudonyme VARCHAR(16),
-  nom        VARCHAR(16),
-  prenom     VARCHAR(16),
-  sexe       CHAR(1),
-  naissance  DATE,
-  ville      VARCHAR(16),
-  mdp        VARCHAR(16),
-  PRIMARY KEY (id_joueur, email)
+  nom        VARCHAR(16) NOT NULL,
+  prenom     VARCHAR(16) NOT NULL,
+  sexe       CHAR(1)     NOT NULL,
+  naissance  DATE        NOT NULL,
+  ville      VARCHAR(16) NOT NULL,
+  mdp        VARCHAR(16) NOT NULL,
+  t_creation TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id_joueur),
+  UNIQUE (email)
 );
 
 #------------------------------------------------------------
@@ -41,13 +39,15 @@ CREATE TABLE Joueur (
 #------------------------------------------------------------
 
 CREATE TABLE Navire (
-  id_navire INT NOT NULL AUTO_INCREMENT,
-  id_joueur INT NOT NULL,
-  type      VARCHAR(16),
-  taille    INT,
-  reference VARCHAR(64),
-  position  VARCHAR(4),
-  sens      CHAR(1),
+  id_navire  INT         NOT NULL AUTO_INCREMENT,
+  id_joueur  VARCHAR(21) NOT NULL,
+  id_partie  INT         NOT NULL,
+  type_nav   VARCHAR(16) NOT NULL,
+  taille     TINYINT     NOT NULL,
+  reference  VARCHAR(64) NOT NULL DEFAULT "https://fr.wikipedia.org",
+  position   VARCHAR(4)  NOT NULL,
+  sens       CHAR(1)     NOT NULL,
+  t_creation TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id_navire)
 );
 
@@ -56,12 +56,33 @@ CREATE TABLE Navire (
 #------------------------------------------------------------
 
 CREATE TABLE Tour (
-  id_tour   TIMESTAMP NOT NULL,
-  id_partie INT       NOT NULL,
-  tir       VARCHAR(4),
-  resultat  BOOLEAN,
-  carte     VARCHAR(16),
-  PRIMARY KEY (id_tour, id_partie)
+  id_tour   INT         NOT NULL AUTO_INCREMENT,
+  id_partie INT         NOT NULL,
+  id_joueur VARCHAR(21) NOT NULL,
+  resultat  CHAR(1)     NOT NULL,
+  carte     VARCHAR(16) NOT NULL,
+  t_joue    TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id_tour)
+);
+
+#------------------------------------------------------------
+# Table: Etat joueur
+#------------------------------------------------------------
+
+CREATE TABLE Etat joueur (
+  id_joueur   VARCHAR(21) NOT NULL,
+  etat_joueur VARCHAR(16) NOT NULL,
+  t_chgmt     TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+);
+
+#------------------------------------------------------------
+# Table: Etat partie
+#------------------------------------------------------------
+
+CREATE TABLE Etat partie (
+  id_partie   VARCHAR(21) NOT NULL,
+  etat_partie VARCHAR(16) NOT NULL,
+  t_chgmt     TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
 );
 
 ALTER TABLE Partie
@@ -71,4 +92,10 @@ ALTER TABLE Partie
 ALTER TABLE Navire
   ADD FOREIGN KEY (id_joueur) REFERENCES Joueur (id_joueur);
 ALTER TABLE Tour
+  ADD FOREIGN KEY (id_partie) REFERENCES Partie (id_partie);
+ALTER TABLE Tour
+  ADD FOREIGN KEY (id_joueur) REFERENCES Joueur (id_joueur);
+ALTER TABLE Etat joueur
+  ADD FOREIGN KEY (id_joueur) REFERENCES Joueur (id_joueur);
+ALTER TABLE Etat partie
   ADD FOREIGN KEY (id_partie) REFERENCES Partie (id_partie);
