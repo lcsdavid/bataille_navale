@@ -37,15 +37,6 @@ function redirect($url, $time = 5)
     <div class='one'>.</div><div class='two'>.</div><div class='three'>.</div></main></div>";
 }
 
-
-
-
-function joinLobby($id_partie)
-{
-    global $connexion;
-    mysqli_query($connexion, "UPDATE Partie SET id_joueur2 = '".$_SESSION['id']."', etat = 'en cours' WHERE id_partie = '".$id_partie."'");
-}
-
 function quitSalon($id_partie)
 {
     global $connexion;

@@ -4,19 +4,6 @@
 
 
 #------------------------------------------------------------
-# Table: Partie
-#------------------------------------------------------------
-
-CREATE TABLE Partie (
-  id_partie  INT         NOT NULL AUTO_INCREMENT,
-  id_joueur1 VARCHAR(21) NOT NULL,
-  id_joueur2 VARCHAR(21),
-  vainqueur  VARCHAR(21),
-  t_creation TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (id_partie)
-);
-
-#------------------------------------------------------------
 # Table: Joueur
 #------------------------------------------------------------
 
@@ -35,6 +22,21 @@ CREATE TABLE Joueur (
 );
 
 #------------------------------------------------------------
+# Table: Partie
+#------------------------------------------------------------
+
+CREATE TABLE Partie (
+  id_partie  INT         NOT NULL AUTO_INCREMENT,
+  id_joueur1 VARCHAR(21) NOT NULL,
+  id_joueur2 VARCHAR(21),
+  vainqueur  VARCHAR(21),
+  t_creation TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id_partie),
+  FOREIGN KEY (id_joueur1) REFERENCES Joueur (id_joueur),
+  FOREIGN KEY (id_joueur2) REFERENCES Joueur (id_joueur)
+);
+
+#------------------------------------------------------------
 # Table: Navire
 #------------------------------------------------------------
 
@@ -48,7 +50,9 @@ CREATE TABLE Navire (
   position   VARCHAR(4)  NOT NULL,
   sens       CHAR(1)     NOT NULL,
   t_creation TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (id_navire)
+  PRIMARY KEY (id_navire),
+  FOREIGN KEY (id_joueur) REFERENCES Joueur (id_joueur),
+  FOREIGN KEY (id_partie) REFERENCES Partie (id_partie)
 );
 
 #------------------------------------------------------------
@@ -57,45 +61,34 @@ CREATE TABLE Navire (
 
 CREATE TABLE Tour (
   id_tour   INT         NOT NULL AUTO_INCREMENT,
-  id_partie INT         NOT NULL,
   id_joueur VARCHAR(21) NOT NULL,
+  id_partie INT         NOT NULL,
   resultat  CHAR(1)     NOT NULL,
   carte     VARCHAR(16) NOT NULL,
   t_joue    TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (id_tour)
+  PRIMARY KEY (id_tour),
+  FOREIGN KEY (id_joueur) REFERENCES Joueur (id_joueur),
+  FOREIGN KEY (id_partie) REFERENCES Partie (id_partie)
 );
 
 #------------------------------------------------------------
-# Table: Etat joueur
+# Table: Etat_joueur
 #------------------------------------------------------------
 
-CREATE TABLE Etat joueur (
+CREATE TABLE Etat_joueur (
   id_joueur   VARCHAR(21) NOT NULL,
   etat_joueur VARCHAR(16) NOT NULL,
   t_chgmt     TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (id_joueur) REFERENCES Joueur (id_joueur)
 );
 
 #------------------------------------------------------------
-# Table: Etat partie
+# Table: Etat_partie
 #------------------------------------------------------------
 
-CREATE TABLE Etat partie (
-  id_partie   VARCHAR(21) NOT NULL,
+CREATE TABLE Etat_partie (
+  id_partie   INT         NOT NULL,
   etat_partie VARCHAR(16) NOT NULL,
   t_chgmt     TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (id_partie) REFERENCES Partie (id_partie)
 );
-
-ALTER TABLE Partie
-  ADD FOREIGN KEY (id_joueur1) REFERENCES Joueur (id_joueur);
-ALTER TABLE Partie
-  ADD FOREIGN KEY (id_joueur2) REFERENCES Joueur (id_joueur);
-ALTER TABLE Navire
-  ADD FOREIGN KEY (id_joueur) REFERENCES Joueur (id_joueur);
-ALTER TABLE Tour
-  ADD FOREIGN KEY (id_partie) REFERENCES Partie (id_partie);
-ALTER TABLE Tour
-  ADD FOREIGN KEY (id_joueur) REFERENCES Joueur (id_joueur);
-ALTER TABLE Etat joueur
-  ADD FOREIGN KEY (id_joueur) REFERENCES Joueur (id_joueur);
-ALTER TABLE Etat partie
-  ADD FOREIGN KEY (id_partie) REFERENCES Partie (id_partie);
