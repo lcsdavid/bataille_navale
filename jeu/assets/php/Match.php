@@ -21,74 +21,23 @@ class Match
     }
 
     /**
-     * Pose un bateau.
-     * @param $position string
-     * @param $type_vessel string
-     * @param $orientation string
+     * @param $type_vessel
+     * @param $position
+     * @param $orientation = "H" ou "V"
      * @return bool
      */
-    public function layVessel($position, $type_vessel, $orientation)
+    public function layVessel($type_vessel, $position, $orientation)
     {
+        $vessel = new Vessel($type_vessel);
         global $connexion;
-        if ($orientation == "H")
-            switch ($type_vessel) {
-                case "porte-avion": // 5 cases
-                    if ($position[0] < "G") {
-                        mysqli_query($connexion, "INSERT INTO Navire (id_joueur, id_partie, type_nav, taille, reference, position, sens) VALUES ('" . $this->id_joueur . "','" . $this->id_partie . "','porte-avion','5','https://fr.wikipedia.org/wiki/Porte-avions','" . $position . "','H')");
-                        return true;
-                    }
-                    return false;
-                case "croiseur": // 4 cases
-                    if ($position[0] < "H") {
-                        mysqli_query($connexion, "INSERT INTO Navire (id_joueur, id_partie, type_nav, taille, reference, position, sens) VALUES ('" . $this->id_joueur . "','" . $this->id_partie . "','porte-avion','4','https://fr.wikipedia.org/wiki/Porte-avions','" . $position . "','H')");
-                        return true;
-                    }
-                    return false;
-                case "contre-torpilleur" || "sous-marin": // 3 cases
-                    if ($position[0] < "I") {
-                        mysqli_query($connexion, "INSERT INTO Navire (id_joueur, id_partie, type_nav, taille, reference, position, sens) VALUES ('" . $this->id_joueur . "','" . $this->id_partie . "','porte-avion','3','https://fr.wikipedia.org/wiki/Porte-avions','" . $position . "','H')");
-                        return true;
-                    }
-                    return false;
-                case "torpilleur": // 2 cases
-                    if ($position[0] < "J") {
-                        mysqli_query($connexion, "INSERT INTO Navire (id_joueur, id_partie, type_nav, taille, reference, position, sens) VALUES ('" . $this->id_joueur . "','" . $this->id_partie . "','porte-avion','2','https://fr.wikipedia.org/wiki/Porte-avions','" . $position . "','H')");
-                        return true;
-                    }
-                    return false;
-                default:
-                    break;
-            }
-        if ($orientation == "V")
-            switch ($type_vessel) {
-                case "porte-avion": // 5 cases
-                    if ($position[1] < "7") {
-                        mysqli_query($connexion, "INSERT INTO Navire (id_joueur, id_partie, type_nav, taille, reference, position, sens) VALUES ('" . $this->id_joueur . "','" . $this->id_partie . "','porte-avion','5','https://fr.wikipedia.org/wiki/Porte-avions','" . $position . "','V')");
-                        return true;
-                    }
-                    return false;
-                case "croiseur": // 4 cases
-                    if ($position[1] < "8") {
-                        mysqli_query($connexion, "INSERT INTO Navire (id_joueur, id_partie, type_nav, taille, reference, position, sens) VALUES ('" . $this->id_joueur . "','" . $this->id_partie . "','porte-avion','4','https://fr.wikipedia.org/wiki/Porte-avions','" . $position . "','V')");
-                        return true;
-                    }
-                    return false;
-                case "contre-torpilleur" || "sous-marin": // 3 cases
-                    if ($position[1] < "9") {
-                        mysqli_query($connexion, "INSERT INTO Navire (id_joueur, id_partie, type_nav, taille, reference, position, sens) VALUES ('" . $this->id_joueur . "','" . $this->id_partie . "','porte-avion','3','https://fr.wikipedia.org/wiki/Porte-avions','" . $position . "','V')");
-                        return true;
-                    }
-                    return false;
-                case "torpilleur": // 2 cases
-                    if ($position[1] < "10") {
-                        mysqli_query($connexion, "INSERT INTO Navire (id_joueur, id_partie, type_nav, taille, reference, position, sens) VALUES ('" . $this->id_joueur . "','" . $this->id_partie . "','porte-avion','2','https://fr.wikipedia.org/wiki/Porte-avions','" . $position . "','V')");
-                        return true;
-                    }
-                    return false;
-                default:
-                    break;
-            }
-        return false;
+        for ($i = 0; $i < $vessel->getLenght(); $i++) {
+            if ($orientation == "H") if ($this->ally_grid->getCase($position[0] . ($position[1] + $i)) != "sea")
+                return false;
+            else if ($this->ally_grid->getCase(($position[0] + $i) . $position[1]) != "sea")
+                return false;
+        }
+        mysqli_query($connexion, "INSERT INTO Navire (id_joueur, id_partie, type_nav, taille, reference, position, sens) VALUES ('" . $_SESSION['id'] . "','" . $this->id_partie . "','" . $type_vessel . "','" . $vessel->getLenght() . "','" . $vessel->getReference() . "','" . $position . "','" . $orientation . "')");
+        return true;
     }
 
     /**
@@ -110,7 +59,8 @@ class Match
     /**
      * @param $opponent_id
      */
-    public function setEnnemyGrid($opponent_id) {
+    public function setEnnemyGrid($opponent_id)
+    {
         $this->ennemy_grid = new Grid($this->id_partie, $opponent_id, ENNEMY);
     }
 

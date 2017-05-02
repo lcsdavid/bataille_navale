@@ -86,4 +86,5 @@ function quit()
     header("../");
 }
 
+
 ?>

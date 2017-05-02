@@ -47,14 +47,13 @@ class Grid
             }
         }
         $rset = mysqli_query($connexion, "SELECT tir FROM Tour WHERE id_partie = '" . $this->id_partie . "' AND id_joueur = '" . $this->id_joueur . "'");
-        for ($i = 0; $i < $rset->num_rows; $i++) {
+        while ($row = $rset->fetch_row()) {
             $row = $rset->fetch_row();
             if ($this->array[$row[0]] == "sea")
                 $this->array[$row[0]] = "missed";
             else
                 $this->array[$row[0]] = "hit";
         }
-
     }
 
     /**
@@ -70,6 +69,18 @@ class Grid
             }
         }
         return $this;
+    }
+
+    /**
+     * @param $pos
+     * @return string
+     */
+    public function getCase($pos) {
+        return $this->array[$pos];
+    }
+
+    public function setCase($value, $pos) {
+        $this->array[$pos] = $value;
     }
 
     /**
