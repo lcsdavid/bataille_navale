@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once('assets/php/init.php');
-require_once('assets/php/fonction.php');
+// require_once('assets/php/fonction.php');
 ?>
 <!DOCTYPE html>
 <html lang="fr">

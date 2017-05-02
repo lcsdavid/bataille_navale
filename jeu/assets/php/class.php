@@ -13,91 +13,19 @@ class Partie
     {
         $this->id_partie = $id_partie;
         $this->ally_grid = new Grid($id_partie, $my_id, ALLY);
-        $this->ennemy_grid = new Grid($id_partie, $opponent_id, ENNEMY);
+        if ($opponent_id != null)
+            $this->ennemy_grid = new Grid($id_partie, $opponent_id, ENNEMY);
     }
 
-    static public function create()
-    {
-        global $connexion;
-        mysqli_query($connexion, "UPDATE Partie SET etat_partie = 'cancelled' WHERE id_joueur1 = '" . $_SESSION['id'] . "' AND etat_partie = 'waiting'");
-        mysqli_query($connexion, "INSERT INTO Partie (id_joueur1, id_joueur2,  etat , vainqueur) VALUES ('" . $_SESSION['id'] . "',NULL, 'waiting', NULL)");
+    public function addEnnemy($opponent_id) {
+        $this->ennemy_grid = new Grid($this->id_partie, $opponent_id, ENNEMY);
     }
 
-    static public function join($id_partie)
-    {
-        global $connexion;
-        mysqli_query($connexion, "UPDATE Partie SET id_joueur2 = '" . $_SESSION['id'] . "', etat = 'en cours' WHERE id_partie = '" . $id_partie . "'");
-    }
-
-    /**
-     * @return Grid
-     */
-    public function getAllyGrid()
-    {
-        return $this->ally_grid;
-    }
-
-    /**
-     * @return Grid
-     */
-    public function getEnnemyGrid()
-    {
-        return $this->ennemy_grid;
-    }
-
-    /**
-     * @return string
-     */
-    public function getMyID()
-    {
-        $this->ally_grid->getIDJoueur();
-    }
-
-    /**
-     * @return string
-     */
-    public function getOpponentID()
-    {
-        $this->ennemy_grid->getIdJoueur();
-    }
-
-}
-
-class Grid
-{
-    private $array = [""];
-    private $id_partie;
-    private $id_joueur;
-    private $alignment;
-
-    /**
-     * Grid constructor.
-     * @param $id_partie
-     * @param $id_joueur
-     * @param $alignment
-     */
-    function __construct($id_partie, $id_joueur, $alignment)
-    {
-        $this->id_partie = $id_partie;
-        $this->id_joueur = $id_joueur;
-        $this->alignment = $alignment;
-        for ($row = 1; $row <= 10; $row++) {
-            for ($column = 'A'; $column <= 'J'; $column++) {
-                $cell = $column . $row;
-                $this->array[$cell] = "sea";
-            }
-        }
-    }
-
-    /**
-     * @return bool
-     */
     public function fire()
     {
         global $connexion;
         return false;
     }
-
 
     /**
      * Pose un bateau.
@@ -168,6 +96,73 @@ class Grid
                     break;
             }
         return false;
+    }
+
+    /**
+     * @return Grid
+     */
+    public function getAllyGrid()
+    {
+        return $this->ally_grid;
+    }
+
+    /**
+     * @return Grid
+     */
+    public function getEnnemyGrid()
+    {
+        return $this->ennemy_grid;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMyID()
+    {
+        $this->ally_grid->getIDJoueur();
+    }
+
+    /**
+     * @return string
+     */
+    public function getOpponentID()
+    {
+        $this->ennemy_grid->getIDJoueur();
+    }
+
+    /**
+     * @return int
+     */
+    public function getIDPartie()
+    {
+        return $this->id_partie;
+    }
+}
+
+class Grid
+{
+    private $array = [""];
+    private $id_partie;
+    private $id_joueur;
+    private $alignment;
+
+    /**
+     * Grid constructor.
+     * @param $id_partie
+     * @param $id_joueur
+     * @param $alignment
+     */
+    function __construct($id_partie, $id_joueur, $alignment)
+    {
+        $this->id_partie = $id_partie;
+        $this->id_joueur = $id_joueur;
+        $this->alignment = $alignment;
+        for ($row = 1; $row <= 10; $row++) {
+            for ($column = 'A'; $column <= 'J'; $column++) {
+                $cell = $column . $row;
+                $this->array[$cell] = "sea";
+            }
+        }
     }
 
     /**
