@@ -3,7 +3,7 @@ session_start();
 require_once('../assets/php/init.php');
 require_once('../assets/php/fonction.php');
 if (isset($_POST['connect'])) {
-    echo login($_POST['username'], $_POST['password']);
+    login($_POST['username'], $_POST['password']);
 }
 ?>
 <!DOCTYPE html>
@@ -32,14 +32,6 @@ if (isset($_POST['connect'])) {
         <input name="password" type="password" placeholder="Mot de passe">
         <input name="connect" type="submit" value="Se connecter">
     </form>
-
-    <span style="color: black;"> <?php
-        if (isset($_SESSION['username'])) {
-            echo "Bonjour " . $_SESSION['username'] . " le fils de pute";
-        } else {
-            echo "Non connecté";
-        } ?>
-    </span>
 </main>
 <!-- Footer -->
 <footer></footer>
@@ -49,7 +41,7 @@ if (isset($_POST['connect'])) {
     <ul>
         <li><a href="../">Accueil</a></li>
         <?php
-        if (isset($_SESSION['username'])) {
+        if (isset($_SESSION['ID'])) {
             echo "<li><a href='../mon-compte'>Mon compte</a></li>";
             echo "<li><a href='../partie'>Partie</a></li>";
             echo "<li><a href='../statistique'>Statistique</a></li>";

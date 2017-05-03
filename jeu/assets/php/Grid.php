@@ -2,10 +2,24 @@
 
 class Grid
 {
+    /**
+     * @var array
+     */
     private $array = [""];
-    private $id_partie;
-    private $id_joueur;
-    private $alignment;
+    /**
+     * @var string
+     */
+    private $id_partie = -1;
+
+    /**
+     * @var string
+     */
+    private $id_joueur = "";
+
+    /**
+     * @var int
+     */
+    private $alignment = -1;
 
     /**
      * Grid constructor.
@@ -81,6 +95,14 @@ class Grid
 
     public function setCase($value, $pos) {
         $this->array[$pos] = $value;
+    }
+
+    /**
+     * @param string $id_joueur
+     */
+    public function setIDJoueur($id_joueur)
+    {
+        $this->id_joueur = $id_joueur;
     }
 
     /**

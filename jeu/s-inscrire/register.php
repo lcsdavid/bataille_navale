@@ -5,7 +5,6 @@ require_once('../assets/php/init.php');
 require_once('../assets/php/fonction.php');
 $register_accomplished = false;
 if (isset($_POST["submit"]))
-    printf("MDLOL");
     if (register($_POST['mail'], $_POST['pseudo'], $_POST['name'], $_POST['firstname'], $_POST['gender'], $_POST['birth'], $_POST['town'], $_POST['pwd']))
         $register_accomplished = true;
 ?>
@@ -98,13 +97,6 @@ if (isset($_POST["submit"]))
         </table>
         <input name="submit" type="submit" value="S'enregistrer">
     </form>
-    <span>
-            <?php if (isset($_SESSION['username'])) {
-                echo "Bonjour " . $_SESSION['username'] . " le fils de pute";
-            } else {
-                echo "Non connecté";
-            } ?>
-        </span>
 </main>
 <!-- Footer -->
 <footer></footer>

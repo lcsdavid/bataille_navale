@@ -35,7 +35,7 @@ session_start();
     <ul>
         <li><a href="./">Accueil</a></li>
         <?php
-        if(isset($_SESSION['username'])) {
+        if(isset($_SESSION['ID'])) {
             echo "<li><a href='../mon-compte'>Mon compte</a></li>";
             echo "<li><a href='../partie'>Partie</a></li>";
             echo "<li><a href='../statistique'>Statistique</a></li>";

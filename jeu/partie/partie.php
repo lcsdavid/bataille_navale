@@ -5,14 +5,10 @@ require_once('../assets/php/init.php');
 require_once('../assets/php/fonction.php');
 require_once('../assets/php/class.php');
 if (isset($_POST['create'])) {
-    createLobby();
-    $_SESSION['my_grid'] = new Grid(1,1,1);
-    $_SESSION['ennemy_grid'] = new Grid(1,1,1);
+    $_SESSION['partie'] = new Match();
 }
 if (isset($_POST['join'])) {
-    joinLobby($_POST['id_partie']);
-    $_SESSION['my_grid'] = new Grid(1,1,1);
-    $_SESSION['ennemy_grid'] = new Grid(1,1,1);
+    $_SESSION['partie'] = new Match($_POST['id_partie']);
 }
 ?>
 <html lang="fr">
@@ -39,19 +35,19 @@ if (isset($_POST['join'])) {
         <table id="my-grid" class="grid">
             <tr>
                 <td class="cell empty"></td>
-                <td class="cell coord">1</td>
-                <td class="cell coord">2</td>
-                <td class="cell coord">3</td>
-                <td class="cell coord">4</td>
-                <td class="cell coord">5</td>
-                <td class="cell coord">6</td>
-                <td class="cell coord">7</td>
-                <td class="cell coord">8</td>
-                <td class="cell coord">9</td>
-                <td class="cell coord">10</td>
+                <td class="cell coord">A</td>
+                <td class="cell coord">B</td>
+                <td class="cell coord">C</td>
+                <td class="cell coord">D</td>
+                <td class="cell coord">E</td>
+                <td class="cell coord">F</td>
+                <td class="cell coord">G</td>
+                <td class="cell coord">H</td>
+                <td class="cell coord">I</td>
+                <td class="cell coord">J</td>
             </tr>
             <?php
-            $_SESSION['my_grid']->display(); ?>
+            $_SESSION['partie']->getAllyGrid()->display() ?>
         </table>
     </div>
     <div id="center">
@@ -61,19 +57,19 @@ if (isset($_POST['join'])) {
         <table id="ennemy-grid" class="grid">
             <tr>
                 <td class="cell empty"></td>
-                <td class="cell coord">1</td>
-                <td class="cell coord">2</td>
-                <td class="cell coord">3</td>
-                <td class="cell coord">4</td>
-                <td class="cell coord">5</td>
-                <td class="cell coord">6</td>
-                <td class="cell coord">7</td>
-                <td class="cell coord">8</td>
-                <td class="cell coord">9</td>
-                <td class="cell coord">10</td>
+                <td class="cell coord">A</td>
+                <td class="cell coord">B</td>
+                <td class="cell coord">C</td>
+                <td class="cell coord">D</td>
+                <td class="cell coord">E</td>
+                <td class="cell coord">F</td>
+                <td class="cell coord">G</td>
+                <td class="cell coord">H</td>
+                <td class="cell coord">I</td>
+                <td class="cell coord">J</td>
             </tr>
             <?php
-            $_SESSION['ennemy_grid']->display(); ?>
+            $_SESSION['partie']->getEnnemyGrid()->display(); ?>
         </table>
     </div>
 </main>
@@ -85,7 +81,7 @@ if (isset($_POST['join'])) {
     <ul>
         <li><a href="./">Accueil</a></li>
         <?php
-        if (isset($_SESSION['username'])) {
+        if (isset($_SESSION['ID'])) {
             echo "<li><a href='../mon-compte'>Mon compte</a></li>";
             echo "<li><a href='../partie'>Partie</a></li>";
             echo "<li><a href='../statistique'>Statistique</a></li>";
