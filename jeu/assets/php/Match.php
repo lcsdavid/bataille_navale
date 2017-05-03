@@ -20,17 +20,15 @@ class Match
      */
     private $ennemy_grid;
 
-    function __constructCreate()
+    function __construct($id_partie)
     {
-        $this->create();
-        $this->ally_grid = new Grid($this->id_partie, $_SESSION['ID'], ALLY);
-    }
-
-    function __constructJoin($id_partie)
-    {
-        $this->join();
-        $this->ally_grid = new Grid($id_partie, $_SESSION['ID'], ALLY);
-
+        if ($id_partie == -1) {
+            $this->create();
+            $this->ally_grid = new Grid($this->id_partie, $_SESSION['ID'], ALLY);
+        } else {
+            $this->join();
+            $this->ally_grid = new Grid($id_partie, $_SESSION['ID'], ALLY);
+        }
     }
 
     function __destruct()
@@ -44,7 +42,7 @@ class Match
     private function create()
     {
         global $connexion;
-        mysqli_query($connexion, "UPDATE Partie NATURAL JOIN Etat_partie SET etat_partie = 'cancelled' WHERE id_joueur1 = '" . $_SESSION['ID'] . "'");
+        mysqli_query($connexion, "INSERT INTO Etat_partie (id_partie, etat_partie) VALUES ((SELECT id_partie FROM Partie JOIN Joueur ON Partie.id_joueur1 = Joueur.id_joueur WHERE id_partie NOT IN (SELECT id_partie FROM Etat_partie)), etat_partie = 'cancelled') ");
         mysqli_query($connexion, "INSERT INTO Partie (id_joueur1) VALUES ('" . $_SESSION['ID'] . "')");
         $this->id_partie = mysqli_query($connexion, "SELECT id_partie FROM Partie WHERE id_joueur1 = '" . $_SESSION['ID'] . "' LIMIT 1")->fetch_row()[0];
     }
@@ -124,7 +122,7 @@ class Match
     {
         global $connexion;
         $row = mysqli_query($connexion, "SELECT id_joueur1 ,id_joueur2 FROM Partie WHERE id_partie = '" . $this->id_partie . "'")->fetch_row();
-        if($row[0] == $_SESSION['id'])
+        if ($row[0] == $_SESSION['id'])
             $this->ennemy_grid = new Grid($this->id_partie, $row[1], ENNEMY);
         else
             $this->ennemy_grid = new Grid($this->id_partie, $row[0], ENNEMY);

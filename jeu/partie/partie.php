@@ -3,13 +3,6 @@
 session_start();
 require_once('../assets/php/init.php');
 require_once('../assets/php/fonction.php');
-require_once('../assets/php/class.php');
-if (isset($_POST['create'])) {
-    $_SESSION['partie'] = new Match();
-}
-if (isset($_POST['join'])) {
-    $_SESSION['partie'] = new Match($_POST['id_partie']);
-}
 ?>
 <html lang="fr">
 <head>
@@ -31,47 +24,19 @@ if (isset($_POST['join'])) {
 </header>
 <!-- Main -->
 <main>
-    <div id="me">
-        <table id="my-grid" class="grid">
-            <tr>
-                <td class="cell empty"></td>
-                <td class="cell coord">A</td>
-                <td class="cell coord">B</td>
-                <td class="cell coord">C</td>
-                <td class="cell coord">D</td>
-                <td class="cell coord">E</td>
-                <td class="cell coord">F</td>
-                <td class="cell coord">G</td>
-                <td class="cell coord">H</td>
-                <td class="cell coord">I</td>
-                <td class="cell coord">J</td>
-            </tr>
-            <?php
-            $_SESSION['partie']->getAllyGrid()->display() ?>
-        </table>
-    </div>
-    <div id="center">
+    <?php
 
-    </div>
-    <div id="ennemy">
-        <table id="ennemy-grid" class="grid">
-            <tr>
-                <td class="cell empty"></td>
-                <td class="cell coord">A</td>
-                <td class="cell coord">B</td>
-                <td class="cell coord">C</td>
-                <td class="cell coord">D</td>
-                <td class="cell coord">E</td>
-                <td class="cell coord">F</td>
-                <td class="cell coord">G</td>
-                <td class="cell coord">H</td>
-                <td class="cell coord">I</td>
-                <td class="cell coord">J</td>
-            </tr>
-            <?php
-            $_SESSION['partie']->getEnnemyGrid()->display(); ?>
-        </table>
-    </div>
+    if (isset($_POST['create'])) {
+        $_SESSION['partie'] = new Match(-1);
+        include_once ('currentMatch.php');
+    }
+    else if (isset($_POST['join'])) {
+        $_SESSION['partie'] = new Match($_POST['id_partie']);
+        include_once ('currentMatch.php');
+    }
+    else
+        require_once ('matches.php');
+    ?>
 </main>
 <!-- Footer -->
 <footer></footer>

@@ -24,31 +24,26 @@ require_once('../assets/php/fonction.php');
 </header>
 <!-- Main -->
 <main>
-    <form method="POST" action="../partie/partie.php">
+    <form method="POST" action="../partie/">
         <input name="create" type="submit" value="Créer Salohhhon">
     </form>
-    <form class="rejoindre_partie" method="POST" action="../partie/partie.php">
+    <form partie.php">
         <table style="width:100%">
             <tr>
                 <th>Pseudo</th>
                 <th>Prenom</th>
                 <th>Nom</th>
+                <th></th>
             </tr>
             <?php
-                $rset = mysqli_query($connexion, 'SELECT DISTINCT j.id_joueur, j.pseudo, j.prenom, j.nom, p.id_partie FROM Joueur j ,Partie p WHERE p.etat = "attente" AND p.id_joueur1 = j.id_joueur');
-                printf('Ligne: ');
-                printf($rset->num_rows);
-                while ($obj = mysqli_fetch_assoc($rset)) {
-                    echo "<tr>\n";
-                    echo "     <td><input type=\"radio\" name=\"id_partie\" value=".$obj['id_partie'].">".  $obj['pseudo'] ."<br></td>\n";
-                    echo "     <td>".  $obj['prenom'] . "</td>\n";
-                    echo "     <td>".  $obj['nom'] . "</td>\n";
-                    echo "</tr>\n";
-                }
-                mysqli_free_result($rset);
+            $rset = mysqli_query($connexion, "SELECT id_partie, id_joueur1, prenom, nom FROM Partie JOIN Joueur ON Partie.id_joueur1 = Joueur.id_joueur WHERE id_partie NOT IN (SELECT id_partie FROM Etat_partie)");
+            while ($row = $rset->fetch_row()) {
+                echo "<tr><form class='listing' method='POST' action='../partie/'><input type='hidden' name='id_partie' value='" . $row[0] . "'><td>" . $row[1] . "</td></td><td>"
+                    . $row[2] . "</td><td>" . $row[3] . "</td><td><input name='join' type='submit' value='Rejoindre'></td></form></tr>";
+            }
             ?>
         </table>
-        <input name="join" type="submit" value="Valider Selection">
+
     </form>
 
 </main>
@@ -60,7 +55,7 @@ require_once('../assets/php/fonction.php');
     <ul>
         <li><a href="./">Accueil</a></li>
         <?php
-        if(isset($_SESSION['ID'])) {
+        if (isset($_SESSION['ID'])) {
             echo "<li><a href='../mon-compte'>Mon compte</a></li>";
             echo "<li><a href='../partie'>Partie</a></li>";
             echo "<li><a href='../statistique'>Statistique</a></li>";
