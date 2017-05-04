@@ -66,9 +66,9 @@ CREATE TABLE Tour (
   resultat  CHAR(1)     NOT NULL,
   carte     VARCHAR(16) NOT NULL,
   t_joue    TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (id_tour),
-  FOREIGN KEY (id_joueur) REFERENCES Joueur (id_joueur),
-  FOREIGN KEY (id_partie) REFERENCES Partie (id_partie)
+  PRIMARY KEY (id_tour, id_partie),
+  FOREIGN KEY (id_partie) REFERENCES Partie (id_partie),
+  FOREIGN KEY (id_joueur) REFERENCES Joueur (id_joueur)
 );
 
 #------------------------------------------------------------

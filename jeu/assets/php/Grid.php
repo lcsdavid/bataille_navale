@@ -113,3 +113,5 @@ class Grid
         return $this->id_joueur;
     }
 }
+
+?>

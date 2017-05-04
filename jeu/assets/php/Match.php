@@ -1,14 +1,11 @@
 <?php
 
-define("ALLY", 0);
-define("ENNEMY", 1);
-
 class Match
 {
     /**
      * @var int
      */
-    private $id_partie;
+    private $id_partie = -1;
 
     /**
      * @var Grid
@@ -22,18 +19,14 @@ class Match
 
     function __construct($id_partie)
     {
-        if ($id_partie == -1) {
+        echo "c";
+        /*if ($id_partie == -1) {
             $this->create();
             $this->ally_grid = new Grid($this->id_partie, $_SESSION['ID'], ALLY);
         } else {
             $this->join();
             $this->ally_grid = new Grid($id_partie, $_SESSION['ID'], ALLY);
-        }
-    }
-
-    function __destruct()
-    {
-        // TODO: Implement __destruct() method.
+        }*/
     }
 
     /**
@@ -56,7 +49,7 @@ class Match
         $id_joueur1 = mysqli_query($connexion, "SELECT id_joueur1 FROM Partie WHERE id_partie = '" . $this->id_partie . "'")->fetch_row()[0];
         if ($_SESSION['ID'] != $id_joueur1) {
             mysqli_query($connexion, "UPDATE Partie SET id_joueur2 = '" . $_SESSION['ID'] . "' WHERE id_partie = '" . $this->id_partie . "'");
-            $this->ennemy_grid = new Grid($this->id_partie, $id_joueur1, ENNEMY);
+            $this->ennemy_grid = new Grid($this->id_partie, $id_joueur1, 1);
         }
     }
 
@@ -70,12 +63,10 @@ class Match
         mysqli_query($connexion, "UPDATE Etat_partie SET etat_partie = 'cancelled' WHERE id_partie = '" . Match::class::$_SESSION['partie']->getIDPartie() . "'");
         header("../");
         unset($_SESSION['partie']);
-        $this->__destruct();
     }
 
     public function fire()
     {
-        global $connexion;
         return false;
     }
 
@@ -123,9 +114,9 @@ class Match
         global $connexion;
         $row = mysqli_query($connexion, "SELECT id_joueur1 ,id_joueur2 FROM Partie WHERE id_partie = '" . $this->id_partie . "'")->fetch_row();
         if ($row[0] == $_SESSION['id'])
-            $this->ennemy_grid = new Grid($this->id_partie, $row[1], ENNEMY);
+            $this->ennemy_grid = new Grid($this->id_partie, $row[1], 0);
         else
-            $this->ennemy_grid = new Grid($this->id_partie, $row[0], ENNEMY);
+            $this->ennemy_grid = new Grid($this->id_partie, $row[0], 0);
     }
 
     /**
@@ -133,7 +124,7 @@ class Match
      */
     public function getMyID()
     {
-        $this->ally_grid->getIDJoueur();
+        return $this->ally_grid->getIDJoueur();
     }
 
     /**
@@ -141,7 +132,7 @@ class Match
      */
     public function getOpponentID()
     {
-        $this->ennemy_grid->getIDJoueur();
+        return $this->ennemy_grid->getIDJoueur();
     }
 
     /**
@@ -152,3 +143,5 @@ class Match
         return $this->id_partie;
     }
 }
+
+?>
