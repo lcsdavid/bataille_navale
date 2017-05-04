@@ -28,7 +28,7 @@ class Grid
     /**
      * @var array
      */
-    private $vessels;
+    private $vessels = [""];
 
     /**
      * Grid constructor.
@@ -47,11 +47,6 @@ class Grid
                 $this->array[$cell] = "sea";
             }
         }
-        $this->vessels["porte-avion"] = null;
-        $this->vessels["croiseur"] = null;
-        $this->vessels["contre-torpilleur"] = null;
-        $this->vessels["sous-marin"] = null;
-        $this->vessels["torpilleur"] = null;
     }
 
     /**

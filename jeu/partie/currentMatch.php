@@ -3,8 +3,7 @@
 echo "<div class='upper-side'>";
 switch ($_SESSION['partie']->getState()) {
     case WAITING:
-        echo "Wait";
-        echo $_SESSION['partie']->getIDPartie();
+        echo "<span>Attente du joueur adverse...</span>";
         $_SESSION['partie']->checkWait();
         break;
     case LAYVESSEL:
@@ -24,7 +23,7 @@ switch ($_SESSION['partie']->getState()) {
 echo "</div>";
 print_r($_POST);
 echo "Vessels";
-print_r($_SESSION['partie']->getAllyGrid()->getVessels());
+print_r($_SESSION['partie']->getAllyGrid()->getVessels()["porte-avion"]);
 
 /* Moi */
 echo "<div class='me'>" . echoID($_SESSION["partie"]->getAllyGrid()->getIDJoueur()) . "<table id='my-grid' class='grid'><tr><td class='cell empty'></td>";
@@ -83,7 +82,6 @@ switch ($_SESSION['partie']->getState()) {
         /* Opérations */
         if(isset($_POST['click'])) {
             if(isset($_SESSION['vessel']) && isset($_SESSION['orientation'])) {
-                echo "lol";
                 if ($_SESSION['partie']->layVessel($_SESSION['vessel'], $_POST['cell'], $_SESSION['orientation']))
                     echo "<span>Bateau posé !</span>";
                 else

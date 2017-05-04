@@ -4,6 +4,7 @@ require_once('../assets/php/init.php');
 require_once('../assets/php/fonction.php');
 include_once('../assets/class/Grid.php');
 include_once('../assets/class/Match.php');
+include_once('../assets/class/Vessel.php');
 session_start();
 ?>
 <html lang="fr">
@@ -34,13 +35,13 @@ session_start();
         echo 'Create !';
         $_SESSION['partie'] = new Match(UNDEFINED);
         require_once('currentMatch.php');
-        unset($_POST);
+        unset($_POST['create']);
     } else if (isset($_POST['join'])) {
         echo 'Join !';
-        echo $_POST['id_partie'];
         $_SESSION['partie'] = new Match($_POST['id_partie']);
         require_once('currentMatch.php');
-        unset($_POST);
+        unset($_POST['join']);
+        unset($_POST['id_partie']);
     } else {
         echo 'Else !';
         require_once('matches.php');
