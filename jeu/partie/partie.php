@@ -34,14 +34,13 @@ session_start();
     } else if (isset($_POST['create'])) {
         echo 'Create !';
         $_SESSION['partie'] = new Match(UNDEFINED);
+        unset($_POST);
         require_once('currentMatch.php');
-        unset($_POST['create']);
     } else if (isset($_POST['join'])) {
         echo 'Join !';
         $_SESSION['partie'] = new Match($_POST['id_partie']);
+        unset($_POST);
         require_once('currentMatch.php');
-        unset($_POST['join']);
-        unset($_POST['id_partie']);
     } else {
         echo 'Else !';
         require_once('matches.php');

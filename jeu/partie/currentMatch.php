@@ -7,12 +7,13 @@ switch ($_SESSION['partie']->getState()) {
         $_SESSION['partie']->checkWait();
         break;
     case LAYVESSEL:
+        $formVessel = $_SESSION['partie']->formVessel();
         if (isset($_POST['vessel']))
             $_SESSION['vessel'] = $_POST['vessel'];
-        if(isset($_POST['orientation']))
+        if (isset($_POST['orientation']))
             $_SESSION['orientation'] = $_POST['orientation'];
-        if(isset($_POST['click']))
-            if(isset($_SESSION['vessel']) && isset($_SESSION['orientation']))
+        if (isset($_POST['click']))
+            if (isset($_SESSION['vessel']) && isset($_SESSION['orientation']))
                 $layvessel = $_SESSION['partie']->layVessel($_SESSION['vessel'], $_POST['cell'], $_SESSION['orientation']);
         break;
     case WAITENNEMYLAYVESSEL:
@@ -25,7 +26,9 @@ switch ($_SESSION['partie']->getState()) {
 }
 echo "</div>";
 print_r($_POST);
+
 print_r($_SESSION['partie']->getAllyGrid());
+echo count($_SESSION["partie"]->getAllyGrid()->getVessels());
 
 /* Moi */
 echo "<div class='me'>" . echoID($_SESSION["partie"]->getAllyGrid()->getIDJoueur()) . "<table id='my-grid' class='grid'><tr><td class='cell empty'></td>";
@@ -82,8 +85,8 @@ switch ($_SESSION['partie']->getState()) {
         break;
     case LAYVESSEL:
         /* Opérations */
-        if(isset($_POST['click'])) {
-            if(isset($_SESSION['vessel']) && isset($_SESSION['orientation'])) {
+        if (isset($_POST['click'])) {
+            if (isset($_SESSION['vessel']) && isset($_SESSION['orientation'])) {
                 if ($layvessel)
                     echo "<span>Bateau posé !</span>";
                 else
@@ -92,11 +95,11 @@ switch ($_SESSION['partie']->getState()) {
                 echo "<span>Vous n'avez pas tout sélectionné !</span>";
         }
         /* Bateaux */
-        echo $_SESSION['partie']->formVessel();
+        echo $formVessel;
         /* Orientation */
         if (isset($_SESSION['orientation'])) {
             echo "<form class='orientation' method='POST' action='./'>";
-            echo "<span>".$_SESSION['orientation']." est selectionné. Pour changer: </span>";
+            echo "<span>" . $_SESSION['orientation'] . " est selectionné. Pour changer: </span>";
             if ($_SESSION['orientation'] == "horizontal")
                 echo "<input type='submit' name='orientation' value='vertical'></form>";
             else

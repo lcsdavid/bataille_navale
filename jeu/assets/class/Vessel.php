@@ -26,7 +26,7 @@ class Vessel
                 $this->reference = "https://fr.wikipedia.org/wiki/Sous-marin";
                 $this->lenght = 3;
                 break;
-            case('topilleur'):
+            case('torpilleur'):
                 $this->reference = "https://fr.wikipedia.org/wiki/Torpilleur";
                 $this->lenght = 2;
                 break;

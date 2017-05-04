@@ -161,11 +161,18 @@ class Match
         if ($result == "")
             $this->state = WAITENNEMYLAYVESSEL;
         /* SESSION */
-        if (isset($_SESSION['vessel']))
+        if (count($this->ally_grid->getVessels()) == 5) {
+            $explo = explode("'", $result)[5];
+            $result = "<span>Il ne reste plus que le " . $explo . ".";
+            $_SESSION['vessel'] = $explo;
+        }
+        else if (isset($_SESSION['vessel']))
             $result = "<form class='vesselForm' method='POST' action='./'><span>Vous avez actuellement sélectionné le " . $_SESSION['vessel'] . ". Pour changer: </span>" . $result . "</form>";
         else
             $result = "<form class='vesselForm' method='POST' action='./'><span>Choisissez le bateau que vous voulez placer: </span>" . $result . "</form>";
         /* RETURN */
+
+
         return $result;
     }
 
@@ -197,7 +204,9 @@ class Match
      */
     public function checkWaitEnnemyVessel()
     {
-
+        global $connexion;
+        mysqli_query($connexion, "SELECT COUNT(id_navire) FROM Navire")
+        return true;
     }
 
     /**
