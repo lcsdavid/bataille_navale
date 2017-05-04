@@ -44,6 +44,17 @@ main {
     padding: 0;
 }
 
+.player {
+    color: black;
+    font-family: sans-serif;
+    font-size: 100%
+}
+
+.tag {
+    color: gray;
+    font-family: sans-serif;
+    font-size: 75%;
+}
 .dialog{
     background: rgba(0,0,0,0.33);
     position: absolute;
@@ -97,12 +108,12 @@ main {
     font-size: 0.75em;
 }
 
-#me {
+.me {
     position: absolute;
     margin-left: 2em;
 }
 
-#ennemy {
+.ennemy {
     float: right;
     margin-right: 2em;
 }
@@ -152,12 +163,16 @@ main {
     background-image: url("../images/sea.png");
 }
 
-/** GRID **/
+.upper-side{
 
-.bottom {
+}
+
+.bottom-side {
     position: absolute;
     margin-top: 25em;
 }
+
+/** GRID **/
 
 .one, .two, .three {
     display: inline;

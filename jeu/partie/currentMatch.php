@@ -27,6 +27,8 @@ switch ($_SESSION['partie']->getState()) {
 }
 echo "</div>";
 print_r($_POST);
+echo "Vessels";
+print_r($_SESSION['partie']->getAllyGrid()->getVessels());
 
 /* Moi */
 echo "<div class='me'>" . echoID($_SESSION["partie"]->getAllyGrid()->getIDJoueur()) . "<table id='my-grid' class='grid'><tr><td class='cell empty'></td>";

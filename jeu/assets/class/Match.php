@@ -113,25 +113,32 @@ class Match
      */
     public function formVessel()
     {
+        /* RESULT */
         $result = "";
-        if ($this->getAllyGrid()->getVessels()["porte-avion"] == null)
-            $result = $result . "<input type='submit' name='vessel' value='porte-avion'>";
-        if ($this->getAllyGrid()->getVessels()["croiseur"] == null)
-            $result = $result . "<input type='submit' name='vessel' value='croiseur'>";
-        if ($this->getAllyGrid()->getVessels()["contre-torpilleur"] == null)
-            $result = $result . "<input type='submit' name='vessel' value='contre-torpilleur'>";
-        if ($this->getAllyGrid()->getVessels()["sous-marin"] == null)
-            $result = $result . "<input type='submit' name='vessel' value='sous-marin'>";
-        if ($this->getAllyGrid()->getVessels()["torpilleur"] == null)
-            $result = $result . "<input type='submit' name='vessel' value='torpilleur'>";
+        if ($_SESSION['vessel'] != 'porte-avion')
+            if ($this->getAllyGrid()->getVessels()["porte-avion"] == null)
+                $result = $result . "<input type='submit' name='vessel' value='porte-avion'>";
+        if ($_SESSION['vessel'] != 'croiseur')
+            if ($this->getAllyGrid()->getVessels()["croiseur"] == null)
+                $result = $result . "<input type='submit' name='vessel' value='croiseur'>";
+        if ($_SESSION['vessel'] != 'contre-torpilleur')
+            if ($this->getAllyGrid()->getVessels()["contre-torpilleur"] == null)
+                $result = $result . "<input type='submit' name='vessel' value='contre-torpilleur'>";
+        if ($_SESSION['vessel'] != 'sous-marin')
+            if ($this->getAllyGrid()->getVessels()["sous-marin"] == null)
+                $result = $result . "<input type='submit' name='vessel' value='sous-marin'>";
+        if ($_SESSION['vessel'] != 'torpilleur')
+            if ($this->getAllyGrid()->getVessels()["torpilleur"] == null)
+                $result = $result . "<input type='submit' name='vessel' value='torpilleur'>";
         /* VIDE */
-        if ($result = "")
+        if ($result == "")
             $this->state = WAITENNEMYLAYVESSEL;
         /* SESSION */
         if (isset($_SESSION['vessel']))
             $result = "<form class='vesselForm' method='POST' action='./'><span>Vous avez actuellement sélectionné le " . $_SESSION['vessel'] . ". Pour changer: </span>" . $result . "</form>";
         else
             $result = "<form class='vesselForm' method='POST' action='./'>" . $result . "</form>";
+        /* RETURN */
         return $result;
     }
 
