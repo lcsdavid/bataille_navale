@@ -8,15 +8,14 @@
 function login($id, $pwd)
 {
     global $connexion;
-    $result = mysqli_query($connexion, "SELECT id_joueur FROM Joueur WHERE email LIKE '" . $id . "' OR id_joueur = '". $id . "' AND mdp = '" . md5($pwd) . "'");
+    $result = mysqli_query($connexion, "SELECT id_joueur FROM Joueur WHERE email LIKE '" . $id . "' OR id_joueur = '" . $id . "' AND mdp = '" . md5($pwd) . "'");
     if ($result->num_rows == 1) {
         $row = $result->fetch_row();
         $_SESSION['ID'] = $row[0];
         $_SESSION['timestamp'] = time();
         mysqli_query($connexion, "INSERT INTO Etat_joueur (id_joueur, etat_joueur) VALUES ('" . $_SESSION['ID'] . "','connected')");
         return true;
-    }
-    else return false;
+    } else return false;
 }
 
 /**
@@ -35,7 +34,7 @@ function register($pseudo, $email, $name, $firstname, $gender, $birth, $town, $p
     global $connexion;
     if (mysqli_query($connexion, "SELECT * FROM Joueur WHERE email LIKE '" . $email . "'")->num_rows == 0) {
         $rset = mysqli_query($connexion, "SELECT id_joueur FROM Joueur WHERE id_joueur = '" . $pseudo . "'");
-        $tag = rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9);
+        $tag = rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9);
         while ($row = $rset->fetch_row()) {
             $arr = explode("#", $row[0]);
             $other_tag = $arr[count($arr) - 1];
@@ -61,6 +60,20 @@ function redirect($url, $time = 5)
     echo "<div class='dialog'><main><header><h1>L'opération a bien été effectué !</h1></header>
     <p>Vous allez être redirigé dans quelques secondes sur la page d'accueil</p>
     <div class='one'>.</div><div class='two'>.</div><div class='three'>.</div></main></div>";
+}
+
+/**
+ * @param $id
+ * @return string
+ */
+function echoID($id)
+{
+    if ($id == null)
+        return 'null';
+    else {
+        $player = explode("#", $id);
+        return '<span id="player">' . $player[0] . '</span><span id="tag">#' . $player[count($player) - 1] . '</span>';
+    }
 }
 
 ?>

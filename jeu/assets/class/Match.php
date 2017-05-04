@@ -36,9 +36,10 @@ class Match
             $this->ally_grid = new Grid($this->id_partie, $_SESSION['ID'], ALLY);
             $this->ennemy_grid = new Grid($this->id_partie, UNDEFINED, ENNEMY);
         } else {
-            $this->join();
+            $this->id_partie = $id_partie;
             $this->ally_grid = new Grid($id_partie, $_SESSION['ID'], ALLY);
             $this->ennemy_grid = new Grid($id_partie, UNDEFINED, ENNEMY);
+            $this->join();
         }
         $this->state = WAITING;
     }
@@ -60,10 +61,11 @@ class Match
     private function join()
     {
         global $connexion;
-        $id_joueur1 = mysqli_query($connexion, "SELECT id_joueur1 FROM Partie WHERE id_partie = '" . $this->id_partie . "'")->fetch_row()[0];
-        if ($_SESSION['ID'] != $id_joueur1) {
+        $row = mysqli_query($connexion, "SELECT id_joueur1, id_joueur2 FROM Partie WHERE id_partie = '" . $this->id_partie . "'")->fetch_row();
+        if ($_SESSION['ID'] != $row[0]) {
             mysqli_query($connexion, "UPDATE Partie SET id_joueur2 = '" . $_SESSION['ID'] . "' WHERE id_partie = '" . $this->id_partie . "'");
-            $this->setEnnemyGrid();
+            $this->getEnnemyGrid()->setIDJoueur($row[0]);
+            $this->state = LAYVESSEL;
         }
     }
 
@@ -128,22 +130,6 @@ class Match
     public function getEnnemyGrid()
     {
         return $this->ennemy_grid;
-    }
-
-    /**
-     * Mutateur de la grille ennemi.
-     */
-    public function setEnnemyGrid()
-    {
-        global $connexion;
-        $row = mysqli_query($connexion, "SELECT id_joueur1 ,id_joueur2 FROM Partie WHERE id_partie = '" . $this->id_partie . "'")->fetch_row();
-        if ($row[0] == $_SESSION['id'])
-            $this->ennemy_grid = new Grid($this->id_partie, $row[1], ENNEMY);
-        else {
-            $this->ennemy_grid = new Grid($this->id_partie, $row[0], ENNEMY);
-            $this->state = LAYVESSEL;
-        }
-
     }
 
     /**

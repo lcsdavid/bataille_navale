@@ -13,8 +13,7 @@ switch ($_SESSION['partie']->getState()) {
 }
 
 /* Moi */
-$player = explode("#",$_SESSION['partie']->getAllyGrid()->getIDJoueur());
-echo '<div id="me"><span id="player">' . $player[0] . '</span><span id="tag">#' . $player[count($player) - 1] . '</span><table id="my-grid" class="grid"><tr><td class="cell empty"></td>';
+echo '<div id="me">' . echoID($_SESSION["partie"]->getAllyGrid()->getIDJoueur()) . '<table id="my-grid" class="grid"><tr><td class="cell empty"></td>';
 for ($i = 'A'; $i < 'K'; $i++) {
     echo '<td class="cell coord">' . $i . '</td>';
 }
@@ -37,7 +36,7 @@ echo '</table></div>';
 /* Cartes */
 echo '<div id="cards"></div>';
 /* Ennemi */
-echo '<div id="ennemy"><span id="player">' . $_SESSION['partie']->getEnnemyGrid()->getIDJoueur() . '</span><table id="ennemy-grid" class="grid"><tr><td class="cell empty"></td>';
+echo '<div id="ennemy">' . echoID($_SESSION['partie']->getEnnemyGrid()->getIDJoueur()) . '<table id="ennemy-grid" class="grid"><tr><td class="cell empty"></td>';
 for ($i = 'A'; $i < 'K'; $i++) {
     echo '<td class="cell coord">' . $i . '</td>';
 }
@@ -50,7 +49,7 @@ switch ($_SESSION['partie']->getState()) {
         $_SESSION['partie']->getAllyGrid()->display();
         break;
     case PLAYING:
-        if($_SESSION['partie'])
+        if ($_SESSION['partie'])
             $_SESSION['partie']->getAllyGrid()->display();
         break;
     default:
