@@ -2,23 +2,19 @@
 /* Déroulement partie */
 switch ($_SESSION['partie']->getState()) {
     case WAITING:
-        if(!$_SESSION['partie']->isWaiting()) {
-            $_SESSION['partie']->setEnnemyGrid();
-            $_SESSION['partie']->setState(LAYVESSEL);
-        }
+        $_SESSION['partie']->checkWait();
         break;
     case LAYVESSEL:
-        $_SESSION['partie']->getAllyGrid()->displayForm();
         break;
     case PLAYING:
-        $_SESSION['partie']->getAllyGrid()->display();
         break;
     default:
         break;
 }
 
 /* Moi */
-echo '<div id="me"><span id="player">' . $_SESSION['partie']->getAllyGrid()->getIDJoueur() . '</span><table id="my-grid" class="grid"><tr><td class="cell empty"></td>';
+$player = explode("#",$_SESSION['partie']->getAllyGrid()->getIDJoueur());
+echo '<div id="me"><span id="player">' . $player[0] . '</span><span id="tag">#' . $player[count($player) - 1] . '</span><table id="my-grid" class="grid"><tr><td class="cell empty"></td>';
 for ($i = 'A'; $i < 'K'; $i++) {
     echo '<td class="cell coord">' . $i . '</td>';
 }
@@ -55,7 +51,7 @@ switch ($_SESSION['partie']->getState()) {
         break;
     case PLAYING:
         if($_SESSION['partie'])
-        $_SESSION['partie']->getAllyGrid()->display();
+            $_SESSION['partie']->getAllyGrid()->display();
         break;
     default:
         break;
@@ -67,7 +63,7 @@ switch ($_SESSION['partie']->getState()) {
         echo "En attente des joueurs";
         break;
     case LAYVESSEL:
-
+        echo "Posez les bateaux";
         break;
     case PLAYING:
         echo "Partie en cours";

@@ -1,6 +1,6 @@
 <?php
 
-define('UNDEFINED', -1);
+define('UNDEFINED', null);
 
 define('WAITING', 0);
 define('LAYVESSEL', 1);
@@ -100,12 +100,18 @@ class Match
     }
 
     /**
-     * @return bool
+     *
      */
-    public function isWaiting()
+    public function checkWait()
     {
         global $connexion;
-        return mysqli_query($connexion, "SELECT id_joueur2 FROM Partie WHERE id_partie = '" . $this->id_partie . "'")->fetch_row()[0] == null;
+        $row = mysqli_query($connexion, "SELECT id_joueur1, id_joueur2 FROM Partie WHERE id_partie = '" . $this->id_partie . "'")->fetch_row();
+        if($row[1] == null) {
+            return;
+        } else if ($row[0] == $_SESSION['ID'])
+            $this->getEnnemyGrid()->setIDJoueur($row[1]);
+        else $this->getEnnemyGrid()->setIDJoueur($row[0]);
+        $this->state = LAYVESSEL;
     }
 
     /**
@@ -138,22 +144,6 @@ class Match
             $this->state = LAYVESSEL;
         }
 
-    }
-
-    /**
-     * @return string
-     */
-    public function getMyID()
-    {
-        return $this->ally_grid->getIDJoueur();
-    }
-
-    /**
-     * @return string
-     */
-    public function getOpponentID()
-    {
-        return $this->ennemy_grid->getIDJoueur();
     }
 
     /**
