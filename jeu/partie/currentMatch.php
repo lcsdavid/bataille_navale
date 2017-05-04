@@ -1,5 +1,6 @@
 <?php
-/* Déroulement partie, partie code */
+/* Déroulement partie et partie code */
+echo "<div class='upper-side'>";
 switch ($_SESSION['partie']->getState()) {
     case WAITING:
         echo "Wait";
@@ -24,15 +25,15 @@ switch ($_SESSION['partie']->getState()) {
     default:
         break;
 }
-
+echo "</div>";
 print_r($_POST);
 
 /* Moi */
-echo '<div id="me">' . echoID($_SESSION["partie"]->getAllyGrid()->getIDJoueur()) . '<table id="my-grid" class="grid"><tr><td class="cell empty"></td>';
+echo "<div class='me'>" . echoID($_SESSION["partie"]->getAllyGrid()->getIDJoueur()) . "<table id='my-grid' class='grid'><tr><td class='cell empty'></td>";
 for ($i = 'A'; $i < 'K'; $i++) {
-    echo '<td class="cell coord">' . $i . '</td>';
+    echo "<td class='cell coord'>" . $i . "</td>";
 }
-echo '</tr>';
+echo "</tr>";
 switch ($_SESSION['partie']->getState()) {
     case WAITING:
         $_SESSION['partie']->getAllyGrid()->display();
@@ -46,16 +47,16 @@ switch ($_SESSION['partie']->getState()) {
     default:
         break;
 }
-echo '</table></div>';
+echo "</table></div>";
 
 /* Cartes */
-echo '<div id="cards"></div>';
+echo "<div id='cards'></div>";
 /* Ennemi */
-echo '<div id="ennemy">' . echoID($_SESSION['partie']->getEnnemyGrid()->getIDJoueur()) . '<table id="ennemy-grid" class="grid"><tr><td class="cell empty"></td>';
+echo "<div class='ennemy'>" . echoID($_SESSION['partie']->getEnnemyGrid()->getIDJoueur()) . "<table id='ennemy-grid' class='grid'><tr><td class='cell empty'></td>";
 for ($i = 'A'; $i < 'K'; $i++) {
-    echo '<td class="cell coord">' . $i . '</td>';
+    echo "<td class='cell coord'>" . $i . "</td>";
 }
-echo '</tr>';
+echo "</tr>";
 switch ($_SESSION['partie']->getState()) {
     case WAITING:
         $_SESSION['partie']->getAllyGrid()->display();
@@ -72,15 +73,18 @@ switch ($_SESSION['partie']->getState()) {
     default:
         break;
 }
-echo '</table></div>';
-echo '<div class="bottom">';
+echo "</table></div>";
+
+/* Consignes et infos donné à l'utilisateur, zone de formulaire */
+echo "<div class='bottom-side'>";
 switch ($_SESSION['partie']->getState()) {
     case WAITING:
         echo "En attente des joueurs";
         break;
     case LAYVESSEL:
-        echo "Posez les bateaux";
+        /* Bateaux */
         echo $_SESSION['partie']->formVessel();
+        /* Orientation */
         if (isset($_SESSION['orientation'])) {
             echo "<form class='orientation' method='POST' action='./'>";
             echo "<span>".$_SESSION['orientation']." est selectionné. Pour changer: </span>";
@@ -95,8 +99,9 @@ switch ($_SESSION['partie']->getState()) {
             echo "<input type='submit' name='orientation' value='vertical'></form>";
         }
         break;
+    case WAITENNEMYLAYVESSEL:
+        break;
     case PLAYING:
-        echo "Partie en cours";
         if ($_SESSION['partie']->myTurn())
             echo "C'est votre tour !";
         else
@@ -105,5 +110,5 @@ switch ($_SESSION['partie']->getState()) {
     default:
         break;
 }
-echo '</div>';
+echo "</div>";
 ?>
