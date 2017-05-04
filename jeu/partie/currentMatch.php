@@ -42,6 +42,9 @@ switch ($_SESSION['partie']->getState()) {
     case LAYVESSEL:
         $_SESSION['partie']->getAllyGrid()->displayForm();
         break;
+    case WAITENNEMYLAYVESSEL:
+        $_SESSION['partie']->getAllyGrid()->display();
+        break;
     case PLAYING:
         $_SESSION['partie']->getAllyGrid()->display();
         break;
@@ -63,6 +66,9 @@ switch ($_SESSION['partie']->getState()) {
         $_SESSION['partie']->getEnnemyGrid()->display();
         break;
     case LAYVESSEL:
+        $_SESSION['partie']->getEnnemyGrid()->display();
+        break;
+    case WAITENNEMYLAYVESSEL:
         $_SESSION['partie']->getEnnemyGrid()->display();
         break;
     case PLAYING:
