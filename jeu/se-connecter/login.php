@@ -27,7 +27,7 @@ if (isset($_POST['connect'])) {
 </header>
 <!-- Main -->
 <main>
-    <form method="POST" action="./login.php" style="margin-top: 50px">
+    <form method="POST" action="./" style="margin-top: 50px">
         <input name="username" type="text" placeholder="Nom d'utilisateur">
         <input name="password" type="password" placeholder="Mot de passe">
         <input name="connect" type="submit" value="Se connecter">
