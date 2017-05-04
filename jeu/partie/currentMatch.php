@@ -8,7 +8,7 @@ for ($i = 'A'; $i < 'K'; $i++) {
 echo '</tr>';
 switch ($_SESSION['partie']->getState()) {
     case WAITING:
-        $_SESSION['partie']->getAllyGrid()->display();
+        $_SESSION['partie']->getAllyGrid()->displayForm();
         break;
     case LAYVESSEL:
         $_SESSION['partie']->getAllyGrid()->display();
