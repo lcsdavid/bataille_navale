@@ -5,7 +5,7 @@ for ($i = 'A'; $i < 'K'; $i++) {
     echo '<td class="cell coord">' . $i . '</td>';
 }
 echo '</tr>';
-/* $_SESSION['partie']->getAllyGrid()->display(); */
+$_SESSION['partie']->getAllyGrid()->display();
 echo '</table></div>';
 
 /* Cartes */
@@ -16,6 +16,6 @@ for ($i = 'A'; $i < 'K'; $i++) {
     echo '<td class="cell coord">' . $i . '</td>';
 }
 echo '</tr>';
-/* $_SESSION['partie']->getEnnemyGrid()->display();*/
+$_SESSION['partie']->getEnnemyGrid()->display();
 echo '</table></div>';
 ?>
