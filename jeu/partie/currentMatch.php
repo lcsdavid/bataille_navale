@@ -1,16 +1,30 @@
 <?php
-/* Déroulement partie */
+/* Déroulement partie, partie code */
 switch ($_SESSION['partie']->getState()) {
     case WAITING:
+        echo "Wait";
+        echo $_SESSION['partie']->getIDPartie();
         $_SESSION['partie']->checkWait();
         break;
     case LAYVESSEL:
+        echo $_POST;
+        if (isset($_POST['vessel']))
+            $_SESSION['vessel'] = $_POST['vessel'];
+        if(isset($_POST['orientation']))
+            $_SESSION['orientation'] = $_POST['orientation'];
+        if(isset($_POST['click'])) {
+            echo $_POST['cell'];
+        }
+        break;
+    case WAITENNEMYLAYVESSEL:
         break;
     case PLAYING:
         break;
     default:
         break;
 }
+
+print_r($_POST);
 
 /* Moi */
 echo '<div id="me">' . echoID($_SESSION["partie"]->getAllyGrid()->getIDJoueur()) . '<table id="my-grid" class="grid"><tr><td class="cell empty"></td>';
@@ -49,7 +63,9 @@ switch ($_SESSION['partie']->getState()) {
         $_SESSION['partie']->getAllyGrid()->display();
         break;
     case PLAYING:
-        if ($_SESSION['partie'])
+        if ($_SESSION['partie']->myTurn())
+            $_SESSION['partie']->getAllyGrid()->displayForm();
+        else
             $_SESSION['partie']->getAllyGrid()->display();
         break;
     default:
@@ -63,9 +79,16 @@ switch ($_SESSION['partie']->getState()) {
         break;
     case LAYVESSEL:
         echo "Posez les bateaux";
+        echo $_SESSION['partie']->formVessel();
+        echo "<form class='orientationForm' method='POST' action='./'><input type='submit' name='orientation' value='H'>Horizontal";
+        echo "<input type='submit' name='orientation' value='V'>Verticale</form>";
         break;
     case PLAYING:
         echo "Partie en cours";
+        if ($_SESSION['partie']->myTurn())
+            echo "C'est votre tour !";
+        else
+            echo "C'est le tour de l'adversaire !";
         break;
     default:
         break;

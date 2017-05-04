@@ -26,6 +26,11 @@ class Grid
     private $alignment;
 
     /**
+     * @var array
+     */
+    private $vessels;
+
+    /**
      * Grid constructor.
      * @param $id_partie
      * @param $id_joueur
@@ -42,6 +47,11 @@ class Grid
                 $this->array[$cell] = "sea";
             }
         }
+        $this->vessels["porte-avion"] = null;
+        $this->vessels["croiseur"] = null;
+        $this->vessels["contre-torpilleur"] = null;
+        $this->vessels["sous-marin"] = null;
+        $this->vessels["torpilleur"] = null;
     }
 
     /**
@@ -49,6 +59,7 @@ class Grid
      */
     public function reload()
     {
+
         global $connexion;
         if ($this->alignment == ALLY) {
             $rset = mysqli_query($connexion, "SELECT type_nav, position, sens, taille FROM Navire WHERE id_partie = '" . $this->id_partie . "' AND id_joueur = '" . $this->id_joueur . "'");
@@ -86,7 +97,6 @@ class Grid
                 echo "<td class='cell " . $this->array[$cell] . "'></td>";
             }
         }
-        return $this;
     }
 
     /**
@@ -98,7 +108,7 @@ class Grid
             echo "<tr><td class='cell coord'>" . $row . "</td>";
             for ($column = 'A'; $column <= 'J'; $column++) {
                 $cell = $column . $row;
-                echo "<td class='cell " . $this->array[$cell] . "'><form class='partie' method='POST' action='../partie/'><input type='hidden' name='cell' value='" . $cell . "'><input type='image' name='click'></form></td>";
+                echo "<td class='cell " . $this->array[$cell] . "'><form method='POST' action='./'><input type='hidden' name='cell' value='" . $cell . "'><input type='image' name='click'></form></td>";
             }
         }
     }
@@ -111,6 +121,10 @@ class Grid
         return $this->array[$pos];
     }
 
+    /**
+     * @param $value
+     * @param $pos
+     */
     public function setCase($value, $pos) {
         $this->array[$pos] = $value;
     }
@@ -137,6 +151,14 @@ class Grid
     public function getAlignment()
     {
         return $this->alignment;
+    }
+
+    /**
+     * @return array
+     */
+    public function getVessels()
+    {
+        return $this->vessels;
     }
 }
 
