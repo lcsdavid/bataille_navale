@@ -27,7 +27,7 @@ header > h1 {
 	padding: 0;
 	float: left;
 	font-size: 1.5em;
-	font-variant: small-caps;	
+	font-variant: small-caps;
 }
 header > a {
 	float: right;
@@ -55,11 +55,11 @@ main {
 	z-index: 5000;
 }
 .dialog > main {
-    background: ghostwhite;
+	background: ghostwhite;
 	position: absolute;
-    width: 64%;
+	width: 64%;
 	height: 20em;
-    margin: 8em 0 0 18%;
+	margin: 8em 0 0 18%;
 	padding: 0;
 	border-radius: 1em;
 	font-size: 0.75em;
@@ -70,7 +70,7 @@ main {
 	position: relative;
 	width: auto;
 	height: 4em;
-    border-radius: 1em 1em 0 0;
+	border-radius: 1em 1em 0 0;
 }
 .dialog > main > header > h1 {
 	margin: 0.2em;
@@ -82,6 +82,18 @@ main {
 	margin: 0;
 	padding: 0;
 }
+
+.cell {
+	height: 1em;
+	width: 1em;
+}
+
+.sea {
+	background-image: url("../images/sea.png");
+}
+
+.
+
 .one, .two, .three {
 	display: inline;
 }
@@ -92,7 +104,7 @@ main {
 	margin: 0 0 0 25%;
 }
 .three {
-    margin: 0 0 0 25%;
+	margin: 0 0 0 25%;
 }
 
 #menu {
@@ -191,5 +203,3 @@ main {
 	width: 100%;
 	text-align: center;
 }
-.register >
-

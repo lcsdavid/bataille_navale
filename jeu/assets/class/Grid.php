@@ -13,17 +13,17 @@ class Grid
     /**
      * @var string
      */
-    private $id_partie = -1;
+    private $id_partie;
 
     /**
      * @var string
      */
-    private $id_joueur = "";
+    private $id_joueur;
 
     /**
      * @var int
      */
-    private $alignment = -1;
+    private $alignment;
 
     /**
      * Grid constructor.
@@ -102,6 +102,14 @@ class Grid
     }
 
     /**
+     * @return string
+     */
+    public function getIDJoueur()
+    {
+        return $this->id_joueur;
+    }
+
+    /**
      * @param string $id_joueur
      */
     public function setIDJoueur($id_joueur)
@@ -110,11 +118,11 @@ class Grid
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getIDJoueur()
+    public function getAlignment()
     {
-        return $this->id_joueur;
+        return $this->alignment;
     }
 }
 

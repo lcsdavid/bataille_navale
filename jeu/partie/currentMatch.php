@@ -1,11 +1,24 @@
 <?php
+
 /* Moi */
 echo '<div id="me"><table id="my-grid" class="grid"><tr><td class="cell empty"></td>';
 for ($i = 'A'; $i < 'K'; $i++) {
     echo '<td class="cell coord">' . $i . '</td>';
 }
 echo '</tr>';
-$_SESSION['partie']->getAllyGrid()->display();
+switch ($_SESSION['partie']->getState()) {
+    case WAITING:
+        $_SESSION['partie']->getAllyGrid()->display();
+        break;
+    case LAYVESSEL:
+        $_SESSION['partie']->getAllyGrid()->display();
+        break;
+    case PLAYING:
+        $_SESSION['partie']->getAllyGrid()->display();
+        break;
+    default:
+        break;
+}
 echo '</table></div>';
 
 /* Cartes */
@@ -16,6 +29,18 @@ for ($i = 'A'; $i < 'K'; $i++) {
     echo '<td class="cell coord">' . $i . '</td>';
 }
 echo '</tr>';
-$_SESSION['partie']->getEnnemyGrid()->display();
+switch ($_SESSION['partie']->getState()) {
+    case WAITING:
+        $_SESSION['partie']->getAllyGrid()->display();
+        break;
+    case LAYVESSEL:
+        $_SESSION['partie']->getAllyGrid()->display();
+        break;
+    case PLAYING:
+        $_SESSION['partie']->getAllyGrid()->display();
+        break;
+    default:
+        break;
+}
 echo '</table></div>';
 ?>

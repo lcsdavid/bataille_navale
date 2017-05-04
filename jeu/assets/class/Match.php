@@ -2,6 +2,11 @@
 
 define('UNDEFINED', -1);
 
+define('WAITING', 0);
+define('LAYVESSEL', 1);
+define('PLAYING', 2);
+define('FINISHED', 10);
+
 class Match
 {
     /**
@@ -13,6 +18,11 @@ class Match
      * @var Grid
      */
     private $ally_grid;
+
+    /**
+     * @var int
+     */
+    private $state;
 
     /**
      * @var Grid
@@ -28,8 +38,9 @@ class Match
         } else {
             $this->join();
             $this->ally_grid = new Grid($id_partie, $_SESSION['ID'], ALLY);
-            $this->ennemy_grid = new Grid($this->id_partie, UNDEFINED, ENNEMY);
+            $this->ennemy_grid = new Grid($id_partie, UNDEFINED, ENNEMY);
         }
+        $this->state = WAITING;
     }
 
     /**
@@ -93,7 +104,6 @@ class Match
      */
     public function getAllyGrid()
     {
-        echo 'get';
         return $this->ally_grid;
     }
 
@@ -114,8 +124,11 @@ class Match
         $row = mysqli_query($connexion, "SELECT id_joueur1 ,id_joueur2 FROM Partie WHERE id_partie = '" . $this->id_partie . "'")->fetch_row();
         if ($row[0] == $_SESSION['id'])
             $this->ennemy_grid = new Grid($this->id_partie, $row[1], ENNEMY);
-        else
+        else {
             $this->ennemy_grid = new Grid($this->id_partie, $row[0], ENNEMY);
+            $this->state = LAYVESSEL;
+        }
+
     }
 
     /**
@@ -140,6 +153,22 @@ class Match
     public function getIDPartie()
     {
         return $this->id_partie;
+    }
+
+    /**
+     * @return int
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * @param int $state
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
     }
 }
 
