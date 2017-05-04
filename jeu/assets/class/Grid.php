@@ -108,7 +108,7 @@ class Grid
             echo "<tr><td class='cell coord'>" . $row . "</td>";
             for ($column = 'A'; $column <= 'J'; $column++) {
                 $cell = $column . $row;
-                echo "<td class='cell " . $this->array[$cell] . "'><form method='POST' action='./'><input type='hidden' name='cell' value='" . $cell . "'><input type='image' name='click'></form></td>";
+                echo "<td class='cell " . $this->array[$cell] . "'><form method='POST' action='./'><input type='hidden' name='cell' value='" . $cell . "'><input type='submit' name='click'></form></td>";
             }
         }
     }
