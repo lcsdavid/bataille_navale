@@ -35,12 +35,12 @@ require_once('../assets/php/fonction.php');
         <blockquote>
             Mr David Lucas
             p1506340
-            david.lucas@etu.univ-lyon1.fr
+            <a href="mailto:david.lucas@etu.univ-lyon1.fr">david.lucas@etu.univ-lyon1.fr</a>
         </blockquote>
         <blockquote>
             Mr Sublet Gary
             p1506450
-            gary.sublet@etu.univ-lyon1.fr
+            <a href="mailto:gary.sublet@etu.univ-lyon1.fr">gary.sublet@etu.univ-lyon1.fr</a>
         </blockquote>
     </div>
 </main>
