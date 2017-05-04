@@ -142,7 +142,10 @@ main {
 
 /** GRID **/
 
-
+.bottom {
+    position: absolute;
+    margin-top: 25em;
+}
 
 .one, .two, .three {
     display: inline;

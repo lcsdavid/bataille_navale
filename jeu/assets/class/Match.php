@@ -100,6 +100,15 @@ class Match
     }
 
     /**
+     * @return bool
+     */
+    public function isWaiting()
+    {
+        global $connexion;
+        return mysqli_query($connexion, "SELECT id_joueur2 FROM Partie WHERE id_partie = '" . $this->id_partie . "'")->fetch_row()[0] == null;
+    }
+
+    /**
      * @return Grid
      */
     public function getAllyGrid()
