@@ -17,7 +17,6 @@ switch ($_SESSION['partie']->getState()) {
         $formVessel = $_SESSION['partie']->formVessel();
         break;
     case WAITENNEMYLAYVESSEL:
-        $_SESSION['partie']->setState(LAYVESSEL);
         break;
     case PLAYING:
         break;

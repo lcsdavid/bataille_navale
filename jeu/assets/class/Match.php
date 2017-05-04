@@ -98,27 +98,23 @@ class Match
      */
     public function layVessel($type_vessel, $position, $orientation)
     {
-        if (!isset($_SESSION['orientation']) || !isset($_SESSION['vessel']))
-            return false;
-        $vessel = new Vessel($type_vessel);
         global $connexion;
+        $vessel = new Vessel($type_vessel);
         $letter = substr($position, 0, 1);
         $number = substr($position, 1);
         for ($i = 0; $i < $vessel->getLenght(); $i++) {
-            if ($orientation == "vertical")
+            if ($orientation == "vertical") {
                 if ($this->ally_grid->getCase($letter . ($number + $i)) != "sea") {
-                    unset($_SESSION['orientation']);
-                    unset($_SESSION['vessel']);
                     unset($_POST);
                     return false;
-                } else
-                    if ($this->ally_grid->getCase(chr(ord($letter) + $i) . $number) != "sea") {
-                        unset($_SESSION['orientation']);
-                        unset($_SESSION['vessel']);
-                        unset($_POST);
-                        return false;
-                    }
+                }
+            } else
+                if ($this->ally_grid->getCase(chr(ord($letter) + $i) . $number) != "sea") {
+                    unset($_POST);
+                    return false;
+                }
         }
+        /* On pose */
         mysqli_query($connexion, "INSERT INTO Navire (id_joueur, id_partie, type_nav, taille, reference, position, sens) VALUES ('" . $_SESSION['ID'] . "','" . $this->id_partie . "','" . $type_vessel . "','" . $vessel->getLenght() . "','" . $vessel->getReference() . "','" . $position . "','" . $orientation . "')");
         $this->ally_grid->addVessel($type_vessel, $position);
         for ($i = 0; $i < $vessel->getLenght(); $i++) {
@@ -127,7 +123,8 @@ class Match
             else
                 $this->ally_grid->setCase($type_vessel, chr(ord($letter) + $i) . $number);
         }
-        unset($_SESSION['orientation']);
+        if (count($this->ally_grid->getVessels()) == 5)
+            unset($_SESSION['orientation']);
         unset($_SESSION['vessel']);
         unset($_POST);
         return true;
