@@ -19,53 +19,30 @@ require_once('../assets/php/fonction.php');
 <body>
 <!-- Header -->
 <header>
-    <h1>Statistiques - Bataille navale</h1>
+    <h1>A Propos - Bataille navale</h1>
     <a href="#menu"><img src="../assets/images/menu-toogle.png" alt=""/></a>
 </header>
 <!-- Main -->
 <main>
-    <table>
-        <tr>
-            <th>Ennemi</th>
-            <th>Creation</th>
-            <th>Gagné</th>
-            <th>Perdu</th>
-        </tr>
-        <?php
-
-        global $connexion;
-        $counterWin = 0;
-        $counterLoose = 0;
-        $rset = mysqli_query($connexion, "SELECT p.* FROM Partie p NATURAL JOIN Etat_partie e WHERE e.etat_partie LIKE 'finish' AND (id_joueur1 LIKE '".$_SESSION['ID']."' OR id_joueur2 LIKE '".$_SESSION['ID']."')");
-            while ($row = $rset->fetch_row()) {
-                if($_SESSION['ID'] == $row[1]) {
-                    $ennemi = $row[2];
-                } else {
-                    $ennemi = $row[1];
-                }
-                if($_SESSION['ID'] == $row[3]){
-                    $win = "X";
-                    $loose = " ";
-                    $counterWin++;
-                } else {
-                    $win = " ";
-                    $loose = "X";
-                    $counterLoose++;
-                }
-                echo "<tr>";
-                echo    "<td>".$ennemi."</td>";
-                echo    "<td>".$row[4]."</td>";
-                echo    "<td>".$win."</td>";
-                echo    "<td>".$loose."</td>";
-                echo  "</tr>";
-            }
-                echo "<tr>";
-                echo    "<th colspan='2'>Total</th>";
-                echo    "<td>".$counterWin."</td>";
-                echo    "<td>".$counterLoose."</td>";
-                echo  "</tr>";
-            ?>
-        <table>
+    <div class="nous">
+         <h1>Bataille Navale</h1>
+        <p>
+            Ceci est notre projet de Bataille Navale réalisé avec l'université Lyon1.
+        </p>
+        <h2>
+            Nous contacter ?
+        </h2>
+        <blockquote>
+            Mr David Lucas
+            p1506340
+            david.lucas@etu.univ-lyon1.fr
+        </blockquote>
+        <blockquote>
+            Mr Sublet Gary
+            p1506450
+            gary.sublet@etu.univ-lyon1.fr
+        </blockquote>
+    </div>
 </main>
 <!-- Footer -->
 <footer></footer>
