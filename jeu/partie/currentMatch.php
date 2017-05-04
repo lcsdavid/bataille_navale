@@ -7,7 +7,6 @@ switch ($_SESSION['partie']->getState()) {
         $_SESSION['partie']->checkWait();
         break;
     case LAYVESSEL:
-        $formVessel = $_SESSION['partie']->formVessel();
         if (isset($_POST['vessel']))
             $_SESSION['vessel'] = $_POST['vessel'];
         if (isset($_POST['orientation']))
@@ -15,6 +14,7 @@ switch ($_SESSION['partie']->getState()) {
         if (isset($_POST['click']))
             if (isset($_SESSION['vessel']) && isset($_SESSION['orientation']))
                 $layvessel = $_SESSION['partie']->layVessel($_SESSION['vessel'], $_POST['cell'], $_SESSION['orientation']);
+        $formVessel = $_SESSION['partie']->formVessel();
         break;
     case WAITENNEMYLAYVESSEL:
         $_SESSION['partie']->setState(LAYVESSEL);
@@ -87,15 +87,14 @@ switch ($_SESSION['partie']->getState()) {
         /* Opérations */
         if (isset($_POST['click'])) {
             if (isset($_SESSION['vessel']) && isset($_SESSION['orientation'])) {
-                if ($layvessel)
-                    echo "<span>Bateau posé !</span>";
-                else
+                if (!$layvessel)
                     echo "<span>Vous ne pouvez pas poser votre bateau ici !</span>";
             } else
                 echo "<span>Vous n'avez pas tout sélectionné !</span>";
         }
         /* Bateaux */
-        echo $formVessel;
+        if (isset($formVessel))
+            echo $formVessel;
         /* Orientation */
         if (isset($_SESSION['orientation'])) {
             echo "<form class='orientation' method='POST' action='./'>";

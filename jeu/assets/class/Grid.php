@@ -9,7 +9,7 @@ class Grid
     /**
      * @var array
      */
-    private $array = [""];
+    private $array;
     /**
      * @var string
      */
@@ -28,7 +28,7 @@ class Grid
     /**
      * @var array
      */
-    private $vessels = [""];
+    private $vessels;
 
     /**
      * Grid constructor.

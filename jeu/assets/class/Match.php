@@ -102,23 +102,22 @@ class Match
             return false;
         $vessel = new Vessel($type_vessel);
         global $connexion;
-        $letter = substr($position,0,1);
-        $number = substr($position,1);
+        $letter = substr($position, 0, 1);
+        $number = substr($position, 1);
         for ($i = 0; $i < $vessel->getLenght(); $i++) {
             if ($orientation == "vertical")
                 if ($this->ally_grid->getCase($letter . ($number + $i)) != "sea") {
-                unset($_SESSION['orientation']);
-                unset($_SESSION['vessel']);
-                unset($_POST);
-                return false;
-            }
-            else
-                if ($this->ally_grid->getCase(chr(ord($letter) + $i) . $number) != "sea") {
-                unset($_SESSION['orientation']);
-                unset($_SESSION['vessel']);
-                unset($_POST);
-                return false;
-            }
+                    unset($_SESSION['orientation']);
+                    unset($_SESSION['vessel']);
+                    unset($_POST);
+                    return false;
+                } else
+                    if ($this->ally_grid->getCase(chr(ord($letter) + $i) . $number) != "sea") {
+                        unset($_SESSION['orientation']);
+                        unset($_SESSION['vessel']);
+                        unset($_POST);
+                        return false;
+                    }
         }
         mysqli_query($connexion, "INSERT INTO Navire (id_joueur, id_partie, type_nav, taille, reference, position, sens) VALUES ('" . $_SESSION['ID'] . "','" . $this->id_partie . "','" . $type_vessel . "','" . $vessel->getLenght() . "','" . $vessel->getReference() . "','" . $position . "','" . $orientation . "')");
         $this->ally_grid->addVessel($type_vessel, $position);
@@ -140,40 +139,36 @@ class Match
      */
     public function formVessel()
     {
-        /* RESULT */
-        $result = "";
-        if ($_SESSION['vessel'] != 'porte-avion')
-            if (!isset($this->getAllyGrid()->getVessels()["porte-avion"]))
-                $result = $result . "<input type='submit' name='vessel' value='porte-avion'>";
-        if ($_SESSION['vessel'] != 'croiseur')
-            if (!isset($this->getAllyGrid()->getVessels()["croiseur"]))
-                $result = $result . "<input type='submit' name='vessel' value='croiseur'>";
-        if ($_SESSION['vessel'] != 'contre-torpilleur')
-            if (!isset($this->getAllyGrid()->getVessels()["contre-torpilleur"]))
-                $result = $result . "<input type='submit' name='vessel' value='contre-torpilleur'>";
-        if ($_SESSION['vessel'] != 'sous-marin')
-            if (!isset($this->getAllyGrid()->getVessels()["sous-marin"]))
-                $result = $result . "<input type='submit' name='vessel' value='sous-marin'>";
-        if ($_SESSION['vessel'] != 'torpilleur')
-            if (!isset($this->getAllyGrid()->getVessels()["torpilleur"]))
-                $result = $result . "<input type='submit' name='vessel' value='torpilleur'>";
-        /* VIDE */
-        if ($result == "")
+        $list_vessel = [];
+        if (!array_key_exists('porte-avion', $this->ally_grid->getVessels()))
+            array_push($list_vessel, 'porte-avion');
+        if (!array_key_exists('croiseur', $this->ally_grid->getVessels()))
+            array_push($list_vessel, 'croiseur');
+        if (!array_key_exists('contre-torpilleur', $this->ally_grid->getVessels()))
+            array_push($list_vessel, 'contre-torpilleur');
+        if (!array_key_exists('sous-marin', $this->ally_grid->getVessels()))
+            array_push($list_vessel, 'sous-marin');
+        if (!array_key_exists('torpilleur', $this->ally_grid->getVessels()))
+            array_push($list_vessel, 'torpilleur');
+        if (count($list_vessel) == 0) {
             $this->state = WAITENNEMYLAYVESSEL;
-        /* SESSION */
-        if (count($this->ally_grid->getVessels()) == 5) {
-            $explo = explode("'", $result)[5];
-            $result = "<span>Il ne reste plus que le " . $explo . ".";
-            $_SESSION['vessel'] = $explo;
+            return "";
+        } elseif (count($list_vessel) == 1) {
+            $pop = array_pop($list_vessel);
+            $_SESSION['vessel'] = $pop;
+            return "<span>Il ne reste plus que le " . $pop . ".</span>";
+        } else {
+            $result = "<form class='vesselForm' method='POST' action='./'>";
+            if (isset($_SESSION['vessel']))
+                $result .= "<span>Vous avez actuellement sélectionné le " . $_SESSION['vessel'] . ". Pour changer: </span>";
+            else
+                $result .= "<span>Choisissez le bateau que vous voulez placer: </span>";
+            foreach ($list_vessel as $value) {
+                $result .= "<input type='submit' name='vessel' value='" . $value . "'>";
+            }
+            $result .= "</form>";
+            return $result;
         }
-        else if (isset($_SESSION['vessel']))
-            $result = "<form class='vesselForm' method='POST' action='./'><span>Vous avez actuellement sélectionné le " . $_SESSION['vessel'] . ". Pour changer: </span>" . $result . "</form>";
-        else
-            $result = "<form class='vesselForm' method='POST' action='./'><span>Choisissez le bateau que vous voulez placer: </span>" . $result . "</form>";
-        /* RETURN */
-
-
-        return $result;
     }
 
     /**
@@ -205,8 +200,9 @@ class Match
     public function checkWaitEnnemyVessel()
     {
         global $connexion;
-        mysqli_query($connexion, "SELECT COUNT(id_navire) FROM Navire")
-        return true;
+        $rset = mysqli_query($connexion, "SELECT COUNT(id_navire) FROM Navire WHERE id_partie = '" . $this->id_partie . "' AND id_joueur = '" . $this->ennemy_grid->getIDJoueur() . "'");
+        if ($rset->fetch_row()[0] == 5)
+            $this->state = PLAYING;
     }
 
     /**
