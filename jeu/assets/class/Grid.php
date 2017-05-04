@@ -103,7 +103,10 @@ class Grid
             echo "<tr><td class='cell coord'>" . $row . "</td>";
             for ($column = 'A'; $column <= 'J'; $column++) {
                 $cell = $column . $row;
-                echo "<td class='cell " . $this->array[$cell] . "'><form method='POST' action='./'><input type='hidden' name='cell' value='" . $cell . "'><input type='submit' name='click'></form></td>";
+                if ($this->array[$cell] != "sea")
+                    echo "<td class='cell " . $this->array[$cell] . "'></td>";
+                else
+                    echo "<td class='cell " . $this->array[$cell] . "'><form method='POST' action='./'><input type='hidden' name='cell' value='" . $cell . "'><input type='submit' name='click'></form></td>";
             }
         }
     }
@@ -112,7 +115,8 @@ class Grid
      * @param $pos
      * @return string
      */
-    public function getCase($pos) {
+    public function getCase($pos)
+    {
         return $this->array[$pos];
     }
 
@@ -120,7 +124,8 @@ class Grid
      * @param $value
      * @param $pos
      */
-    public function setCase($value, $pos) {
+    public function setCase($value, $pos)
+    {
         $this->array[$pos] = $value;
     }
 
@@ -152,7 +157,8 @@ class Grid
      * @param $vessel string
      * @param $pos string
      */
-    public function addVessel($vessel, $pos) {
+    public function addVessel($vessel, $pos)
+    {
         $this->vessels[$vessel] = $pos;
     }
 

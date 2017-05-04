@@ -98,21 +98,35 @@ class Match
      */
     public function layVessel($type_vessel, $position, $orientation)
     {
+        if (!isset($_SESSION['orientation']) || !isset($_SESSION['vessel']))
+            return false;
         $vessel = new Vessel($type_vessel);
         global $connexion;
+        $letter = substr($position,0,1);
+        $number = substr($position,1);
         for ($i = 0; $i < $vessel->getLenght(); $i++) {
-            if ($orientation == "vertical") if ($this->ally_grid->getCase($position[0] . ($position[1] + $i)) != "sea")
+            if ($orientation == "vertical")
+                if ($this->ally_grid->getCase($letter . ($number + $i)) != "sea") {
+                unset($_SESSION['orientation']);
+                unset($_SESSION['vessel']);
+                unset($_POST);
                 return false;
-            else if ($this->ally_grid->getCase(chr(ord($position[0]) + $i) . $position[1]) != "sea")
+            }
+            else
+                if ($this->ally_grid->getCase(chr(ord($letter) + $i) . $number) != "sea") {
+                unset($_SESSION['orientation']);
+                unset($_SESSION['vessel']);
+                unset($_POST);
                 return false;
+            }
         }
         mysqli_query($connexion, "INSERT INTO Navire (id_joueur, id_partie, type_nav, taille, reference, position, sens) VALUES ('" . $_SESSION['ID'] . "','" . $this->id_partie . "','" . $type_vessel . "','" . $vessel->getLenght() . "','" . $vessel->getReference() . "','" . $position . "','" . $orientation . "')");
         $this->ally_grid->addVessel($type_vessel, $position);
         for ($i = 0; $i < $vessel->getLenght(); $i++) {
             if ($orientation == "vertical")
-                $this->ally_grid->setCase($type_vessel, $position[0] . ($position[1] + $i));
+                $this->ally_grid->setCase($type_vessel, $letter . ($number + $i));
             else
-                $this->ally_grid->setCase($type_vessel, chr(ord($position[0]) + $i) . $position[1]);
+                $this->ally_grid->setCase($type_vessel, chr(ord($letter) + $i) . $number);
         }
         unset($_SESSION['orientation']);
         unset($_SESSION['vessel']);

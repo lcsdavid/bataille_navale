@@ -25,6 +25,7 @@ switch ($_SESSION['partie']->getState()) {
 }
 echo "</div>";
 print_r($_POST);
+print_r($_SESSION['partie']->getAllyGrid());
 
 /* Moi */
 echo "<div class='me'>" . echoID($_SESSION["partie"]->getAllyGrid()->getIDJoueur()) . "<table id='my-grid' class='grid'><tr><td class='cell empty'></td>";
@@ -57,16 +58,16 @@ for ($i = 'A'; $i < 'K'; $i++) {
 echo "</tr>";
 switch ($_SESSION['partie']->getState()) {
     case WAITING:
-        $_SESSION['partie']->getEnnemy()->display();
+        $_SESSION['partie']->getEnnemyGrid()->display();
         break;
     case LAYVESSEL:
-        $_SESSION['partie']->getEnnemy()->display();
+        $_SESSION['partie']->getEnnemyGrid()->display();
         break;
     case PLAYING:
         if ($_SESSION['partie']->myTurn())
-            $_SESSION['partie']->getEnnemy()->displayForm();
+            $_SESSION['partie']->getEnnemyGrid()->displayForm();
         else
-            $_SESSION['partie']->getEnnemy()->display();
+            $_SESSION['partie']->getEnnemyGrid()->display();
         break;
     default:
         break;

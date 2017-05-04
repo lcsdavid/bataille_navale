@@ -10,7 +10,7 @@ class Vessel
     {
         switch($this->type = $type)
         {
-            case('porte_avion'):
+            case('porte-avion'):
                 $this->reference = "https://fr.wikipedia.org/wiki/Porte-avions";
                 $this->lenght = 5;
                 break;
