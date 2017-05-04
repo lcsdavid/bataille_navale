@@ -75,18 +75,32 @@ class Grid
     }
 
     /**
-     * @return $this
+     *
      */
     public function display()
     {
-        for ($row = 'A'; $row <= 'J'; $row++) {
+        for ($row = 1; $row <= 10; $row++) {
             echo "<tr><td class='cell coord'>" . $row . "</td>";
-            for ($column = 1; $column <= 10; $column++) {
-                $cell = $row . (string)$column;
-                echo "<td class='cell " . $this->array[$cell] . "'><a href='#" . $cell . "'></a></td>";
+            for ($column = 'A'; $column <= 'J'; $column++) {
+                $cell = $column . $row;
+                echo "<td class='cell " . $this->array[$cell] . "'></td>";
             }
         }
         return $this;
+    }
+
+    /**
+     *
+     */
+    public function displayForm()
+    {
+        for ($row = 1; $row <= 10; $row++) {
+            echo "<tr><td class='cell coord'>" . $row . "</td>";
+            for ($column = 'A'; $column <= 'J'; $column++) {
+                $cell = $column . $row;
+                echo "<td class='cell " . $this->array[$cell] . "'><form class='listing' method='POST' action='../partie/'><input type='hidden' name='cell' value='" . $cell . "'><input type='submit' name='click'></form></td>";
+            }
+        }
     }
 
     /**
