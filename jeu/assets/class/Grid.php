@@ -56,11 +56,11 @@ class Grid
                 $row = $rset->fetch_row();
                 $pos = $row[1];
                 for ($j = 0; $j < $row[3]; $j++) {
-                    $this->array[$pos] = $row[0];
                     if ($row[2] == 'H')
-                        $pos = $pos[0] . ($pos[1] + 1);
+                        $pos = $pos[0] . ($pos[1] + $j);
                     if ($row[2] == 'V')
-                        $pos = ($pos[0] + 1) . $pos[1];
+                        $pos = ($pos[0] + $j) . $pos[1];
+                    $this->array[$pos] = $row[0];
                 }
             }
         }
