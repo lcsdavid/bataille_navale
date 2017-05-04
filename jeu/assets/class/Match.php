@@ -59,15 +59,10 @@ class Match
     public function quit()
     {
         global $connexion;
-        mysqli_query($connexion, "UPDATE Partie SET id_joueur2 = '" . $_SESSION['ID'] . "' WHERE id_partie = '" . Match::class::$_SESSION['partie']->getIDPartie() . "'");
-        mysqli_query($connexion, "UPDATE Etat_partie SET etat_partie = 'cancelled' WHERE id_partie = '" . Match::class::$_SESSION['partie']->getIDPartie() . "'");
+        mysqli_query($connexion, "UPDATE Partie SET id_joueur2 = '" . $_SESSION['ID'] . "' WHERE id_partie = '" . $this->id_partie . "'");
+        mysqli_query($connexion, "UPDATE Etat_partie SET etat_partie = 'cancelled' WHERE id_partie = '" . $this->id_partie . "'");
         header("../");
         unset($_SESSION['partie']);
-    }
-
-    public function fire()
-    {
-        return false;
     }
 
     /**
@@ -107,7 +102,7 @@ class Match
     }
 
     /**
-     *
+     * Mutateur de la grille ennemi.
      */
     public function setEnnemyGrid()
     {

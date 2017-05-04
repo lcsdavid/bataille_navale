@@ -3,7 +3,8 @@
 session_start();
 require_once('../assets/php/init.php');
 require_once('../assets/php/fonction.php');
-require_once ('../assets/php/class.php');
+include_once('../assets/php/Grid.php');
+include_once('../assets/php/Match.php');
 ?>
 <html lang="fr">
 <head>
@@ -26,52 +27,21 @@ require_once ('../assets/php/class.php');
 <!-- Main -->
 <main>
     <?php
-
-    if (isset($_POST['create'])) {
-        echo 'Test';
-        /*$_SESSION['partie'] = new Match(-1);*/
-        /* Moi */
-        echo '<div id="me"><table id="my-grid" class="grid"><tr><td class="cell empty"></td>';
-        for ($i = 'A'; $i < 'K'; $i++) {
-            echo '<td class="cell coord">' . $i . '</td>';
-        }
-        echo '</tr>';
-        /* $_SESSION['partie']->getAllyGrid()->display(); */
-        echo '</table></div>';
-
-        /* Cartes */
-        echo '<div id="cards"></div>';
-        /* Ennemi */
-        echo '<div id="ennemy"><table id="ennemy-grid" class="grid"><tr><td class="cell empty"></td>';
-        for ($i = 'A'; $i < 'K'; $i++) {
-            echo '<td class="cell coord">' . $i . '</td>';
-        }
-        echo '</tr>';
-        /* $_SESSION['partie']->getEnnemyGrid()->display(); */
-        echo '</table></div>';
+    if (isset($_SESSION['partie'])) {
+        echo 'Session !';
+        require_once ('currentMatch.php');
+    } else if (isset($_POST['create'])) {
+        echo 'Create !';
+        $_SESSION['partie'] = new Match(-1);
+        require_once ('currentMatch.php');
     } else if (isset($_POST['join'])) {
-        /* $_SESSION['partie'] = new Match($_POST['id_partie']); */
-        /* Moi */
-        echo '<div id="me"><table id="my-grid" class="grid"><tr><td class="cell empty"></td>';
-        for ($i = 'A'; $i < 'K'; $i++) {
-            echo '<td class="cell coord">' . $i . '</td>';
-        }
-        echo '</tr>';
-        /* $_SESSION['partie']->getAllyGrid()->display(); */
-        echo '</table></div>';
-
-        /* Cartes */
-        echo '<div id="cards"></div>';
-        /* Ennemi */
-        echo '<div id="ennemy"><table id="ennemy-grid" class="grid"><tr><td class="cell empty"></td>';
-        for ($i = 'A'; $i < 'K'; $i++) {
-            echo '<td class="cell coord">' . $i . '</td>';
-        }
-        echo '</tr>';
-        /* $_SESSION['partie']->getEnnemyGrid()->display();*/
-        echo '</table></div>';
-    } else
+        echo 'Join !';
+        $_SESSION['partie'] = new Match($_POST['id_partie']);
+        require_once ('currentMatch.php');
+    } else {
+        echo 'Else !';
         require_once('matches.php');
+    }
     ?>
 </main>
 <!-- Footer -->

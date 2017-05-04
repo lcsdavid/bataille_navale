@@ -1,5 +1,9 @@
 <?php
 
+define('UNDEFINED', -1);
+define('ENNEMY', 0);
+define('ALLY', 1);
+
 class Grid
 {
     /**
