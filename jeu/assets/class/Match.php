@@ -63,7 +63,7 @@ class Match
         $id_joueur1 = mysqli_query($connexion, "SELECT id_joueur1 FROM Partie WHERE id_partie = '" . $this->id_partie . "'")->fetch_row()[0];
         if ($_SESSION['ID'] != $id_joueur1) {
             mysqli_query($connexion, "UPDATE Partie SET id_joueur2 = '" . $_SESSION['ID'] . "' WHERE id_partie = '" . $this->id_partie . "'");
-            setEnnemyGrid();
+            $this->setEnnemyGrid();
         }
     }
 

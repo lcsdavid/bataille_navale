@@ -36,6 +36,7 @@ session_start();
         require_once('currentMatch.php');
     } else if (isset($_POST['join'])) {
         echo 'Join !';
+        echo $_POST['id_partie'];
         $_SESSION['partie'] = new Match($_POST['id_partie']);
         require_once('currentMatch.php');
     } else {

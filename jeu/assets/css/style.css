@@ -83,25 +83,21 @@ main {
     padding: 0;
 }
 
+
+/* GRID */
+#me {
+    position: absolute;
+    margin-left: 2em;
+}
+
+#ennemy {
+    float: right;
+    margin-right: 2em;
+}
+
 .grid {
     background-color: #777777;
 }
-
-.grid input {
-
-}
-
-.cell {
-    padding: 0;
-    margin: 0;
-    height: 25px;
-    width: 25px;
-}
-
-.sea {
-    background-image: url("../images/sea.png");
-}
-
 
 .grid form {
     padding: 0;
@@ -122,6 +118,31 @@ main {
     height: 100%;
     width: 100%;
 }
+
+.cell {
+    padding: 0;
+    margin: 0;
+    height: 25px;
+    width: 25px;
+}
+
+.empty{
+    background-color: black;
+}
+
+.coord {
+    background-color: white;
+    font-family: sans-serif;
+    text-align: center;
+}
+
+.sea {
+    background-image: url("../images/sea.png");
+}
+
+/** GRID **/
+
+
 
 .one, .two, .three {
     display: inline;
