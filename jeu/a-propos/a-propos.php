@@ -24,7 +24,25 @@ require_once('../assets/php/fonction.php');
 </header>
 <!-- Main -->
 <main>
-
+    <div class="nous">
+         <h1>Bataille Navale</h1>
+        <p>
+            Ceci est notre projet de Bataille Navale réalisé avec l'université Lyon1.
+        </p>
+        <h2>
+            Nous contacter ?
+        </h2>
+        <blockquote>
+            Mr David Lucas
+            p1506340
+            david.lucas@etu.univ-lyon1.fr
+        </blockquote>
+        <blockquote>
+            Mr Sublet Gary
+            p1506450
+            gary.sublet@etu.univ-lyon1.fr
+        </blockquote>
+    </div>
 </main>
 <!-- Footer -->
 <footer></footer>
