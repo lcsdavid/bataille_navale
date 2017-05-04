@@ -100,50 +100,39 @@ class Match
         }
         mysqli_query($connexion, "INSERT INTO Navire (id_joueur, id_partie, type_nav, taille, reference, position, sens) VALUES ('" . $_SESSION['ID'] . "','" . $this->id_partie . "','" . $type_vessel . "','" . $vessel->getLenght() . "','" . $vessel->getReference() . "','" . $position . "','" . $orientation . "')");
         $this->ally_grid->getVessels()[$type_vessel] = $position;
-        unset($_SESSION['vessel']);
+        if (isset($_SESSION['orientation']))
+            unset($_SESSION['orientation']);
+        if (isset($_SESSION['vessel']))
+            unset($_SESSION['vessel']);
         return true;
     }
 
-    public function formVessel() {
-        $return = "";
-        if(isset($_SESSION['vessel'])) {
-            if($this->getAllyGrid()->getVessels()["porte-avion"] == null && !$_SESSION['vessel'] == "porte-avion") {
-                $return = $return . "<input type='submit' name='vessel' value='porte-avion'>";
-            }
-            if($this->getAllyGrid()->getVessels()["croiseur"] == null && !$_SESSION['vessel'] == "croiseur") {
-                $return = $return . "<input type='submit' name='vessel' value='croiseur'>";
-            }
-            if($this->getAllyGrid()->getVessels()["contre-torpilleur"] == null && !$_SESSION['vessel'] == "contre-torpilleur") {
-                $return = $return . "<input type='submit' name='vessel' value='contre-torpilleur'>";
-            }
-            if($this->getAllyGrid()->getVessels()["sous-marin"] == null && !$_SESSION['vessel'] == "sous-marin") {
-                $return = $return . "<input type='submit' name='vessel' value='sous-marin'>";
-            }
-            if($this->getAllyGrid()->getVessels()["torpilleur"] == null && !$_SESSION['vessel'] == "torpilleur") {
-                $return = $return . "<input type='submit' name='vessel' value='torpilleur'>";
-            }
-            if ($return == "")
-                $this->state = WAITENNEMYLAYVESSEL;
-            return "<form class='vesselForm' method='POST' action='./'><span>Vous avez actuellement sélectionné le " . $_SESSION['vessel'] . ". Pour changer: </span>" . $return . "</form>";
-        } else {
-            if($this->getAllyGrid()->getVessels()["porte-avion"] == null) {
-                $return = $return . "<input type='submit' name='vessel' value='porte-avion'>";
-            }
-            if($this->getAllyGrid()->getVessels()["croiseur"] == null) {
-                $return = $return . "<input type='submit' name='vessel' value='croiseur'>";
-            }
-            if($this->getAllyGrid()->getVessels()["contre-torpilleur"] == null) {
-                $return = $return . "<input type='submit' name='vessel' value='contre-torpilleur'>";
-            }
-            if($this->getAllyGrid()->getVessels()["sous-marin"] == null) {
-                $return = $return . "<input type='submit' name='vessel' value='sous-marin'>";
-            }
-            if($this->getAllyGrid()->getVessels()["torpilleur"] == null) {
-                $return = $return . "<input type='submit' name='vessel' value='torpilleur'>";
-            }
-            if ($return == "")
-                $this->state = WAITENNEMYLAYVESSEL;
-        }
+    /**
+     * Fonction qui donne donne le formulaire de selection de bateau a afficher en fonction de la situation.
+     * @return string
+     */
+    public function formVessel()
+    {
+        $result = "";
+        if ($this->getAllyGrid()->getVessels()["porte-avion"] == null)
+            $result = $result . "<input type='submit' name='vessel' value='porte-avion'>";
+        if ($this->getAllyGrid()->getVessels()["croiseur"] == null)
+            $result = $result . "<input type='submit' name='vessel' value='croiseur'>";
+        if ($this->getAllyGrid()->getVessels()["contre-torpilleur"] == null)
+            $result = $result . "<input type='submit' name='vessel' value='contre-torpilleur'>";
+        if ($this->getAllyGrid()->getVessels()["sous-marin"] == null)
+            $result = $result . "<input type='submit' name='vessel' value='sous-marin'>";
+        if ($this->getAllyGrid()->getVessels()["torpilleur"] == null)
+            $result = $result . "<input type='submit' name='vessel' value='torpilleur'>";
+        /* VIDE */
+        if ($result = "")
+            $this->state = WAITENNEMYLAYVESSEL;
+        /* SESSION */
+        if (isset($_SESSION['vessel']))
+            $result = "<form class='vesselForm' method='POST' action='./'><span>Vous avez actuellement sélectionné le " . $_SESSION['vessel'] . ". Pour changer: </span>" . $result . "</form>";
+        else
+            $result = "<form class='vesselForm' method='POST' action='./'>" . $result . "</form>";
+        return $result;
     }
 
     /**
@@ -153,7 +142,7 @@ class Match
     {
         global $connexion;
         $row = mysqli_query($connexion, "SELECT id_joueur1, id_joueur2 FROM Partie WHERE id_partie = '" . $this->id_partie . "'")->fetch_row();
-        if($row[1] == null) {
+        if ($row[1] == null) {
             return;
         } else if ($row[0] == $_SESSION['ID'])
             $this->getEnnemyGrid()->setIDJoueur($row[1]);
@@ -164,7 +153,8 @@ class Match
     /**
      * Routine quand on attend que l'adversaire est posé tout ses bateaux.
      */
-    public function checkWaitEnnemyVessel() {
+    public function checkWaitEnnemyVessel()
+    {
 
     }
 
