@@ -7,13 +7,13 @@ switch ($_SESSION['partie']->getState()) {
         $_SESSION['partie']->checkWait();
         break;
     case LAYVESSEL:
-        echo $_POST;
         if (isset($_POST['vessel']))
             $_SESSION['vessel'] = $_POST['vessel'];
         if(isset($_POST['orientation']))
             $_SESSION['orientation'] = $_POST['orientation'];
         if(isset($_POST['click'])) {
-            echo $_POST['cell'];
+            if(isset($_SESSION['vessel']) && isset($_SESSION['orientation']))
+                $_SESSION['partie']->layVessel($_SESSION['vessel'], $_POST['cell'], $_SESSION['orientation']);
         }
         break;
     case WAITENNEMYLAYVESSEL:

@@ -106,28 +106,48 @@ class Match
 
     public function formVessel() {
         $return = "";
-        if($this->getAllyGrid()->getVessels()["porte-avion"] == null) {
-            $return = $return . "<input type='submit' name='vessel' value='porte-avion'>";
+        if(isset($_SESSION['vessel'])) {
+            if($this->getAllyGrid()->getVessels()["porte-avion"] == null && !$_SESSION['vessel'] == "porte-avion") {
+                $return = $return . "<input type='submit' name='vessel' value='porte-avion'>";
+            }
+            if($this->getAllyGrid()->getVessels()["croiseur"] == null && !$_SESSION['vessel'] == "croiseur") {
+                $return = $return . "<input type='submit' name='vessel' value='croiseur'>";
+            }
+            if($this->getAllyGrid()->getVessels()["contre-torpilleur"] == null && !$_SESSION['vessel'] == "contre-torpilleur") {
+                $return = $return . "<input type='submit' name='vessel' value='contre-torpilleur'>";
+            }
+            if($this->getAllyGrid()->getVessels()["sous-marin"] == null && !$_SESSION['vessel'] == "sous-marin") {
+                $return = $return . "<input type='submit' name='vessel' value='sous-marin'>";
+            }
+            if($this->getAllyGrid()->getVessels()["torpilleur"] == null && !$_SESSION['vessel'] == "torpilleur") {
+                $return = $return . "<input type='submit' name='vessel' value='torpilleur'>";
+            }
+            if ($return == "")
+                $this->state = WAITENNEMYLAYVESSEL;
+            return "<form class='vesselForm' method='POST' action='./'><span>Vous avez actuellement sélectionné le " . $_SESSION['vessel'] . ". Pour changer: </span>" . $return . "</form>";
+        } else {
+            if($this->getAllyGrid()->getVessels()["porte-avion"] == null) {
+                $return = $return . "<input type='submit' name='vessel' value='porte-avion'>";
+            }
+            if($this->getAllyGrid()->getVessels()["croiseur"] == null) {
+                $return = $return . "<input type='submit' name='vessel' value='croiseur'>";
+            }
+            if($this->getAllyGrid()->getVessels()["contre-torpilleur"] == null) {
+                $return = $return . "<input type='submit' name='vessel' value='contre-torpilleur'>";
+            }
+            if($this->getAllyGrid()->getVessels()["sous-marin"] == null) {
+                $return = $return . "<input type='submit' name='vessel' value='sous-marin'>";
+            }
+            if($this->getAllyGrid()->getVessels()["torpilleur"] == null) {
+                $return = $return . "<input type='submit' name='vessel' value='torpilleur'>";
+            }
+            if ($return == "")
+                $this->state = WAITENNEMYLAYVESSEL;
         }
-        if($this->getAllyGrid()->getVessels()["croiseur"] == null) {
-            $return = $return . "<input type='submit' name='vessel' value='croiseur'>";
-        }
-        if($this->getAllyGrid()->getVessels()["contre-torpilleur"] == null) {
-            $return = $return . "<input type='submit' name='vessel' value='contre-torpilleur'>";
-        }
-        if($this->getAllyGrid()->getVessels()["sous-marin"] == null) {
-            $return = $return . "<input type='submit' name='vessel' value='sous-marin'>";
-        }
-        if($this->getAllyGrid()->getVessels()["torpilleur"] == null) {
-            $return = $return . "<input type='submit' name='vessel' value='torpilleur'>";
-        }
-        if ($return == "")
-            $this->state = WAITENNEMYLAYVESSEL;
-        return "<form class='vesselForm' method='POST' action='./'>" . $return . "</form>";
     }
 
     /**
-     *
+     * Routine quand on attend l'adversaire.
      */
     public function checkWait()
     {
@@ -139,6 +159,13 @@ class Match
             $this->getEnnemyGrid()->setIDJoueur($row[1]);
         else $this->getEnnemyGrid()->setIDJoueur($row[0]);
         $this->state = LAYVESSEL;
+    }
+
+    /**
+     * Routine quand on attend que l'adversaire est posé tout ses bateaux.
+     */
+    public function checkWaitEnnemyVessel() {
+
     }
 
     /**

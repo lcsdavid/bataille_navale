@@ -8,11 +8,10 @@ class Cards
 
     }
 
-    private
 
     public function pickUp($ally_grid, $ennemi_grid)
     {
-        $rand = rand(1, 100);
+        $rand = rand(0, 100);
         switch ($rand)
         {
             case ($rand<=25):
