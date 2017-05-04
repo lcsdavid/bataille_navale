@@ -71,6 +71,14 @@ class Match
     }
 
     /**
+     * @return Grid
+     */
+    public function getEnnemyGrid()
+    {
+        return $this->ennemy_grid;
+    }
+
+    /**
      * Quitte la partie.
      */
     public function quit()
@@ -83,9 +91,9 @@ class Match
     }
 
     /**
-     * @param $type_vessel
-     * @param $position
-     * @param $orientation = "H" ou "V"
+     * @param $type_vessel string
+     * @param $position string
+     * @param $orientation string
      * @return bool
      */
     public function layVessel($type_vessel, $position, $orientation)
@@ -93,13 +101,19 @@ class Match
         $vessel = new Vessel($type_vessel);
         global $connexion;
         for ($i = 0; $i < $vessel->getLenght(); $i++) {
-            if ($orientation == "H") if ($this->ally_grid->getCase($position[0] . ($position[1] + $i)) != "sea")
+            if ($orientation == "vertical") if ($this->ally_grid->getCase($position[0] . ($position[1] + $i)) != "sea")
                 return false;
-            else if ($this->ally_grid->getCase(($position[0] + $i) . $position[1]) != "sea")
+            else if ($this->ally_grid->getCase(chr(ord($position[0]) + $i) . $position[1]) != "sea")
                 return false;
         }
         mysqli_query($connexion, "INSERT INTO Navire (id_joueur, id_partie, type_nav, taille, reference, position, sens) VALUES ('" . $_SESSION['ID'] . "','" . $this->id_partie . "','" . $type_vessel . "','" . $vessel->getLenght() . "','" . $vessel->getReference() . "','" . $position . "','" . $orientation . "')");
-        $this->ally_grid->getVessels()[$type_vessel] = $position;
+        $this->ally_grid->addVessel($type_vessel, $position);
+        for ($i = 0; $i < $vessel->getLenght(); $i++) {
+            if ($orientation == "vertical")
+                $this->ally_grid->setCase($type_vessel, $position[0] . ($position[1] + $i));
+            else
+                $this->ally_grid->setCase($type_vessel, chr(ord($position[0]) + $i) . $position[1]);
+        }
         unset($_SESSION['orientation']);
         unset($_SESSION['vessel']);
         unset($_POST);
@@ -118,7 +132,7 @@ class Match
             if (!isset($this->getAllyGrid()->getVessels()["porte-avion"]))
                 $result = $result . "<input type='submit' name='vessel' value='porte-avion'>";
         if ($_SESSION['vessel'] != 'croiseur')
-            if (!isset($this->getAllyGrid()->getVessels()["croiseur"]) )
+            if (!isset($this->getAllyGrid()->getVessels()["croiseur"]))
                 $result = $result . "<input type='submit' name='vessel' value='croiseur'>";
         if ($_SESSION['vessel'] != 'contre-torpilleur')
             if (!isset($this->getAllyGrid()->getVessels()["contre-torpilleur"]))
@@ -142,6 +156,14 @@ class Match
     }
 
     /**
+     * @return Grid
+     */
+    public function getAllyGrid()
+    {
+        return $this->ally_grid;
+    }
+
+    /**
      * Routine quand on attend l'adversaire.
      */
     public function checkWait()
@@ -162,22 +184,6 @@ class Match
     public function checkWaitEnnemyVessel()
     {
 
-    }
-
-    /**
-     * @return Grid
-     */
-    public function getAllyGrid()
-    {
-        return $this->ally_grid;
-    }
-
-    /**
-     * @return Grid
-     */
-    public function getEnnemyGrid()
-    {
-        return $this->ennemy_grid;
     }
 
     /**

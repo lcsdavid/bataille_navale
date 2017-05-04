@@ -11,6 +11,9 @@ switch ($_SESSION['partie']->getState()) {
             $_SESSION['vessel'] = $_POST['vessel'];
         if(isset($_POST['orientation']))
             $_SESSION['orientation'] = $_POST['orientation'];
+        if(isset($_POST['click']))
+            if(isset($_SESSION['vessel']) && isset($_SESSION['orientation']))
+                $layvessel = $_SESSION['partie']->layVessel($_SESSION['vessel'], $_POST['cell'], $_SESSION['orientation']);
         break;
     case WAITENNEMYLAYVESSEL:
         $_SESSION['partie']->setState(LAYVESSEL);
@@ -22,8 +25,6 @@ switch ($_SESSION['partie']->getState()) {
 }
 echo "</div>";
 print_r($_POST);
-echo "Vessels";
-print_r($_SESSION['partie']->getAllyGrid()->getVessels()["porte-avion"]);
 
 /* Moi */
 echo "<div class='me'>" . echoID($_SESSION["partie"]->getAllyGrid()->getIDJoueur()) . "<table id='my-grid' class='grid'><tr><td class='cell empty'></td>";
@@ -56,16 +57,16 @@ for ($i = 'A'; $i < 'K'; $i++) {
 echo "</tr>";
 switch ($_SESSION['partie']->getState()) {
     case WAITING:
-        $_SESSION['partie']->getAllyGrid()->display();
+        $_SESSION['partie']->getEnnemy()->display();
         break;
     case LAYVESSEL:
-        $_SESSION['partie']->getAllyGrid()->display();
+        $_SESSION['partie']->getEnnemy()->display();
         break;
     case PLAYING:
         if ($_SESSION['partie']->myTurn())
-            $_SESSION['partie']->getAllyGrid()->displayForm();
+            $_SESSION['partie']->getEnnemy()->displayForm();
         else
-            $_SESSION['partie']->getAllyGrid()->display();
+            $_SESSION['partie']->getEnnemy()->display();
         break;
     default:
         break;
@@ -82,11 +83,12 @@ switch ($_SESSION['partie']->getState()) {
         /* Opérations */
         if(isset($_POST['click'])) {
             if(isset($_SESSION['vessel']) && isset($_SESSION['orientation'])) {
-                if ($_SESSION['partie']->layVessel($_SESSION['vessel'], $_POST['cell'], $_SESSION['orientation']))
+                if ($layvessel)
                     echo "<span>Bateau posé !</span>";
                 else
                     echo "<span>Vous ne pouvez pas poser votre bateau ici !</span>";
-            }
+            } else
+                echo "<span>Vous n'avez pas tout sélectionné !</span>";
         }
         /* Bateaux */
         echo $_SESSION['partie']->formVessel();

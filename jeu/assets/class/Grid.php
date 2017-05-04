@@ -149,6 +149,14 @@ class Grid
     }
 
     /**
+     * @param $vessel string
+     * @param $pos string
+     */
+    public function addVessel($vessel, $pos) {
+        $this->vessels[$vessel] = $pos;
+    }
+
+    /**
      * @return array
      */
     public function getVessels()
