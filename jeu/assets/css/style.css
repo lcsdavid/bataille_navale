@@ -110,12 +110,72 @@ main {
 
 .me {
     position: absolute;
-    margin-left: 2em;
+    margin: 5em 0 0 2em;
 }
 
 .ennemy {
+    position: relative;
     float: right;
-    margin-right: 2em;
+    margin: 5em 2em 0 0;
+}
+
+.upper-side {
+    position: absolute;
+    width: 100%;
+    margin: 0 2em 0 2em;
+    height: 5em;
+}
+
+.upper-side > span {
+    position: inherit;
+    margin: 0.75em 0 0 0;
+    text-align: center;
+    font-size: 2em;
+    font-family: sans-serif;
+    text-align: center;
+    width: 100%;
+}
+
+.bottom-side {
+    position: absolute;
+    width: 100%;
+    margin: 30em 2em 0 2em;
+    height: 20em;
+}
+
+.bottom-side > span {
+    position: relative;
+    margin: 4em 0 2em 0;
+    text-align: center;
+    font-size: 2em;
+    font-family: sans-serif;
+    text-align: center;
+    width: 100%;
+}
+
+.bottom-side input {
+    background-color: steelblue;
+    font-family: sans-serif;
+    text-transform: capitalize;
+    border: 0;
+    height: 2em;
+    border-radius: 0.25em;
+    margin: 0.25em 0.25em 0.25em 0.25em;
+}
+
+.bottom-side form {
+    position: relative;
+    font-family: sans-serif;
+}
+
+.bottom-side input:hover {
+    background-color: #55c0f9;
+    font-family: sans-serif;
+    text-transform: capitalize;
+    border: 0;
+    height: 2em;
+    border-radius: 0.25em;
+    margin: 0.25em 0.25em 0.25em 0.25em;
 }
 
 .grid {
@@ -145,8 +205,8 @@ main {
 .cell {
     padding: 0;
     margin: 0;
-    height: 25px;
-    width: 25px;
+    height: 2em;
+    width: 2em;
 }
 
 .empty{
@@ -170,17 +230,8 @@ main {
 }
 
 .hit {
-    background-image: url("../images/hit.png");
+    background-image: url('../images/hit.png');
     background-size: cover;
-}
-
-.upper-side{
-
-}
-
-.bottom-side {
-    position: absolute;
-    margin-top: 25em;
 }
 
 /** GRID **/

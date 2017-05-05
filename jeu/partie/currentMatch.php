@@ -7,6 +7,7 @@ switch ($_SESSION['partie']->getState()) {
         $_SESSION['partie']->checkWait();
         break;
     case LAYVESSEL:
+        echo "<span>Posez vos bateaux...</span>";
         if (isset($_POST['vessel']))
             $_SESSION['vessel'] = $_POST['vessel'];
         if (isset($_POST['orientation']))
@@ -17,10 +18,11 @@ switch ($_SESSION['partie']->getState()) {
         $formVessel = $_SESSION['partie']->formVessel();
         break;
     case WAITENNEMYLAYVESSEL:
-        echo "lol";
+        echo "<span>En attente du joueur adverse...</span>";
         $_SESSION['partie']->checkWaitEnnemyVessel();
         break;
     case PLAYING:
+        echo "<span>Partie !</span>";
         $_SESSION['partie']->checkWinner();
         $_SESSION['partie']->getAllyGrid()->reload();
         $_SESSION['partie']->getEnnemyGrid()->reload();
@@ -28,15 +30,14 @@ switch ($_SESSION['partie']->getState()) {
             if (isset($_POST['click']))
                 $_SESSION['partie']->fire();
         break;
+    case FINISHED;
+        echo "<span>Partie terminée !</span>";
+        break;
     default:
         break;
 }
 unset($_POST);
 echo "</div>";
-print_r($_POST);
-
-print_r($_SESSION);
-echo count($_SESSION["partie"]->getAllyGrid()->getVessels());
 
 /* Moi */
 echo "<div class='me'>" . echoID($_SESSION["partie"]->getAllyGrid()->getIDJoueur()) . "<table id='my-grid' class='grid'><tr><td class='cell empty'></td>";
