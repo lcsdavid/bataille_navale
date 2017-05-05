@@ -36,66 +36,46 @@ if (isset($_POST["submit"]))
     <form class="register" method="POST" action="#">
         <span>Formulaire d'inscription</span>
         <table>
+            <!-- Pseudo -->
             <tr>
-                <td>E-mail</td>
-                <td><input name="mail" type="email" placeholder="adresse@domaine.fr" autocomplete="off"></td>
-                <td><?php
-                    if (isset($_POST["submit"]))
-                        if (!isset($_POST["mail"]))
-                            echo "L'email est requise !";
-                        else if (!$register_accomplished)
-                            echo "lol";
-                    ?></td>
-            </tr>
-            <tr></tr>
-            <tr>
-                <td>Pseudo</td>
-                <td><input name="pseudo" type="text" placeholder="Gary lapute" autocomplete="off"></td>
+                <td><i class="fa fa-user-circle"></i><input name="pseudo" type="text" placeholder="Gary lapute" autocomplete="off"></td>
                 <td></td>
             </tr>
-            <tr></tr>
+            <!-- Mail -->
             <tr>
-                <td>Mot de passe</td>
-                <td><input name="pwd" type="password" placeholder="Mot de passe" autocomplete="off"></td>
+                <td><i class="fa fa-envelope-open"></i><input name="mail" type="email" placeholder="adresse@domaine.fr" autocomplete="off"></td>
                 <td></td>
             </tr>
-            <tr></tr>
+            <!-- Mot de passe -->
             <tr>
-                <td>Nom</td>
-                <td><input name="name" type="text" placeholder="Nom" autocomplete="off"></td>
+                <td><i class="fa fa-key"></i><input name="pwd" type="password" placeholder="Mot de passe" autocomplete="off"></td>
                 <td></td>
             </tr>
-            <tr></tr>
+            <!-- Nom -->
             <tr>
-                <td>Prénom</td>
-                <td><input name="firstname" type="text" placeholder="Prenom" autocomplete="off"></td>
+                <td><i class="fa fa-address-book"></i><input name="name" type="text" placeholder="Nom" autocomplete="off"></td>
                 <td></td>
             </tr>
-            <tr></tr>
+            <!-- Prénom -->
             <tr>
-                <td>Sexe</td>
-                <td>
-                    <input name="gender" type="radio" value="H" title="Homme">Homme
-                    <input name="gender" type="radio" value="F" title="Femme">Femme
-                </td>
+                <td><i class="fa fa-address-book"></i><input name="firstname" type="text" placeholder="Prénom" autocomplete="off"></td>
+                <td></td>
             </tr>
-            <tr></tr>
-            <!-- Naissance -->
             <tr>
-                <td>Naissance</td>
-                <td><input name="birth" type="date"
+                <td class="gender"><i class="fa fa-mars" style="float: left; border-right: 1px solid black;"></i><input name="gender" type="radio" value="H" title="Homme" style="float: left;">
+                <i class="fa fa-venus" style="float: right; border-left: 1px solid black;"></i><input name="gender" type="radio" value="F" title="Femme" style="float: right;"></td>
+            </tr>
+            <tr>
+                <td><i class="fa fa-birthday-cake"></i><input name="birth" type="date"
                            min="<?php echo date('Y-m-d', strtotime('-100 years')); ?>"
                            max="<?php echo date('Y-m-d', strtotime('-7 years')); ?>"
                            placeholder="AAAA-MM-JJ"></td>
                 <td></td>
             </tr>
-            <tr></tr>
             <tr>
-                <td>Ville</td>
-                <td><input name="town" type="text" placeholder="Ville" autocomplete="off"></td>
+                <td><i class="fa fa-home"></i><input name="town" type="text" placeholder="Ville" autocomplete="off"></td>
                 <td></td>
             </tr>
-            <tr></tr>
         </table>
         <input name="submit" type="submit" value="S'enregistrer">
     </form>

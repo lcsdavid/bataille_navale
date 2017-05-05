@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-/* Base */
+/** Base **/
 body {
     position: absolute;
     display: block;
@@ -49,206 +49,14 @@ main {
     font-family: sans-serif;
     font-size: 100%
 }
-
 .tag {
     color: gray;
     font-family: sans-serif;
     font-size: 75%;
 }
-.dialog{
-    background: rgba(0,0,0,0.33);
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    z-index: 5000;
-}
-.dialog > main {
-    background: ghostwhite;
-    position: absolute;
-    width: 64%;
-    height: 20em;
-    margin: 8em 0 0 18%;
-    padding: 0;
-    border-radius: 1em;
-    font-size: 0.75em;
-    font-family: Gill Sans, Gill Sans MT, Myriad Pro, DejaVu Sans Condensed, Helvetica, Arial, sans-serif;
-}
-.dialog > main > header {
-    background: darkorange;
-    position: relative;
-    width: auto;
-    height: 4em;
-    border-radius: 1em 1em 0 0;
-}
-.dialog > main > header > h1 {
-    margin: 0.2em;
-    padding: 0;
-    font-variant: normal;
-}
-.dialog > main > p {
-    display: inline;
-    margin: 0;
-    padding: 0;
-}
+/** Base **/
 
-
-/* GRID */
-#player {
-    color: black;
-    font-family: sans-serif;
-    font-size: 1em;
-}
-
-#tag {
-    color: gray;
-    font-family: sans-serif;
-    font-size: 0.75em;
-}
-
-.me {
-    position: absolute;
-    margin: 5em 0 0 2em;
-}
-
-.ennemy {
-    position: relative;
-    float: right;
-    margin: 5em 2em 0 0;
-}
-
-.upper-side {
-    position: absolute;
-    width: 100%;
-    margin: 0 2em 0 2em;
-    height: 5em;
-}
-
-.upper-side > span {
-    position: inherit;
-    margin: 0.75em 0 0 0;
-    text-align: center;
-    font-size: 2em;
-    font-family: sans-serif;
-    text-align: center;
-    width: 100%;
-}
-
-.bottom-side {
-    position: absolute;
-    width: 100%;
-    margin: 30em 2em 0 2em;
-    height: 20em;
-}
-
-.bottom-side > span {
-    position: relative;
-    margin: 4em 0 2em 0;
-    text-align: center;
-    font-size: 2em;
-    font-family: sans-serif;
-    text-align: center;
-    width: 100%;
-}
-
-.bottom-side input {
-    background-color: steelblue;
-    font-family: sans-serif;
-    text-transform: capitalize;
-    border: 0;
-    height: 2em;
-    border-radius: 0.25em;
-    margin: 0.25em 0.25em 0.25em 0.25em;
-}
-
-.bottom-side form {
-    position: relative;
-    font-family: sans-serif;
-}
-
-.bottom-side input:hover {
-    background-color: #55c0f9;
-    font-family: sans-serif;
-    text-transform: capitalize;
-    border: 0;
-    height: 2em;
-    border-radius: 0.25em;
-    margin: 0.25em 0.25em 0.25em 0.25em;
-}
-
-.grid {
-    background-color: #777777;
-}
-
-.grid form {
-    padding: 0;
-    margin: 0;
-    height: inherit;
-    width: inherit;
-}
-
-.grid input {
-    padding: 0;
-    margin: 0;
-    background-color:transparent;
-    color:transparent;
-    outline:none;
-    text-decoration: none;
-    cursor: pointer;
-    border:none;
-    height: 100%;
-    width: 100%;
-}
-
-.cell {
-    padding: 0;
-    margin: 0;
-    height: 2em;
-    width: 2em;
-}
-
-.empty{
-    background-color: black;
-}
-
-.coord {
-    background-color: white;
-    font-family: sans-serif;
-    text-align: center;
-}
-
-.sea {
-    background-image: url("../images/sea.png");
-    background-size: cover;
-}
-
-.missed{
-    background-image: url("../images/missed.png");
-    background-size: cover;
-}
-
-.hit {
-    background-image: url('../images/hit.png');
-    background-size: cover;
-}
-
-/** GRID **/
-
-.one, .two, .three {
-    display: inline;
-}
-.one {
-    margin: 10em 0 0 25%;
-}
-.two {
-    margin: 0 0 0 25%;
-}
-.three {
-    margin: 0 0 0 25%;
-}
-
+/** Menu **/
 #menu {
     position: fixed;
     display: block;
@@ -292,13 +100,165 @@ main {
     text-decoration: none;
     text-transform: uppercase;
 }
+/** Menu **/
 
+/** Dialog **/
+.dialog{
+    background: rgba(0,0,0,0.33);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    z-index: 5000;
+}
+.dialog > main {
+    background: ghostwhite;
+    position: absolute;
+    width: 64%;
+    height: 20em;
+    margin: 8em 0 0 18%;
+    padding: 0;
+    border-radius: 1em;
+    font-size: 0.75em;
+    font-family: Gill Sans, Gill Sans MT, Myriad Pro, DejaVu Sans Condensed, Helvetica, Arial, sans-serif;
+}
+.dialog > main > header {
+    background: darkorange;
+    position: relative;
+    width: auto;
+    height: 4em;
+    border-radius: 1em 1em 0 0;
+}
+.dialog > main > header > h1 {
+    margin: 0.2em;
+    padding: 0;
+    font-variant: normal;
+}
+.dialog > main > p {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+/** Dialog **/
 
-@media screen and (max-width:1280px) {
-
+/** Partie.php **/
+.me {
+    position: absolute;
+    margin: 5em 0 0 2em;
+}
+.ennemy {
+    position: relative;
+    float: right;
+    margin: 5em 2em 0 0;
 }
 
-/* Register */
+.upper-side {
+    position: absolute;
+    width: 100%;
+    margin: 0 2em 0 2em;
+    height: 5em;
+}
+.upper-side > span {
+    position: inherit;
+    margin: 0.75em 0 0 0;
+    text-align: center;
+    font-size: 2em;
+    font-family: sans-serif;
+    text-align: center;
+    width: 100%;
+}
+
+.bottom-side {
+    position: absolute;
+    width: 100%;
+    margin: 30em 2em 0 2em;
+    height: 20em;
+}
+.bottom-side > span {
+    position: relative;
+    margin: 4em 0 2em 0;
+    text-align: center;
+    font-size: 2em;
+    font-family: sans-serif;
+    text-align: center;
+    width: 100%;
+}
+.bottom-side input {
+    background-color: steelblue;
+    font-family: sans-serif;
+    text-transform: capitalize;
+    border: 0;
+    height: 2em;
+    border-radius: 0.25em;
+    margin: 0.25em 0.25em 0.25em 0.25em;
+}
+.bottom-side form {
+    position: relative;
+    font-family: sans-serif;
+}
+.bottom-side input:hover {
+    background-color: #55c0f9;
+    font-family: sans-serif;
+    text-transform: capitalize;
+    border: 0;
+    height: 2em;
+    border-radius: 0.25em;
+    margin: 0.25em 0.25em 0.25em 0.25em;
+}
+
+.grid {
+    background-color: #777777;
+}
+.grid form {
+    padding: 0;
+    margin: 0;
+    height: inherit;
+    width: inherit;
+}
+.grid input {
+    padding: 0;
+    margin: 0;
+    background-color:transparent;
+    color:transparent;
+    outline:none;
+    text-decoration: none;
+    cursor: pointer;
+    border:none;
+    height: 100%;
+    width: 100%;
+}
+
+.cell {
+    padding: 0;
+    margin: 0;
+    height: 2em;
+    width: 2em;
+}
+.empty{
+    background-color: black;
+}
+.coord {
+    background-color: white;
+    font-family: sans-serif;
+    text-align: center;
+}
+.sea {
+    background-image: url("../images/sea.png");
+    background-size: cover;
+}
+.missed{
+    background-image: url("../images/missed.png");
+    background-size: cover;
+}
+.hit {
+    background-image: url('../images/hit.png');
+    background-size: cover;
+}
+/** Partie.php **/
+
+/** Register.php **/
 @-webkit-keyframes color_change {
     0%{background: limegreen;}
     33%{background: cyan;}
@@ -323,6 +283,7 @@ main {
     66%{background: deeppink;}
     100%{background: crimson;}
 }
+
 .register {
     position: relative;
     display: block;
@@ -337,11 +298,82 @@ main {
     -o-animation: color_change linear 1s infinite alternate;
     animation: color_change linear 1s infinite alternate;
 }
-
 .register > span {
     display: block;
     margin: 0;
     padding: 0;
     width: 100%;
     text-align: center;
+}
+.register td:first-child{
+    position: relative;
+    overflow: hidden;
+    background: white;
+    height: 1.5em;
+    padding: 0;
+    margin: 0;
+    border-radius: 0.25em;
+    border: solid 2px black;
+}
+.register input{
+    position: inherit;
+    height: 100%;
+    padding: 0.25em;
+    margin: 0;
+    border: 0;
+    border-left: 1px solid black;
+}
+.register i {
+    position: inherit;
+    background: gainsboro;
+    padding: 0.25em;
+    margin: 0;
+}
+.register .gender > input {
+    position: relative;
+    margin: 0 0.25em 0 0.25em;
+}
+.register .gender > i {
+    display: inline;
+}
+.register > input {
+    background-color: steelblue;
+    font-family: sans-serif;
+    text-transform: capitalize;
+    border: 0;
+    height: 2em;
+    border-radius: 0.25em;
+    margin: 1em 0.25em 0.25em 0.25em;
+}
+.register > input:hover {
+    background-color: #55c0f9;
+}
+/** Register.php **/
+
+/** Login.php **/
+.login {
+    padding: 2em 0 0 2em;
+    font-family: sans-serif;
+}
+
+.login .button {
+    background-color: steelblue;
+    text-transform: capitalize;
+    height: 2em;
+    border: 0;
+    border-radius: 0.25em;
+}
+.login .button:hover {
+    background-color: #55c0f9;
+}
+/** Login.php **/
+
+/** Listing.php **/
+
+/** Listing.php **/
+
+
+
+@media screen and (max-width:1280px) {
+
 }
