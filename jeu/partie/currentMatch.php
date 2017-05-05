@@ -20,8 +20,8 @@ switch ($_SESSION['partie']->getState()) {
         $_SESSION['partie']->checkWaitEnnemyVessel();
         break;
     case PLAYING:
-        /* $_SESSION['partie']->getAllyGrid()->reload();
-        $_SESSION['partie']->getEnnemyGrid()->reload(); */
+        $_SESSION['partie']->getAllyGrid()->reload();
+        $_SESSION['partie']->getEnnemyGrid()->reload();
         if (isset($_POST['click'])) {
             $_SESSION['partie']->fire();
         }
@@ -33,7 +33,7 @@ unset($_POST);
 echo "</div>";
 print_r($_POST);
 
-print_r($_SESSION['partie']->getAllyGrid());
+print_r($_SESSION);
 echo count($_SESSION["partie"]->getAllyGrid()->getVessels());
 
 /* Moi */

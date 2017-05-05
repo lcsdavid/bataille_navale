@@ -84,11 +84,20 @@ class Match
     /**
      * Tire sur la case $_POST['cell'].
      */
-    public function fire() {
+    public function fire()
+    {
         global $connexion;
-        if ($this->ennemy_grid->getCase($_POST['cell']) == 'sea') {
-
-
+        $coord = $_POST['cell'];
+        $cell = $this->ennemy_grid->getCase($coord);
+        if ($cell == 'sea') {
+            $this->ennemy_grid->setCase('missed', $coord);
+            mysqli_query($connexion, "INSERT INTO Tour (id_joueur, id_partie, resultat, coordonnée, carte) VALUES ('" . $_SESSION['ID'] . "','" . $this->id_partie . "','missed','" . $coord . "','une carte')");
+        } else {
+            $this->ennemy_grid->setCase('hit', $coord);
+            if(in_array($cell, $this->ennemy_grid->getArray()))
+                mysqli_query($connexion, "INSERT INTO Tour (id_joueur, id_partie, resultat, coordonnée, carte) VALUES ('" . $_SESSION['ID'] . "','" . $this->id_partie . "','hit','" . $coord . "','une carte')");
+            else
+                mysqli_query($connexion, "INSERT INTO Tour (id_joueur, id_partie, resultat, coordonnée, carte) VALUES ('" . $_SESSION['ID'] . "','" . $this->id_partie . "','sunk','" . $coord . "','une carte')");
         }
         return false;
     }
@@ -204,12 +213,12 @@ class Match
     {
         global $connexion;
         if (mysqli_query($connexion, "SELECT id_joueur1 FROM Partie WHERE id_partie = '" . $this->id_partie . "'")->fetch_row()[0] == $_SESSION['ID']) {
-            if(mysqli_query($connexion, "SELECT COUNT(id_tour) FROM Tour WHERE id_partie = '". $this->id_partie ."'")->fetch_row()[0] % 2 == 0)
+            if (mysqli_query($connexion, "SELECT COUNT(id_tour) FROM Tour WHERE id_partie = '" . $this->id_partie . "'")->fetch_row()[0] % 2 == 0)
                 return true;
             else
                 return false;
         } else {
-            if(mysqli_query($connexion, "SELECT COUNT(id_tour) FROM Tour WHERE id_partie = '". $this->id_partie ."'")->fetch_row()[0] % 2 == 1)
+            if (mysqli_query($connexion, "SELECT COUNT(id_tour) FROM Tour WHERE id_partie = '" . $this->id_partie . "'")->fetch_row()[0] % 2 == 1)
                 return true;
             else
                 return false;

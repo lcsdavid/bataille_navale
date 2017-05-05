@@ -54,8 +54,18 @@ class Grid
      */
     public function reload()
     {
+        for ($row = 1; $row <= 10; $row++) {
+            for ($column = 'A'; $column <= 'J'; $column++) {
+                $cell = $column . $row;
+                $this->array[$cell] = "sea";
+            }
+        }
         global $connexion;
-        $rset = mysqli_query($connexion, "SELECT type_nav, position, sens, taille FROM Navire WHERE id_partie = '" . $this->id_partie . "' AND id_joueur = '" . $this->id_joueur . "'");
+        if ($this->alignment == ALLY)
+            $id_joueur = $_SESSION['partie']->getEnnemyGrid()->getIDJoueur();
+        else
+            $id_joueur = $_SESSION['ID'];
+        $rset = mysqli_query($connexion, "SELECT type_nav, position, sens, taille FROM Navire WHERE id_partie = '" . $this->id_partie . "' AND id_joueur = '" . $id_joueur . "'");
         while($row = $rset->fetch_row()) {
             $letter = $row[1][0];
             $number = substr($row[1],1);
@@ -192,6 +202,14 @@ class Grid
     public function getVessels()
     {
         return $this->vessels;
+    }
+
+    /**
+     * @return array
+     */
+    public function getArray()
+    {
+        return $this->array;
     }
 }
 
