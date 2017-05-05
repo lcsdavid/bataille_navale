@@ -79,7 +79,6 @@ switch ($_SESSION['partie']->getState()) {
         $_SESSION['partie']->getEnnemyGrid()->display();
         break;
     case LAYVESSEL:
-        $_SESSION['partie']->isVesselLayed();
         $_SESSION['partie']->getEnnemyGrid()->display();
         break;
     case WAITENNEMYLAYVESSEL:

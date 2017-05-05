@@ -236,9 +236,17 @@ main {
 
 /** GRID **/
 
-.a-propros {
-    position: absolute;
-    margin: 2em 2em 0 2em;
+.one, .two, .three {
+    display: inline;
+}
+.one {
+    margin: 10em 0 0 25%;
+}
+.two {
+    margin: 0 0 0 25%;
+}
+.three {
+    margin: 0 0 0 25%;
 }
 
 #menu {
@@ -336,32 +344,4 @@ main {
     padding: 0;
     width: 100%;
     text-align: center;
-}
-
-/* Statistiques */
-
-table#tstats {
-    width: 100%;
-    background-color: #f1f1c1;
-}
-
-/* Listing */
-
-table#tlisting {
-    width: 100%;
-    background-color: #f1f1c1;
-}
-
-input#blisting {
-    position: relative;
-    left : 50%;
-    right : 50%;
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
 }

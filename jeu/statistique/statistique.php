@@ -24,7 +24,7 @@ require_once('../assets/php/fonction.php');
 </header>
 <!-- Main -->
 <main>
-    <table id="tstats">
+    <table>
         <tr>
             <th>Ennemi</th>
             <th>Creation</th>

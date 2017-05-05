@@ -25,9 +25,9 @@ require_once('../assets/php/fonction.php');
 <!-- Main -->
 <main>
     <form method="POST" action="../partie/">
-        <input name="create" id="blisting" type="submit" value="Créer Salon">
+        <input name="create" type="submit" value="Créer Salohhhon">
     </form>
-    <table id="tlisting">
+    <table style="width:100%">
         <tr>
             <th>Pseudo</th>
             <th>Prenom</th>
@@ -37,7 +37,7 @@ require_once('../assets/php/fonction.php');
         <?php
         $rset = mysqli_query($connexion, "SELECT id_partie, id_joueur1, prenom, nom FROM Partie JOIN Joueur ON Partie.id_joueur1 = Joueur.id_joueur WHERE id_partie NOT IN (SELECT id_partie FROM Etat_partie)");
         while ($row = $rset->fetch_row()) {
-            echo "<tr><form class='listing' method='POST' action='../partie/'><input type='hidden' name='id_partie' value='" . $row[0] . "'><td>" . echoID($row[1]) . "</td></td><td>"
+            echo "<tr><form class='listing' method='POST' action='../partie/'><input type='hidden' name='id_partie' value='" . $row[0] . "'><td>" . $row[1] . "</td></td><td>"
                 . $row[2] . "</td><td>" . $row[3] . "</td><td><input name='join' type='submit' value='Rejoindre'></td></form></tr>";
         }
         ?>

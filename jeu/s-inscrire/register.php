@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <?php
+session_start();
 require_once('../assets/php/init.php');
 require_once('../assets/php/fonction.php');
-session_start();
 $register_accomplished = false;
 if (isset($_POST["submit"]))
-    if(isset($_POST['pseudo']) && isset($_POST['mail']) && isset($_POST['name']) && isset($_POST['firstname']) && isset($_POST['gender']) && isset($_POST['birth']) && isset($_POST['town']) && isset($_POST['pwd']))
-        if (register($_POST['pseudo'], $_POST['mail'], $_POST['name'], $_POST['firstname'], $_POST['gender'], $_POST['birth'], $_POST['town'], $_POST['pwd']))
-            redirect("../", 3);
+    if (register($_POST['pseudo'], $_POST['mail'], $_POST['name'], $_POST['firstname'], $_POST['gender'], $_POST['birth'], $_POST['town'], $_POST['pwd']))
+        $register_accomplished = true;
 ?>
 <html lang="fr">
 <head>
@@ -22,7 +21,8 @@ if (isset($_POST["submit"]))
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<?php
+<?php if($register_accomplished)
+    redirect("../",3);
 ?>
 <header>
     <h1>Bataille navale</h1>
@@ -36,61 +36,48 @@ if (isset($_POST["submit"]))
         <table>
             <tr>
                 <td>E-mail</td>
-                <td><input name="mail" type="text" placeholder="exemple@gmail.com" autocomplete="off"></td>
+                <td><input name="mail" type="email" placeholder="adresse@domaine.fr" autocomplete="off"></td>
                 <td><?php
-                    if(isset($_POST['submit']))
-                        if (!isset($_POST['mail']))
-                            echo "<span>L'email est requise !</span>";
+                    if (isset($_POST["submit"]))
+                        if (!isset($_POST["mail"]))
+                            echo "L'email est requise !";
+                        else if (!$register_accomplished)
+                            echo "lol";
                     ?></td>
             </tr>
+            <tr></tr>
             <tr>
                 <td>Pseudo</td>
                 <td><input name="pseudo" type="text" placeholder="Gary lapute" autocomplete="off"></td>
-                <td><?php
-                    if(isset($_POST['submit']))
-                        if (!isset($_POST['pseudo']))
-                            echo "<span>Le pseudo est requis !</span>";
-                    ?></td>
+                <td></td>
             </tr>
+            <tr></tr>
             <tr>
                 <td>Mot de passe</td>
                 <td><input name="pwd" type="password" placeholder="Mot de passe" autocomplete="off"></td>
-                <td><?php
-                    if(isset($_POST['submit']))
-                        if (!isset($_POST['pwd']))
-                            echo "<span>Le mot de passe est requis !</span>";
-                    ?></td>
+                <td></td>
             </tr>
+            <tr></tr>
             <tr>
                 <td>Nom</td>
                 <td><input name="name" type="text" placeholder="Nom" autocomplete="off"></td>
-                <td><?php
-                    if(isset($_POST['submit']))
-                        if (!isset($_POST['name']))
-                            echo "<span>Le nom est requis !</span>";
-                    ?></td>
+                <td></td>
             </tr>
+            <tr></tr>
             <tr>
                 <td>Prénom</td>
                 <td><input name="firstname" type="text" placeholder="Prenom" autocomplete="off"></td>
-                <td><?php
-                    if(isset($_POST['submit']))
-                        if (!isset($_POST['firstname']))
-                            echo "<span>Le prénom est requis !</span>";
-                    ?></td>
+                <td></td>
             </tr>
+            <tr></tr>
             <tr>
                 <td>Sexe</td>
                 <td>
                     <input name="gender" type="radio" value="H" title="Homme">Homme
                     <input name="gender" type="radio" value="F" title="Femme">Femme
                 </td>
-                <td><?php
-                    if(isset($_POST['submit']))
-                        if (!isset($_POST['gender']))
-                            echo "<span>Le sexe est requis !</span>";
-                    ?></td>
             </tr>
+            <tr></tr>
             <!-- Naissance -->
             <tr>
                 <td>Naissance</td>
@@ -98,21 +85,15 @@ if (isset($_POST["submit"]))
                            min="<?php echo date('Y-m-d', strtotime('-100 years')); ?>"
                            max="<?php echo date('Y-m-d', strtotime('-7 years')); ?>"
                            placeholder="AAAA-MM-JJ"></td>
-                <td><?php
-                    if(isset($_POST['submit']))
-                        if (!isset($_POST['birth']))
-                            echo "<span>L'année de naissance est requise !</span>";
-                    ?></td>
+                <td></td>
             </tr>
+            <tr></tr>
             <tr>
                 <td>Ville</td>
                 <td><input name="town" type="text" placeholder="Ville" autocomplete="off"></td>
-                <td><?php
-                    if(isset($_POST['submit']))
-                        if (!isset($_POST['town']))
-                            echo "<span>La ville est requise !</span>";
-                    ?></td>
+                <td></td>
             </tr>
+            <tr></tr>
         </table>
         <input name="submit" type="submit" value="S'enregistrer">
     </form>
