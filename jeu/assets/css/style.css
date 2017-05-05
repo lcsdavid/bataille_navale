@@ -161,6 +161,17 @@ main {
 
 .sea {
     background-image: url("../images/sea.png");
+    background-size: cover;
+}
+
+.missed{
+    background-image: url("../images/missed.png");
+    background-size: cover;
+}
+
+.hit {
+    background-image: url("../images/hit.png");
+    background-size: cover;
 }
 
 .upper-side{

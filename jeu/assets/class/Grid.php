@@ -62,9 +62,9 @@ class Grid
         }
         global $connexion;
         if ($this->alignment == ALLY)
-            $id_joueur = $_SESSION['partie']->getEnnemyGrid()->getIDJoueur();
-        else
             $id_joueur = $_SESSION['ID'];
+        else
+            $id_joueur = $_SESSION['partie']->getEnnemyGrid()->getIDJoueur();
         $rset = mysqli_query($connexion, "SELECT type_nav, position, sens, taille FROM Navire WHERE id_partie = '" . $this->id_partie . "' AND id_joueur = '" . $id_joueur . "'");
         while($row = $rset->fetch_row()) {
             $letter = $row[1][0];
@@ -77,7 +77,11 @@ class Grid
                 $this->array[$pos] = $row[0];
             }
         }
-        $rset = mysqli_query($connexion, "SELECT resultat, coordonnee FROM Tour WHERE id_partie = '" . $this->id_partie . "' AND id_joueur = '" . $this->id_joueur . "'");
+        if ($this->alignment == ALLY)
+            $id_joueur = $_SESSION['partie']->getEnnemyGrid()->getIDJoueur();
+        else
+            $id_joueur = $_SESSION['ID'];
+        $rset = mysqli_query($connexion, "SELECT resultat, coordonnee FROM Tour WHERE id_partie = '" . $this->id_partie . "' AND id_joueur = '" . $id_joueur . "'");
         if (mysqli_num_rows($rset) > 0)
             while ($row = $rset->fetch_row()) {
                 if ($this->array[$row[1]] == "sea")
