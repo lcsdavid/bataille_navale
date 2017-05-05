@@ -36,7 +36,7 @@ require_once('../assets/php/fonction.php');
         global $connexion;
         $counterWin = 0;
         $counterLoose = 0;
-        $rset = mysqli_query($connexion, "SELECT p.* FROM Partie p NATURAL JOIN Etat_partie e WHERE e.etat_partie LIKE 'finish' AND (id_joueur1 LIKE '".$_SESSION['ID']."' OR id_joueur2 LIKE '".$_SESSION['ID']."')");
+        $rset = mysqli_query($connexion, "SELECT p.* FROM Partie p NATURAL JOIN Etat_partie e WHERE e.etat_partie LIKE 'finished' AND (id_joueur1 LIKE '".$_SESSION['ID']."' OR id_joueur2 LIKE '".$_SESSION['ID']."')");
             while ($row = $rset->fetch_row()) {
                 if($_SESSION['ID'] == $row[1]) {
                     $ennemi = $row[2];
