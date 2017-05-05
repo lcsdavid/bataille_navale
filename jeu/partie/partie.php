@@ -2,6 +2,7 @@
 <?php
 require_once('../assets/php/init.php');
 require_once('../assets/php/fonction.php');
+/* Classes */
 include_once('../assets/class/Grid.php');
 include_once('../assets/class/Match.php');
 include_once('../assets/class/Vessel.php');
@@ -16,6 +17,8 @@ session_start();
     <!---- Ecran mobiles ---->
     <link href="../assets/css/mobile.css" rel="stylesheet" media="screen and (max-width: 768px)" type="text/css">
     <link href="../assets/css/mobile.css" rel="stylesheet" media="handheld" type="text/css">
+    <!-- Awesome Font -->
+    <link href="../assets/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="refresh" content="2">
