@@ -25,16 +25,16 @@ session_start();
     <a href="#menu"><img src="../assets/images/menu-toogle.png" alt=""/></a>
 </header>
 <!-- Main -->
-<main>
+<main class="listing">
     <form method="POST" action="../partie/">
         <input name="create" type="submit" value="Créer Salohhhon">
     </form>
-    <table style="width:100%">
+    <table>
         <tr>
             <th>Pseudo</th>
-            <th>Prenom</th>
+            <th>Prénom</th>
             <th>Nom</th>
-            <th></th>
+            <th> </th>
         </tr>
         <?php
         $rset = mysqli_query($connexion, "SELECT id_partie, id_joueur1, prenom, nom FROM Partie JOIN Joueur ON Partie.id_joueur1 = Joueur.id_joueur WHERE id_partie NOT IN (SELECT id_partie FROM Etat_partie)");
