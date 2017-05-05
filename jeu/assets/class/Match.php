@@ -66,16 +66,7 @@ class Match
         if ($_SESSION['ID'] != $row[0]) {
             mysqli_query($connexion, "UPDATE Partie SET id_joueur2 = '" . $_SESSION['ID'] . "' WHERE id_partie = '" . $this->id_partie . "'");
             $this->getEnnemyGrid()->setIDJoueur($row[0]);
-            $this->state = LAYVESSEL;
         }
-    }
-
-    /**
-     * @return Grid
-     */
-    public function getEnnemyGrid()
-    {
-        return $this->ennemy_grid;
     }
 
     /**
@@ -169,14 +160,6 @@ class Match
     }
 
     /**
-     * @return Grid
-     */
-    public function getAllyGrid()
-    {
-        return $this->ally_grid;
-    }
-
-    /**
      * Routine quand on attend l'adversaire.
      */
     public function checkWait()
@@ -200,6 +183,41 @@ class Match
         $rset = mysqli_query($connexion, "SELECT COUNT(id_navire) FROM Navire WHERE id_partie = '" . $this->id_partie . "' AND id_joueur = '" . $this->ennemy_grid->getIDJoueur() . "'");
         if ($rset->fetch_row()[0] == 5)
             $this->state = PLAYING;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMyTurn()
+    {
+        global $connexion;
+        if (mysqli_query($connexion, "SELECT id_joueur1 FROM Partie WHERE id_partie = '" . $this->id_partie . "'")->fetch_row()[0] == $_SESSION['ID']) {
+            if(mysqli_query($connexion, "SELECT COUNT(id_tour) FROM Tour WHERE id_partie = '". $this->id_partie ."'")->fetch_row()[0] % 2 == 0)
+                return true;
+            else
+                return false;
+        } else {
+            if(mysqli_query($connexion, "SELECT COUNT(id_tour) FROM Tour WHERE id_partie = '". $this->id_partie ."'")->fetch_row()[0] % 2 == 1)
+                return true;
+            else
+                return false;
+        }
+    }
+
+    /**
+     * @return Grid
+     */
+    public function getAllyGrid()
+    {
+        return $this->ally_grid;
+    }
+
+    /**
+     * @return Grid
+     */
+    public function getEnnemyGrid()
+    {
+        return $this->ennemy_grid;
     }
 
     /**

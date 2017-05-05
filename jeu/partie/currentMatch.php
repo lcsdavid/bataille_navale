@@ -13,10 +13,11 @@ switch ($_SESSION['partie']->getState()) {
             $_SESSION['orientation'] = $_POST['orientation'];
         if (isset($_POST['click']))
             if (isset($_SESSION['vessel']) && isset($_SESSION['orientation']))
-                $layvessel = $_SESSION['partie']->layVessel($_SESSION['vessel'], $_POST['cell'], $_SESSION['orientation']);
+                $islayed = $_SESSION['partie']->layVessel($_SESSION['vessel'], $_POST['cell'], $_SESSION['orientation']);
         $formVessel = $_SESSION['partie']->formVessel();
         break;
     case WAITENNEMYLAYVESSEL:
+        $_SESSION['partie']->checkWaitEnnemyVessel();
         break;
     case PLAYING:
         break;
@@ -90,9 +91,9 @@ switch ($_SESSION['partie']->getState()) {
         break;
     case LAYVESSEL:
         /* Opérations */
-        if (isset($_POST['click'])) {
+        if (isset($islayed)) {
             if (isset($_SESSION['vessel']) && isset($_SESSION['orientation'])) {
-                if (!$layvessel)
+                if (!$islayed)
                     echo "<span>Vous ne pouvez pas poser votre bateau ici !</span>";
             } else
                 echo "<span>Vous n'avez pas tout sélectionné !</span>";
