@@ -77,14 +77,13 @@ class Grid
                 $this->array[$pos] = $row[0];
             }
         }
-        $rset = mysqli_query($connexion, "SELECT resultat, coordonnée FROM Tour WHERE id_partie = '" . $this->id_partie . "' AND id_joueur = '" . $this->id_joueur . "'");
+        $rset = mysqli_query($connexion, "SELECT resultat, coordonnee FROM Tour WHERE id_partie = '" . $this->id_partie . "' AND id_joueur = '" . $this->id_joueur . "'");
         if (mysqli_num_rows($rset) > 0)
             while ($row = $rset->fetch_row()) {
-                $row = $rset->fetch_row();
-                if ($this->array[$row[0]] == "sea")
-                    $this->array[$row[0]] = "missed";
+                if ($this->array[$row[1]] == "sea")
+                    $this->array[$row[1]] = "missed";
                 else
-                    $this->array[$row[0]] = "hit";
+                    $this->array[$row[1]] = "hit";
             }
     }
 

@@ -60,13 +60,14 @@ CREATE TABLE Navire (
 #------------------------------------------------------------
 
 CREATE TABLE Tour (
-  id_tour   INT         NOT NULL AUTO_INCREMENT,
-  id_joueur VARCHAR(21) NOT NULL,
-  id_partie INT         NOT NULL,
-  resultat  CHAR(1)     NOT NULL,
-  carte     VARCHAR(16) NOT NULL,
-  t_joue    TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (id_tour, id_partie),
+  id_tour    INT         NOT NULL AUTO_INCREMENT,
+  id_joueur  VARCHAR(21) NOT NULL,
+  id_partie  INT         NOT NULL,
+  resultat   VARCHAR(16) NOT NULL,
+  coordonnee VARCHAR(16) NOT NULL,
+  carte      VARCHAR(16),
+  t_joue     TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id_tour),
   FOREIGN KEY (id_partie) REFERENCES Partie (id_partie),
   FOREIGN KEY (id_joueur) REFERENCES Joueur (id_joueur)
 );

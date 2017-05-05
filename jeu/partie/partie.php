@@ -18,6 +18,7 @@ session_start();
     <link href="../assets/css/mobile.css" rel="stylesheet" media="handheld" type="text/css">
     <!-- -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="refresh" content="2">
 </head>
 <body>
 <!-- Header -->

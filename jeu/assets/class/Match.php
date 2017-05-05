@@ -6,14 +6,14 @@ define('WAITING', 0);
 define('LAYVESSEL', 1);
 define('WAITENNEMYLAYVESSEL', 2);
 define('PLAYING', 3);
-define('FINISHED', 10);
+define('FINISHED', 4);
 
 class Match
 {
     /**
      * @var int
      */
-    private $id_partie = -1;
+    private $id_partie;
 
     /**
      * @var Grid
@@ -87,18 +87,19 @@ class Match
     public function fire()
     {
         global $connexion;
-        $coord = $_POST['cell'];
+        $coord = (string)$_POST['cell'];
         $cell = $this->ennemy_grid->getCase($coord);
         if ($cell == 'sea') {
             $this->ennemy_grid->setCase('missed', $coord);
-            mysqli_query($connexion, "INSERT INTO Tour (id_joueur, id_partie, resultat, coordonnée, carte) VALUES ('" . $_SESSION['ID'] . "','" . $this->id_partie . "','missed','" . $coord . "','une carte')");
+            mysqli_query($connexion, "INSERT INTO Tour (id_joueur, id_partie, resultat, coordonnee) VALUES ('" . $_SESSION['ID'] . "','" . $this->id_partie . "','missed','" . $coord . "')");
         } else {
             $this->ennemy_grid->setCase('hit', $coord);
-            if(in_array($cell, $this->ennemy_grid->getArray()))
-                mysqli_query($connexion, "INSERT INTO Tour (id_joueur, id_partie, resultat, coordonnée, carte) VALUES ('" . $_SESSION['ID'] . "','" . $this->id_partie . "','hit','" . $coord . "','une carte')");
+            if (in_array($cell, $this->ennemy_grid->getArray()))
+                mysqli_query($connexion, "INSERT INTO Tour (id_joueur, id_partie, resultat, coordonnee) VALUES ('" . $_SESSION['ID'] . "','" . $this->id_partie . "','hit','" . $coord . "')");
             else
-                mysqli_query($connexion, "INSERT INTO Tour (id_joueur, id_partie, resultat, coordonnée, carte) VALUES ('" . $_SESSION['ID'] . "','" . $this->id_partie . "','sunk','" . $coord . "','une carte')");
+                mysqli_query($connexion, "INSERT INTO Tour (id_joueur, id_partie, resultat, coordonnee) VALUES ('" . $_SESSION['ID'] . "','" . $this->id_partie . "','sunk','" . $coord . "')");
         }
+        unset($_POST);
         return false;
     }
 
@@ -201,9 +202,26 @@ class Match
     public function checkWaitEnnemyVessel()
     {
         global $connexion;
-        $rset = mysqli_query($connexion, "SELECT COUNT(id_navire) FROM Navire WHERE id_partie = '" . $this->id_partie . "' AND id_joueur = '" . $this->ennemy_grid->getIDJoueur() . "'");
+        $rset = mysqli_query($connexion, "SELECT COUNT(id_navire) AS nav_count FROM Navire WHERE id_partie = '" . $this->id_partie . "' AND id_joueur = '" . $this->ennemy_grid->getIDJoueur() . "'");
         if ($rset->fetch_row()[0] == 5)
             $this->state = PLAYING;
+    }
+
+    /**
+     *
+     */
+    public function checkWinner()
+    {
+        global $connexion;
+        if(mysqli_query($connexion, "SELECT COUNT(resultat) FROM Tour WHERE id_partie = '" . $this->id_partie . "' AND id_joueur = '" . $_SESSION['ID'] . "' AND resultat = 'sunk'")->fetch_row()[0] == 5) {
+            $this->state = FINISHED;
+            mysqli_query($connexion, "UPDATE Partie SET vainqueur = '" . $_SESSION['ID'] . "' WHERE id_partie = '" . $this->id_partie . "'");
+            mysqli_query($connexion, "INSERT INTO Etat_partie (id_partie, etat_partie) VALUES ('".$this->id_partie."','finished')");
+        } else if(mysqli_query($connexion, "SELECT COUNT(resultat) FROM Tour WHERE id_partie = '" . $this->id_partie . "' AND id_joueur = '" . $this->ennemy_grid->getIDJoueur() . "' AND resultat = 'sunk'")->fetch_row()[0] == 5) {
+            $this->state = FINISHED;
+            mysqli_query($connexion, "UPDATE Partie SET vainqueur = '" . $this->ennemy_grid->getIDJoueur() . "' WHERE id_partie = '" . $this->id_partie . "'");
+            mysqli_query($connexion, "INSERT INTO Etat_partie (id_partie, etat_partie) VALUES ('".$this->id_partie."','finished')");
+        }
     }
 
     /**

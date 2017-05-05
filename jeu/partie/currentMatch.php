@@ -17,14 +17,16 @@ switch ($_SESSION['partie']->getState()) {
         $formVessel = $_SESSION['partie']->formVessel();
         break;
     case WAITENNEMYLAYVESSEL:
+        echo "lol";
         $_SESSION['partie']->checkWaitEnnemyVessel();
         break;
     case PLAYING:
+        $_SESSION['partie']->checkWinner();
         $_SESSION['partie']->getAllyGrid()->reload();
         $_SESSION['partie']->getEnnemyGrid()->reload();
-        if (isset($_POST['click'])) {
-            $_SESSION['partie']->fire();
-        }
+        if ($_SESSION['partie']->isMyTurn())
+            if (isset($_POST['click']))
+                $_SESSION['partie']->fire();
         break;
     default:
         break;
@@ -55,6 +57,9 @@ switch ($_SESSION['partie']->getState()) {
     case PLAYING:
         $_SESSION['partie']->getAllyGrid()->display();
         break;
+    case FINISHED;
+        $_SESSION['partie']->getAllyGrid()->display();
+        break;
     default:
         break;
 }
@@ -83,6 +88,9 @@ switch ($_SESSION['partie']->getState()) {
             $_SESSION['partie']->getEnnemyGrid()->displayForm();
         else
             $_SESSION['partie']->getEnnemyGrid()->display();
+        break;
+    case FINISHED;
+        $_SESSION['partie']->getEnnemyGrid()->display();
         break;
     default:
         break;
