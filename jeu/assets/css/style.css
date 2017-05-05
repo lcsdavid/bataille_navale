@@ -236,17 +236,9 @@ main {
 
 /** GRID **/
 
-.one, .two, .three {
-    display: inline;
-}
-.one {
-    margin: 10em 0 0 25%;
-}
-.two {
-    margin: 0 0 0 25%;
-}
-.three {
-    margin: 0 0 0 25%;
+.a-propros {
+    position: absolute;
+    margin: 2em 2em 0 2em;
 }
 
 #menu {

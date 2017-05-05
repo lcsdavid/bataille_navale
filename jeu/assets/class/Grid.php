@@ -76,6 +76,7 @@ class Grid
                     $pos = $letter . ($number + $i);
                 $this->array[$pos] = $row[0];
             }
+            $this->vessels[$row[0]] = $row[1];
         }
         if ($this->alignment == ALLY)
             $id_joueur = $_SESSION['partie']->getEnnemyGrid()->getIDJoueur();

@@ -2,9 +2,10 @@
 session_start();
 require_once('../assets/php/init.php');
 require_once('../assets/php/fonction.php');
-if (isset($_POST['connect'])) {
-    login($_POST['username'], $_POST['password']);
-}
+if (isset($_POST['connect']))
+    if (isset($_POST['username']) && isset($_POST['password']))
+        if(login($_POST['username'], $_POST['password']))
+            header('../../');
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -28,8 +29,16 @@ if (isset($_POST['connect'])) {
 <!-- Main -->
 <main>
     <form method="POST" action="./" style="margin-top: 50px">
-        <input name="username" type="text" placeholder="Nom d'utilisateur">
+        <input name="username" type="text" placeholder="pseudo#0000 ou email">
+        <?php
+        if (!isset($_POST['username']))
+            echo "<span>Veuillez rentrer un utilisateur.</span>"
+        ?>
         <input name="password" type="password" placeholder="Mot de passe">
+        <?php
+        if (!isset($_POST['username']))
+            echo "<span>Veuillez rentrer un mot de passe.</span>"
+        ?>
         <input name="connect" type="submit" value="Se connecter">
     </form>
 </main>

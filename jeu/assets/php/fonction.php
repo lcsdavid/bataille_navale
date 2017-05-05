@@ -14,7 +14,6 @@ function login($id, $pwd)
         $_SESSION['ID'] = $row[0];
         $_SESSION['timestamp'] = time();
         mysqli_query($connexion, "INSERT INTO Etat_joueur (id_joueur, etat_joueur) VALUES ('" . $_SESSION['ID'] . "','connected')");
-        header('../../');
         return true;
     } else return false;
 }
