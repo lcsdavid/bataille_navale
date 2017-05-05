@@ -181,6 +181,13 @@ class Match
         }
     }
 
+    public function isVessemLayed()
+    {
+        global $connexion;
+        if(mysqli_query($connexion, "SELECT COUNT(id_navire) FROM Navire WHERE id_partie = '" . $this->id_partie . "' AND id_joueur = '" . $_SESSION['ID'] . "'")->fetch_row()[0] == 5)
+            $this->state = WAITENNEMYLAYVESSEL;
+    }
+
     /**
      * Routine quand on attend l'adversaire.
      */
@@ -213,14 +220,14 @@ class Match
     public function checkWinner()
     {
         global $connexion;
-        if(mysqli_query($connexion, "SELECT COUNT(resultat) FROM Tour WHERE id_partie = '" . $this->id_partie . "' AND id_joueur = '" . $_SESSION['ID'] . "' AND resultat = 'sunk'")->fetch_row()[0] == 5) {
+        if (mysqli_query($connexion, "SELECT COUNT(resultat) FROM Tour WHERE id_partie = '" . $this->id_partie . "' AND id_joueur = '" . $_SESSION['ID'] . "' AND resultat = 'sunk'")->fetch_row()[0] == 5) {
             $this->state = FINISHED;
             mysqli_query($connexion, "UPDATE Partie SET vainqueur = '" . $_SESSION['ID'] . "' WHERE id_partie = '" . $this->id_partie . "'");
-            mysqli_query($connexion, "INSERT INTO Etat_partie (id_partie, etat_partie) VALUES ('".$this->id_partie."','finished')");
-        } else if(mysqli_query($connexion, "SELECT COUNT(resultat) FROM Tour WHERE id_partie = '" . $this->id_partie . "' AND id_joueur = '" . $this->ennemy_grid->getIDJoueur() . "' AND resultat = 'sunk'")->fetch_row()[0] == 5) {
+            mysqli_query($connexion, "INSERT INTO Etat_partie (id_partie, etat_partie) VALUES ('" . $this->id_partie . "','finished')");
+        } else if (mysqli_query($connexion, "SELECT COUNT(resultat) FROM Tour WHERE id_partie = '" . $this->id_partie . "' AND id_joueur = '" . $this->ennemy_grid->getIDJoueur() . "' AND resultat = 'sunk'")->fetch_row()[0] == 5) {
             $this->state = FINISHED;
             mysqli_query($connexion, "UPDATE Partie SET vainqueur = '" . $this->ennemy_grid->getIDJoueur() . "' WHERE id_partie = '" . $this->id_partie . "'");
-            mysqli_query($connexion, "INSERT INTO Etat_partie (id_partie, etat_partie) VALUES ('".$this->id_partie."','finished')");
+            mysqli_query($connexion, "INSERT INTO Etat_partie (id_partie, etat_partie) VALUES ('" . $this->id_partie . "','finished')");
         }
     }
 

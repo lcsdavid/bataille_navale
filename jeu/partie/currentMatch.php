@@ -79,6 +79,7 @@ switch ($_SESSION['partie']->getState()) {
         $_SESSION['partie']->getEnnemyGrid()->display();
         break;
     case LAYVESSEL:
+        $_SESSION['partie']->isVesselLayed();
         $_SESSION['partie']->getEnnemyGrid()->display();
         break;
     case WAITENNEMYLAYVESSEL:
@@ -136,13 +137,13 @@ switch ($_SESSION['partie']->getState()) {
         break;
     case PLAYING:
         if ($_SESSION['partie']->isMyTurn())
-            echo "C'est votre tour !";
+            echo "<span>C'est votre tour !</span>";
         /*
             $card = new Cards();
             $card->pickUp();
             echo "<img src='".$card->getPathImage()."' width='128' height='128'>";*/
         else
-            echo "C'est le tour de l'adversaire !";
+            echo "<span>C'est le tour de l'adversaire !</span>";
         break;
     default:
         break;
