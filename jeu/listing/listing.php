@@ -25,9 +25,9 @@ require_once('../assets/php/fonction.php');
 <!-- Main -->
 <main>
     <form method="POST" action="../partie/">
-        <input name="create" type="submit" value="Créer Salohhhon">
+        <input name="create" id="blisting" type="submit" value="Créer Salon">
     </form>
-    <table style="width:100%">
+    <table id="tlisting">
         <tr>
             <th>Pseudo</th>
             <th>Prenom</th>
