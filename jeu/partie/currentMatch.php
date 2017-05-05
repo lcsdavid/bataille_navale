@@ -136,9 +136,10 @@ switch ($_SESSION['partie']->getState()) {
     case PLAYING:
         if ($_SESSION['partie']->isMyTurn())
             echo "C'est votre tour !";
+        /*
             $card = new Cards();
             $card->pickUp();
-            echo "<img src='".$card->getPathImage()."' width='128' height='128'>";
+            echo "<img src='".$card->getPathImage()."' width='128' height='128'>";*/
         else
             echo "C'est le tour de l'adversaire !";
         break;
