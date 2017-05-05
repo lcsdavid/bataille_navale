@@ -82,6 +82,18 @@ class Match
     }
 
     /**
+     * Tire sur la case $_POST['cell'].
+     */
+    public function fire() {
+        global $connexion;
+        if ($this->ennemy_grid->getCase($_POST['cell']) == 'sea') {
+
+
+        }
+        return false;
+    }
+
+    /**
      * @param $type_vessel string
      * @param $position string
      * @param $orientation string

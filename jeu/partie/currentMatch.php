@@ -20,10 +20,16 @@ switch ($_SESSION['partie']->getState()) {
         $_SESSION['partie']->checkWaitEnnemyVessel();
         break;
     case PLAYING:
+        /* $_SESSION['partie']->getAllyGrid()->reload();
+        $_SESSION['partie']->getEnnemyGrid()->reload(); */
+        if (isset($_POST['click'])) {
+            $_SESSION['partie']->fire();
+        }
         break;
     default:
         break;
 }
+unset($_POST);
 echo "</div>";
 print_r($_POST);
 
@@ -73,7 +79,7 @@ switch ($_SESSION['partie']->getState()) {
         $_SESSION['partie']->getEnnemyGrid()->display();
         break;
     case PLAYING:
-        if ($_SESSION['partie']->myTurn())
+        if ($_SESSION['partie']->isMyTurn())
             $_SESSION['partie']->getEnnemyGrid()->displayForm();
         else
             $_SESSION['partie']->getEnnemyGrid()->display();
@@ -120,7 +126,7 @@ switch ($_SESSION['partie']->getState()) {
     case WAITENNEMYLAYVESSEL:
         break;
     case PLAYING:
-        if ($_SESSION['partie']->myTurn())
+        if ($_SESSION['partie']->isMyTurn())
             echo "C'est votre tour !";
         else
             echo "C'est le tour de l'adversaire !";

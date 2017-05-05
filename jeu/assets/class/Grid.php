@@ -54,30 +54,28 @@ class Grid
      */
     public function reload()
     {
-
         global $connexion;
-        if ($this->alignment == ALLY) {
-            $rset = mysqli_query($connexion, "SELECT type_nav, position, sens, taille FROM Navire WHERE id_partie = '" . $this->id_partie . "' AND id_joueur = '" . $this->id_joueur . "'");
-            for ($i = 0; $i < $rset->num_rows; $i++) {
-                $row = $rset->fetch_row();
-                $pos = $row[1];
-                for ($j = 0; $j < $row[3]; $j++) {
-                    if ($row[2] == 'H')
-                        $pos = $pos[0] . ($pos[1] + $j);
-                    if ($row[2] == 'V')
-                        $pos = ($pos[0] + $j) . $pos[1];
-                    $this->array[$pos] = $row[0];
-                }
+        $rset = mysqli_query($connexion, "SELECT type_nav, position, sens, taille FROM Navire WHERE id_partie = '" . $this->id_partie . "' AND id_joueur = '" . $this->id_joueur . "'");
+        while($row = $rset->fetch_row()) {
+            $letter = $row[1][0];
+            $number = substr($row[1],1);
+            for ($i = 0; $i < $row[3]; $i++) {
+                if ($row[2] == 'horizontal')
+                    $pos = chr(ord($letter) + $i) . $number;
+                else
+                    $pos = $letter . ($number + $i);
+                $this->array[$pos] = $row[0];
             }
         }
-        $rset = mysqli_query($connexion, "SELECT tir FROM Tour WHERE id_partie = '" . $this->id_partie . "' AND id_joueur = '" . $this->id_joueur . "'");
-        while ($row = $rset->fetch_row()) {
-            $row = $rset->fetch_row();
-            if ($this->array[$row[0]] == "sea")
-                $this->array[$row[0]] = "missed";
-            else
-                $this->array[$row[0]] = "hit";
-        }
+        $rset = mysqli_query($connexion, "SELECT resultat, coordonnée FROM Tour WHERE id_partie = '" . $this->id_partie . "' AND id_joueur = '" . $this->id_joueur . "'");
+        if (mysqli_num_rows($rset) > 0)
+            while ($row = $rset->fetch_row()) {
+                $row = $rset->fetch_row();
+                if ($this->array[$row[0]] == "sea")
+                    $this->array[$row[0]] = "missed";
+                else
+                    $this->array[$row[0]] = "hit";
+            }
     }
 
     /**
@@ -85,11 +83,24 @@ class Grid
      */
     public function display()
     {
-        for ($row = 1; $row <= 10; $row++) {
-            echo "<tr><td class='cell coord'>" . $row . "</td>";
-            for ($column = 'A'; $column <= 'J'; $column++) {
-                $cell = $column . $row;
-                echo "<td class='cell " . $this->array[$cell] . "'></td>";
+        if ($this->alignment == ALLY) {
+            for ($row = 1; $row <= 10; $row++) {
+                echo "<tr><td class='cell coord'>" . $row . "</td>";
+                for ($column = 'A'; $column <= 'J'; $column++) {
+                    $cell = $column . $row;
+                    echo "<td class='cell " . $this->array[$cell] . "'></td>";
+                }
+            }
+        } else {
+            for ($row = 1; $row <= 10; $row++) {
+                echo "<tr><td class='cell coord'>" . $row . "</td>";
+                for ($column = 'A'; $column <= 'J'; $column++) {
+                    $cell = $column . $row;
+                    if ($this->array[$cell] == "sea" || $this->array[$cell] == "missed" || $this->array[$cell] == "hit")
+                        echo "<td class='cell " . $this->array[$cell] . "'></td>";
+                    else
+                        echo "<td class='cell sea'></td>";
+                }
             }
         }
     }
@@ -99,14 +110,27 @@ class Grid
      */
     public function displayForm()
     {
-        for ($row = 1; $row <= 10; $row++) {
-            echo "<tr><td class='cell coord'>" . $row . "</td>";
-            for ($column = 'A'; $column <= 'J'; $column++) {
-                $cell = $column . $row;
-                if ($this->array[$cell] != "sea")
-                    echo "<td class='cell " . $this->array[$cell] . "'></td>";
-                else
-                    echo "<td class='cell " . $this->array[$cell] . "'><form method='POST' action='./'><input type='hidden' name='cell' value='" . $cell . "'><input type='submit' name='click'></form></td>";
+        if ($this->alignment == ALLY) {
+            for ($row = 1; $row <= 10; $row++) {
+                echo "<tr><td class='cell coord'>" . $row . "</td>";
+                for ($column = 'A'; $column <= 'J'; $column++) {
+                    $cell = $column . $row;
+                    if ($this->array[$cell] != "sea")
+                        echo "<td class='cell " . $this->array[$cell] . "'></td>";
+                    else
+                        echo "<td class='cell " . $this->array[$cell] . "'><form method='POST' action='./'><input type='hidden' name='cell' value='" . $cell . "'><input type='submit' name='click'></form></td>";
+                }
+            }
+        } else {
+            for ($row = 1; $row <= 10; $row++) {
+                echo "<tr><td class='cell coord'>" . $row . "</td>";
+                for ($column = 'A'; $column <= 'J'; $column++) {
+                    $cell = $column . $row;
+                    if($this->array[$cell] == "missed" || $this->array[$cell] == "hit")
+                        echo "<td class='cell " . $this->array[$cell] . "'></td>";
+                    else
+                        echo "<td class='cell sea'><form method='POST' action='./'><input type='hidden' name='cell' value='" . $cell . "'><input type='submit' name='click'></form></td>";
+                }
             }
         }
     }
